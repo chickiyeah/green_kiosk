@@ -1,3 +1,5 @@
+package coupon;
+
 import java.sql.Timestamp;
 
 public class CouponBean {

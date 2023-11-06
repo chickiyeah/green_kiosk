@@ -1,3 +1,5 @@
+package eventMenu;
+
 public class EventMenuBean {
 	private int eventMenu_no;
 	private int eventMenu_eventNo;

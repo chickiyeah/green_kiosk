@@ -1,3 +1,5 @@
+package event;
+
 import java.sql.Timestamp;
 
 public class EventBean {
