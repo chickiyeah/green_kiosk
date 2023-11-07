@@ -3,7 +3,9 @@ name: accept pull request
 on:
   pull_request:
     branches: ['123']
-
+env:
+    PR_NUMBER: ${{ github.event.number }}
+    
 jobs:
   recive_merge:
     permissions: write-all
@@ -11,10 +13,17 @@ jobs:
     steps:   
     - name: Merge Pull Request
       uses: juliangruber/approve-pull-request-action@v2.0.0
-      env:
-          PR_NUMBER: ${{ github.event.number }}
+     
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         number: ${{ env.PR_NUMBER }}
         method: squash # merge rebase
         repo: chickiyeah/green_kiosk
+
+    - name: Merge Pull Request
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: ${{ env.PR_NUMBER }}
+        method: squash # merge rebase
+        repo: juliangruber/octokit-action
