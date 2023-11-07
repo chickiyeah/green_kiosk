@@ -17,7 +17,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </style>
 </head>
 <body>
-
+<script>
+	function password_visable(bool) {
+		let pw_input = document.getElementById("pw");
+		let ps_hide = document.getElementById("ps_hide");
+		let ps_show = document.getElementById("ps_show");
+		console.log(bool)
+		if (bool == "true") {
+			pw_input.type = "text";
+			ps_hide.style.display = "none";
+			ps_show.style.display = "";
+		} else {
+			pw_input.type = "password";
+			ps_show.style.display = "none";
+			ps_hide.style.display = "";
+		}
+	}
+</script>
 <!-- Sidebar (hidden by default) -->
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" id="mySidebar">
 	<div class="close_div">
@@ -38,6 +54,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 			<div class="checkbox">
 				<input type="checkbox" id="save_id">
 				<label id="string_save_id" for="save_id">아이디 저장</label>
+			</div>
+			
+			<div class="bottom">
+				<input class="login_btn" type="button" value="로그인">
+				
+				<div class="login_tool">
+					<span>ID/PW 찾기</span>
+					<span>회원가입</span>
+				</div>
 			</div>
 		</div>
 	  </div>

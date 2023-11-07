@@ -21,3 +21,9 @@
 .w3-sidebar .login .inside .checkbox { margin-top: 5px; }
 .w3-sidebar .login .inside .checkbox #save_id { width: 20px; height: 15px; }
 .w3-sidebar .login .inside .checkbox #string_save_id { font-size: 20px; }
+
+.w3-sidebar .login .inside .bottom .login_btn { width:100%; border-radius: 5px; background-color: orange; border: none; color: white; padding-top: 10px; }
+
+.w3-sidebar .login .inside .bottom .login_tool { display: flex; justify-content: space-evenly; margin-top: 5px; }
+
+.w3-sidebar .login .inside .bottom .login_tool span { font-size: 20px; cursor: pointer; }
