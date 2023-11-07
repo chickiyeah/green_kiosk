@@ -8,7 +8,6 @@ public class Menu_component_Bean {
 	private int component_amount;    //재료 수량
 	private String component_imgPath;//재료 사진 경로
 	
-	
 	public int getComponent_no() {
 		return component_no;
 	}
