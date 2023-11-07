@@ -16,4 +16,4 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         number: ${{ env.PR_NUMBER }}
         method: squash # merge rebase
-        repo: juliangruber/octokit-action
+        repo: chickiyeah/green_kiosk
