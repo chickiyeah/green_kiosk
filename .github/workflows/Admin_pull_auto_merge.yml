@@ -1,4 +1,4 @@
-name: accept pull request
+name: admin team accept pull request
 
 on:
   pull_request:
