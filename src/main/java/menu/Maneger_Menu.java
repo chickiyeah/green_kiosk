@@ -20,11 +20,11 @@ public class Maneger_Menu {
 	}
 	
 	    // 1. 메뉴내역페이지 - 메뉴 목록 
-		public Menu_menu_Bean getMenu(int numb) {
+		public Menu_menu__Bean getMenu(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -32,7 +32,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -52,7 +52,7 @@ public class Maneger_Menu {
 		}
 	
 	    // 1. 메뉴 관리 페이지 - 메뉴 추가
-		public boolean insertMenu(Menu_menu_Bean bean) {
+		public boolean insertMenu(Menu_menu__Bean bean) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -83,7 +83,7 @@ public class Maneger_Menu {
 		}
 		
 		// 1. 메뉴 관리 페이지 - 메뉴 수정
-		public boolean updateMenu(Menu_menu_Bean bean) {
+		public boolean updateMenu(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -133,11 +133,11 @@ public class Maneger_Menu {
 		
 	
 		// 1. 메뉴내역페이지 - 토핑 목록  
-		public Menu_menu_Bean getTopingMenu(int numb) {
+		public Menu_menu__Bean getTopingMenu(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -145,7 +145,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -166,7 +166,7 @@ public class Maneger_Menu {
 		}
 	
 	    // 1. 메뉴 관리 페이지 - 토핑 메뉴 추가
-		public boolean insertTopingMenu(Menu_menu_Bean bean) {
+		public boolean insertTopingMenu(Menu_menu__Bean bean) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -197,7 +197,7 @@ public class Maneger_Menu {
 		}
 		
 		// 1. 메뉴 관리 페이지 - 토핑 메뉴 수정
-		public boolean updateTopingMenu(Menu_menu_Bean bean) {
+		public boolean updateTopingMenu(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -245,11 +245,11 @@ public class Maneger_Menu {
 		}	
 		
 		// 1. 메뉴내역페이지 - 세트 메뉴 목록 
-		public Menu_menu_Bean getSetMenu(int numb) {
+		public Menu_menu__Bean getSetMenu(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -257,7 +257,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -277,7 +277,7 @@ public class Maneger_Menu {
 		}
 	
 	    // 1. 메뉴 관리 페이지 - 세트 메뉴 추가
-		public boolean insertSetMenu(Menu_menu_Bean bean) {
+		public boolean insertSetMenu(Menu_menu__Bean bean) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -308,7 +308,7 @@ public class Maneger_Menu {
 		}
 		
 		// 1. 메뉴 관리 페이지 - 세트 메뉴 수정
-		public boolean updateSetMenu(Menu_menu_Bean bean) {
+		public boolean updateSetMenu(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -356,11 +356,11 @@ public class Maneger_Menu {
 		}
 		
 		// 1. 메뉴내역페이지 - 추천 메뉴 목록 
-		public Menu_menu_Bean getPickMenu(int numb) {
+		public Menu_menu__Bean getPickMenu(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -368,7 +368,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -388,7 +388,7 @@ public class Maneger_Menu {
 		}
 	
 	    // 1. 메뉴 관리 페이지 - 추천 메뉴 추가
-		public boolean insertPickMenu(Menu_menu_Bean bean) {
+		public boolean insertPickMenu(Menu_menu__Bean bean) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -419,7 +419,7 @@ public class Maneger_Menu {
 		}
 		
 		// 1. 메뉴 관리 페이지 - 추천 메뉴 수정
-		public boolean updatePickMenu(Menu_menu_Bean bean) {
+		public boolean updatePickMenu(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -469,11 +469,11 @@ public class Maneger_Menu {
 //--------------------------------------------------------------------------------------		
 		
 	    // 2. 행사 관리 페이지 - 쿠폰 목록
-		public Menu_menu_Bean getCouponList(int numb) {
+		public Menu_menu__Bean getCouponList(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -481,7 +481,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -501,7 +501,7 @@ public class Maneger_Menu {
 		}
 	
 	    // 2. 행사 관리 페이지 - 쿠폰 발행
-		public boolean insertCoupon(Menu_menu_Bean bean) {
+		public boolean insertCoupon(Menu_menu__Bean bean) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -532,7 +532,7 @@ public class Maneger_Menu {
 		}
 		
 		// 2. 메뉴 관리 페이지 - 쿠폰 수정
-		public boolean updateCoupon(Menu_menu_Bean bean) {
+		public boolean updateCoupon(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -580,11 +580,11 @@ public class Maneger_Menu {
 		}
 		
 		// 2. 행사 관리 페이지 - 이벤트 관리 
-		public Menu_menu_Bean getEventList(int numb) {
+		public Menu_menu__Bean getEventList(int numb) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			Menu_menu_Bean bean = null;
+			Menu_menu__Bean bean = null;
 			try {
 				con = pool.getConnection();
 				String sql = "select * from menu_menu where numb = ?";
@@ -592,7 +592,7 @@ public class Maneger_Menu {
 				pstmt.setInt(1, numb);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean = new Menu_menu_Bean();
+					bean = new Menu_menu__Bean();
 					bean.setMenu_no(rs.getInt("menu_no"));
 					bean.setMenu_name(rs.getString("menu_name"));
 					bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -612,7 +612,7 @@ public class Maneger_Menu {
 		}
 			
 		// 2. 행사 관리 페이지 - 이벤트 발행
-		public boolean insertEvent(Menu_menu_Bean bean) {
+		public boolean insertEvent(Menu_menu__Bean bean) {
 					
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -643,7 +643,7 @@ public class Maneger_Menu {
 		}
 				
 		// 2. 메뉴 관리 페이지 - 이벤트 수정
-		public boolean updateEvent(Menu_menu_Bean bean) {
+		public boolean updateEvent(Menu_menu__Bean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
