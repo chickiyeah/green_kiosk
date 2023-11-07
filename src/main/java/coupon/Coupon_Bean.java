@@ -3,12 +3,12 @@ package coupon;
 import java.sql.Timestamp;
 
 public class Coupon_Bean {
-        private int coupon_no;
-        private String coupon_name;
-        private String coupon_code;
-        private int coupon_menuNo;
-        private int coupon_discount;
-        private Timestamp coupon_issueDate;
+        private int coupon_no;                 //쿠폰 발행 넘버
+        private String coupon_name;            //쿠폰 이름   
+        private String coupon_code;            //쿠폰 코드   
+        private int coupon_menuNo;             //쿠폰 관련 메뉴 
+        private int coupon_discount;           //쿠폰 할인율
+        private Timestamp coupon_issueDate;    
         private Timestamp coupon_expireDate;
         private Timestamp coupon_limitTime1;
         private Timestamp coupon_limitTime2;
