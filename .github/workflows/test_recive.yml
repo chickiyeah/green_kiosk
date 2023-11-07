@@ -1,0 +1,17 @@
+name: accept pull request
+
+on:
+  pull_request:
+    branches: ['123']
+
+jobs:
+  recive_merge:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Merge Pull Request
+      uses: juliangruber/merge-pull-request-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        number: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        method: squash # merge rebase
+        repo: juliangruber/octokit-action
