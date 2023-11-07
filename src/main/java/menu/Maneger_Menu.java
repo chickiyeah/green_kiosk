@@ -161,7 +161,6 @@ public class Maneger_Menu {
 			} finally {
 				pool.freeConnection(con);
 			}
-			//ll
 			return bean;
 		}
 	
