@@ -14,10 +14,6 @@ public class Member_Bean {
 	public int getMem_no() {
 		return mem_no;
 	}
-	
-	public void setMem_no(int no) {
-		this.mem_no = no;
-	}
 
 	public String getMem_id() {
 		return mem_id;
