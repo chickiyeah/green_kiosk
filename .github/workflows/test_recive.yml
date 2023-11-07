@@ -8,10 +8,13 @@ jobs:
   recive_merge:
     runs-on: ubuntu-latest
     steps:
+    - name: Get Pull number
+      run: pr_num = $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+      
     - name: Merge Pull Request
       uses: juliangruber/merge-pull-request-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        number: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        number: pr_num
         method: squash # merge rebase
         repo: juliangruber/octokit-action
