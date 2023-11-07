@@ -11,6 +11,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/style.css">
+<%@ include file="/admin/layouts/header.jsp" %>
+</head>
+<body>
+<br/>
+	<div class="layout_left">
+		<%@ include file="/admin/layouts/left.jsp" %>
+	</div>
+	<div class="layout_main">
+		<%@ include file="/admin/layouts/main.jsp" %>
+	</div>
+	<br/>
+	
+<%-- 	<div class="layout_footer">
+		<%@ include file="/admin/layouts/footer.jsp" %>
+	</div> --%>
+	
+	</body>
 </head>
 <body>
 

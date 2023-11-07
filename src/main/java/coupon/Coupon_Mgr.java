@@ -1,6 +1,6 @@
 package coupon;
 
-import all.DBConnectionMgr;
+import DBconnector.DBConnectionMgr;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

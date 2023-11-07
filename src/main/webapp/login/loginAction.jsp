@@ -8,6 +8,11 @@
 <!DOCTYPE html>
 <meta charset = "UTF-8">
 <%
+	String mem_id = null;
+	if(session.getAttribute("mem_id")!= null){
+		mem_id=(String)session.getAttribute("mem_id");
+	}
+	if (mem_id != null){
 	String userName = null;
 	if(session.getAttribute("userName")!= null){
 		userName=(String)session.getAttribute("userName");
