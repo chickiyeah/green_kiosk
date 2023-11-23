@@ -45,7 +45,7 @@ function updateMenu(menuType) {
 			    '<div class="d-flex justify-content-between align-items-center">' +
 			    '<div class="btn-group">' +
 			    '<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context +'/admin/Menu/View.jsp?menu_no=' + menu_no + '\')">상세보기</a>' +
-			    '<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context + '/admin/Menu/Edit.jsp?menu_no=' + menu_no + '\')">수정하기</a>' +
+			    '<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context + '/admin/Menu/EditCheck.jsp?type=m&menu_no=' + menu_no + '\')">수정하기</a>' +
 			    '</div>' +
 			    '<small class="text-body-secondary">' + formatNumber(menu_price) + '원</small>' +
 			    '</div>' +
@@ -83,7 +83,7 @@ function updateMenu(menuType) {
 			    '<div class="d-flex justify-content-between align-items-center">' +
 			    '<div class="btn-group">' +
 			   	'<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context +'/admin/Menu/componentView.jsp?component_no=' + component_no + '\')">상세보기</a>' +
-			    '<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context + '/admin/Menu/componentEdit.jsp?component_no=' + component_no + '\')">수정하기</a>' +
+			    '<a href="javascript:void(0)" class="btn btn-sm btn-outline-secondary" onclick="openPopup(\'' + context + '/admin/Menu/EditCheck.jsp?type=c&component_no=' + component_no + '\')">수정하기</a>' +
 			    '</div>' +
 			    '<small class="text-body-secondary">' + formatNumber(component_price) + '원</small>' +
 			    '</div>' +

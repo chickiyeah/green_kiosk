@@ -25,7 +25,7 @@ import user.Member_Mgr;
 /**
  * Servlet implementation class User_Api
  */
-@WebServlet({ "/User_Api", "/api/user/update", "/api/user/check_pw", "/api/user/verify/smile" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/api/user/update", "/api/user/check_pw", "/api/user/verify/smile" })
 public class User_Api extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

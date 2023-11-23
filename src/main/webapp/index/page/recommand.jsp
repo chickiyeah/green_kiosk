@@ -94,7 +94,7 @@ function open_register() {
 
 					  
 						<div class="w3-quarter" style="max-width: 300px;">
-						    <img src="<%=menu_imgPath%>" alt="<%=menu_imgPath%>" style="width:100%; height:300px">
+						    <img src="<%=menu_imgPath%>" alt="<%=menu_name%>" style="width:100%; height:300px">
 					      <h3><%=menu_name%></h3>
 						  <p><%=menu_content %></p>
 					   </div>

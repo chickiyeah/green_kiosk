@@ -54,7 +54,6 @@ public class Manager_Menu {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				bean = new Menu_menu_Bean();
-				bean = new Menu_menu_Bean();
 				bean.setMenu_no(rs.getInt("menu_no"));
 				bean.setMenu_name(rs.getString("menu_name"));
 				bean.setMenu_gubn(rs.getString("menu_gubn"));
@@ -66,6 +65,7 @@ public class Manager_Menu {
 				bean.setMenu_price(rs.getInt("menu_price"));
 				bean.setMenu_sell_amount(rs.getInt("menu_sell_amount"));
 				bean.setMenu_recommend(rs.getInt("menu_recommend"));
+				bean.setMenu_couponable(rs.getInt("menu_couponable"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

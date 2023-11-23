@@ -43,17 +43,26 @@
 								  <option value="세트">세트</option>
 								  <option value="재료">재료</option>
 								  <option value="사이드">사이드</option>
-								  <option value="이벤트">이벤트</option>
 								</select>
 								</div>
 							</td>
 								<td>
 								<div class= input-group>
 								        <div class="input-group-prepend">
-								          <div class="input-group-text">사용여부</div>
+								          <div class="input-group-text">판매</div>
 								        </div>
 										<label>
 										  &nbsp;<input role="switch" type="checkbox" name="menu_isUse" id="menu_isUse"/>
+										</label>
+								</div>
+							</td>
+							<td>
+								<div class= input-group>
+								        <div class="input-group-prepend">
+								          <div class="input-group-text">쿠폰</div>
+								        </div>
+										<label>
+										  &nbsp;<input role="switch" type="checkbox" name="menu_couponable" id="menu_couponable"/>
 										</label>
 								</div>
 							</td>
@@ -71,7 +80,7 @@
 								<td>
 								<div class= input-group>
 								        <div class="input-group-prepend">
-								          <div class="input-group-text">행사여부</div>
+								          <div class="input-group-text">행사</div>
 								        </div>
 										<label>
 										  &nbsp;<input role="switch" type="checkbox" name="menu_isSale" id="menu_isSale"/>
@@ -81,18 +90,17 @@
 								<td>
 									<div class= input-group>
 								        <div class="input-group-prepend">
-								          <div class="input-group-text">쿠폰여부</div>
+								          <div class="input-group-text">추천</div>
 								        </div>
 										<label>
-										  &nbsp;<input role="switch" type="checkbox" name="menu_couponable" id="menu_couponable"/>
+										  &nbsp;<input role="switch" type="checkbox" name="menu_recommend" id="menu_recommend"/>
 										</label>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="5">
-								<textarea class="form-control" name="menu_content" maxlength="2048" style="height: 150px; width:100%" placeholder="상품설명">
-								</textarea>
+								<textarea class="form-control" name="menu_content" id="menu_content" maxlength="2048" style="height: 150px; width:100%" placeholder="상품설명"></textarea>
 							</td>
 						</tr>
 					</tbody>
@@ -118,18 +126,37 @@
 	function handleCategoryChange() {
 	    var category = document.getElementById("menu_gubn").value;
 	    var contentTextarea = document.getElementById("menu_content");
-	    var saleCheckbox = document.getElementById("menu_isSale");
-		var useCheckbox = document.getElementById("menu_isUse");
-	    if (category === "재료" || category === "이벤트") {
+	    
+	    var menu_isSale = document.getElementById("menu_isSale");
+		var menu_isUse = document.getElementById("menu_isUse");
+		var menu_recommend = document.getElementById("menu_recommend");
+		var menu_couponable = document.getElementById("menu_couponable");
+		
+	    if (category === "재료") {
 	        // 재료나 이벤트일 경우 행사여부 체크박스와 상품설명을 읽기 전용으로 설정
-	        saleCheckbox.disabled = true;
+	        contentTextarea.disabled = true;
+	        menu_isSale.disabled = true;
+	        menu_recommend.disabled = true;
+	        menu_couponable.diabled = true;
+	        
+	        document.getElementById("menu_couponable").disabled = true;
+	        document.getElementById("menu_couponable").checked = false;
+	        
+	        menu_isSale.checked = false;
+	        menu_recommend.checked = false;
+	       	
 	        contentTextarea.readOnly = true;
-	        useCheckbox.disabled = true;
+	        menu_isSale.readOnly = true;
+	        menu_recommend.readOnly = true;
+			menu_couponable.readOnly = true;
 	    } else {
 	        // 다른 카테고리일 경우 사용 가능하게 설정
-	        saleCheckbox.disabled = false;
 	        contentTextarea.disabled = false;
-	        useCheckbox.disabled = false;
+	        menu_isUse.disabled = false;
+	        menu_isSale.disabled = false;
+	        menu_recommend.disabled = false;
+	        
+	        document.getElementById("menu_couponable").disabled = false;
 	    }
 	}
 	</script>

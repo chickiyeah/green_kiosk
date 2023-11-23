@@ -1,0 +1,32 @@
+@charset "EUC-KR";
+
+.kiosk_pop { position: fixed; right: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2);
+    z-index: 2000; overflow: hidden; display: none;}
+.kiosk_pop .inner { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+    background: white; width: calc(100% - 30px); max-width: 500px; height: 100%; max-height: 750px; border-radius: 10px;
+    padding: 40px; display: flex; flex-flow: column; }
+.kiosk_pop .inner h2 { font-size: 22px; padding-bottom: 5px; margin-bottom: 15px; border-bottom: 1px solid #E1E1E1; font-weight: bold; }
+.kiosk_pop .inner .kiosk_wrap { max-height: 525px; }
+.kiosk_pop .inner .kiosk_wrap .kiosk_box { max-height: 485px; overflow-y: auto; text-align: center; }
+.kiosk_pop .inner .kiosk_wrap .kiosk_box div { cursor: pointer; border-radius: 10px; align-items: center; }
+.kiosk_pop .inner .kiosk_wrap .kiosk_box div:hover { background-color: gray; }
+.kiosk_pop .inner .kiosk_wrap .kiosk_box div { justify-self: center; }
+
+.kiosk_pop .inner .cate_pops { display: flex; justify-content: space-around; }
+
+.kiosk_pop .inner .cate_pops .on { background-color: darkseagreen; }
+.kiosk_pop .inner .cate_pops .cant_use { cursor: no-drop }
+
+.kiosk_pop .inner .cate_pops .one { border-top-left-radius: 10px; }
+.kiosk_pop .inner .cate_pops .drink { border-top-right-radius: 10px; }
+
+.kiosk_pop .inner .cate_pop { background-color: cornsilk; padding: 10px 34px; border: 0.1px black solid; cursor: pointer; }
+
+
+
+.kiosk_pop .inner .kiosk_box { padding:0; border:0; border-spacing:0; border-collapse:collapse; width: 100% }
+.kiosk_pop .inner .kiosk_box thead { background: #E1E1E1; line-height: 2; }
+.kiosk_pop .inner .kiosk_box tbody td { text-align: center; padding: 5px; font-size: 14px;}
+.kiosk_pop .inner .btn_box { width: 100%; margin-top: auto; }
+
+.black_line_btn { width: 100%; cursor: pointer; color: #222; background: white; border: 1px solid #222; text-align: center; height: 45px; border-radius: 6px; font-size: 18px; display: block; line-height: 2.5; }

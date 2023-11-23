@@ -110,10 +110,47 @@
       itemCount += item.amount;
     
     });
+    
+    element = document.getElementById('totalOrder');
+    
 
-    document.getElementById('menu').innerText = menuNames.join(', ');
-    document.getElementById('count').innerText = '총 수량: ' + itemCount + '개';
-    document.getElementById('price').innerText = '총 금액: ' + totalPrice + '원';
+
+    let html = '<div class="price,count" style="display:flex; width:95vw;justify-content: flex-end;">';
+    html += '<div class="totalcount" >';
+    html += itemCount + '개</span>';
+    html += '</div>';
+    html += '<div class="totalprice">';
+    html += '<span>총 금액: ' + totalPrice + '원</span>';
+    html += '</div>';
+    html += '</div>';
+    
+    
+    for (let i = 0; i < basketArray.length; i++) {
+        html += '<div class="box" >'
+         			
+        			html += '<span class="Ordermenu" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].name + '</span>'
+
+                	html += '<span class="count" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
+
+                	html += '<span class="price" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].price + '</span>'
+
+                	html += '<h2 class="delete">삭제</h2>'
+        html += '</div>'
+    }
+
+    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
+    html += '<div class="alldelete" >';
+    html += '취소하기';
+    html += '</div>';
+    html += '<div class="basket">';
+    html += '결제하기';
+    html += '</div>';
+    html += '</div>';
+    
+    
+    element.innerHTML = html;
+    
+
 
     const orderDetailsDiv = document.getElementById('orderDetails');
 
@@ -121,6 +158,21 @@
       orderDetailsDiv.innerHTML = ''; // 이전 내용 초기화
   	
     }
+ 
+    const deleteButton = document.querySelector('.delete');
+
+    // basketArray에 항목이 있는지 확인
+    if (basketArray.length > 0) {
+        // 항목이 있는 경우 그리드 레이아웃으로 전환
+        deleteButton.style.display = 'grid';
+    } else {
+        // 항목이 없는 경우 원래의 레이아웃으로 전환 (예: 블록)
+        deleteButton.style.display = 'none'; // 원래의 display 값으로 설정
+    }  
+  
+  
+  
+  
   };
 
 
@@ -228,6 +280,12 @@
 
 		 
 		 
+			   
+			   
+			   
+			   
+			   
+			   
 		});
 
 
@@ -240,34 +298,7 @@
 	  
 
 	  
-	  
-/*	
-    // 모달 창에 햄버거 정보 표시
-    document.getElementById('modalBurgerName').innerText = selectedBurger.name;
-    document.getElementById('modalBurgerPrice').innerText = selectedBurger.price
-    
-    
-    const modal1Items = document.querySelectorAll('.modal-1-item');
-    modal1Items.forEach((item) => {
-      item.addEventListener('click', () => {
-        selectedAdditionalItem = {
-          name: item.querySelector('.item-name').innerText,
-          price: parseInt(item.querySelector('.item-price').innerText),
-        };
-        addToBasket(selectedAdditionalItem.name, selectedAdditionalItem.price);
-        MicroModal.close('modal-1');
-        MicroModal.show('modal-2');
-        MicroModal.init(); // 모달 초기화
-      });
-    });
 
-    MicroModal.close('modal-1-1');
-    MicroModal.show('modal-2');
-    MicroModal.init(); // 모달 초기화
-  };
-  
-  
- */ 
   
   
 </script>
@@ -602,16 +633,16 @@
 
 
 
-</div>
 
 
 
 
-	<div class="order" id="totalOrder" style="width: inherit; font-weight: 400; font-size: 1.2rem; border-radius: 0; justify-content: space-between; background-color: #eee;">
-			 	<div >
-	  			<span style="font-size:36px; font-weight: 600; color:black;margin :10px">총주문내역</span>
-			 	</div>
-			  	<div class="menu" >
+	<div class="order" id="totalOrder" >
+			  	<div class="price" id ="totalPrice" >
+				
+				</div>
+
+			  	<div class="Ordermenu" >
 			  	<span class="Ordermenu" id="menu" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
 			   </div>
 
@@ -622,8 +653,17 @@
 			  	<div class="price" >
 			  	<span id="price" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
 				</div>
+	
 	</div>
-</div>		
+	
+	
+	
+	
+</div>
+	
+	
+	
+	
 <%
 	Vector<Menu_menu_Bean> vector = mMgr.getMenuList(1);
 	
@@ -645,6 +685,7 @@
 
 
 <script>
+
 
     
 </script>

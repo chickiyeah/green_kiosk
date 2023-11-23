@@ -131,7 +131,7 @@ public class Orders_Mgr {
 	public Vector<Orders_Bean> getAllOrdersByTime(String startDate, String endDate) {
 		Vector<Orders_Bean> vector = new Vector<Orders_Bean>();
 		try {
-			this.Initializer("SELECT * FROM orders WHERE order_time BETWEEN date(?) AND date(?)");
+			this.Initializer("SELECT * FROM orders WHERE DATE_FORMAT(order_time,  '%Y-%m-%d') BETWEEN ? AND ?");
 			this.pst.setString(1 , startDate);
 			this.pst.setString(2, endDate);
 			this.rs = this.pst.executeQuery();

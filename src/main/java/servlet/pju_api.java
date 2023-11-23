@@ -17,7 +17,7 @@ import user.Member_Mgr;
 /**
  * Servlet implementation class pju_api
  */
-@WebServlet({ "/pju_api", "/api/user/find_id", "/api/user/find_pw" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/api/user/find_id", "/api/user/find_pw" })
 public class pju_api extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

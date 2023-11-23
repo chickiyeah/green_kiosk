@@ -5,6 +5,7 @@ var priceSumDate = ['','','','','','',''];
 var menuAmountMap = new Map();
 var menuAmountTermMap = new Map();
 var week_total = 0;
+let allPriceSumAvg = 0;
 
 function updateMenu(type, time) {
     $.ajax({
@@ -17,9 +18,8 @@ function updateMenu(type, time) {
         contentType: "application/json; charset=UTF-8",
         success: function (response) {
             if (response && response.length > 0) {
-                if (type == "all"){
-                var { priceSumDay, priceSumWeek, priceSumMonth, foodCount, foodSales, allOrderFoods, allTime, priceSumdaily } = processMenuData(response);
-
+                if (type == "all" && time == "month"){
+                var { allOrderFoods} = processMenuData(response);
 					var orderInfoArray = JSON.parse("[" + allOrderFoods + "]");
 										
 					orderInfoArray.forEach(function(order) {
@@ -35,8 +35,11 @@ function updateMenu(type, time) {
 				    });
 				});
 				                				     
-				 barChart3();
+				barChart3();
 				barChart2();
+				} else if (type == "all" && time == "all")
+				{
+					getAvgPrice(response);
 				}
 				//response if's else 
             } else {
@@ -66,13 +69,14 @@ function getindexinfo(type) {
         success: function (response) {
             if (response && response.length > 0) {
                 if (type == "all"){
-                var { priceSumDay, priceSumWeek, priceSumMonth, foodCount, foodSales, allOrderFoods, allTime, priceSumdaily } = processMenuData(response);
+                var { priceSumDay, priceSumWeek, priceSumMonth, priceSumdaily } = processMenuData(response);
 				
                 // Update HTML
+                
                 updateHTML(priceSumDay, priceSumWeek, priceSumMonth, priceSumdaily);
 				     
 				} else {
-					getWeekinfo()
+					getWeekinfo();
 				}
 				//response if's else 
             } else {
@@ -100,11 +104,8 @@ function getWeekinfo() {
         success: function (response) {
             if (response && response.length > 0) {
                 if (type == "all"){
-                var { priceSumDay, priceSumWeek, priceSumMonth, foodCount, foodSales, allOrderFoods, allTime, priceSumdaily } = processMenuData(response, "week");
-				
-                // Update HTML
-                updateHTML(priceSumDay, priceSumWeek, priceSumMonth, priceSumdaily);
-				     
+                processMenuData(response, "week");
+								     
 				}
 				//response if's else 
             } else {
@@ -118,7 +119,18 @@ function getWeekinfo() {
     });
 }
 
-
+function getAvgPrice(response)
+{
+	let count = 0;
+	let allPriceSum = 0;
+	for (let i = 0; i < response.length; i++){
+		let order_price = response[i].order_price;
+		
+		count ++;
+		allPriceSum += order_price;
+	}
+		allPriceSumAvg = allPriceSum / count;
+}
 
 function processMenuData(response, type) {
 
@@ -133,9 +145,6 @@ function processMenuData(response, type) {
     var currentDate = new Date().toISOString().slice(0, 10);
 	var currentDay = new Date(currentDate).getDay();
 	
-	var daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-	var dayOfWeekString = daysOfWeek[currentDay];
-	
     for (var i = 0; i < response.length; i++) {
         var order_time = response[i].order_time;
         var orderDate = new Date(order_time).toISOString().slice(0, 10);
@@ -145,22 +154,18 @@ function processMenuData(response, type) {
        allOrderFoods.push(order_foods);
        allTime.push(order_time);   
 	    var orderDay = new Date(orderDate).getDay();
-	    
-	    
 
 		
 		 if (type == "week") {
 			 if (orderDate == currentDate) {
            		 priceSumDay += order_price;
 			} 
-			 
-					//orderDate == startDate, currentDate == endDate //
 	        if (dateDiff(orderDate, currentDate) >= 0 && dateDiff(orderDate, currentDate) < 7) {
-	            priceSumWeek += order_price;
 	      		  if (!priceSumDate.includes(orderDate)) {
 	        			priceSumDate[orderDay] = orderDate; 
 	        			}
 	            priceweekily[orderDay] += order_price;
+	           	priceSumWeek += order_price;
 	        }
 	        
 	        if (dateDiff(orderDate, currentDate) >= 0 && dateDiff(orderDate, currentDate) <= 30) {
@@ -186,17 +191,12 @@ function processMenuData(response, type) {
 	            priceSumMonth += order_price;
 	        }
 		}
-
-       
-        
-        
     }   
-		 
-	
+
     return { priceSumDay, priceSumWeek, priceSumMonth, foodCount, foodSales, allOrderFoods, allTime, priceSumdaily };
 }
 
-function updateHTML(priceSumDay, priceSumWeek, priceSumMonth) {
+function updateHTML(priceSumDay, week_total, priceSumMonth) {
 	const pathname = "/" + window.location.pathname.split("/")[1] + "/";
 	const origin = window.location.origin;
 	const contextPath = origin + pathname;
@@ -209,13 +209,16 @@ var htmlTemplate =
     '</div>' +
     '<div class="col-xl-3 col-md-6 mb-4" onclick="openPopup(\'' + contextPath + '/admin/index/sales_list.jsp?term=month' + '\')">' +
     createCard2('이번 달 매출', priceSumMonth) +
-    '</div>';
+    '</div>' +
+     '<div class="col-xl-3 col-md-6 mb-4">' +
+    createCard3('고객 평균 지불 금액 ', allPriceSumAvg) +
+	'</div>';
     $('.getMenuList').empty().html(htmlTemplate);
 }
 
 
 window.addEventListener('DOMContentLoaded', function() {
-    updateMenu('all', 'month');
+updateMenu('all', 'month');
 /*updateMenu('all', 'week');*/
 getWeekinfo("week");
 getindexinfo('all');
@@ -284,6 +287,24 @@ function createCard2(title, amount) {
     );
 }
 
+function createCard3(title, amount) {
+    return (
+        `<div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${title}</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${amount} 원</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    );
+}
+
 	
 function openPopup(url) {
   var popupWidth = 500;
@@ -308,7 +329,7 @@ function updateChartInterval(startDate, endDate) {
         success: function (response) {
             if (response && response.length > 0) {
                 var {allOrderFoods, allTime} = processMenuData(response, "term");
-
+					
 					let orderInfoArray1 = JSON.parse("[" + allOrderFoods + "]");
 					menuAmountTermMap = new Map()
 										
@@ -324,8 +345,8 @@ function updateChartInterval(startDate, endDate) {
 				        }
 				    });
 				});
+
 				
-				console.log("barChart4 parsing menuAmountTermMap : " + menuAmountTermMap);
 				barChart4();
 				
             } else {
@@ -347,6 +368,7 @@ function updateChart() {
     const startDate = changeDateFormat(startDate1);
     const endDate = changeDateFormat(endDate1);
     
+
     updateChartInterval(startDate, endDate);
 }
 // datePicker로 받은 date 형식 변경하기
@@ -360,49 +382,3 @@ function changeDateFormat(value) {
 	return dateString;
 }
 
-
-
-
-
-
-    //ac00.jsp
-  function getFoodList2(value)
-	{
-		const menuMap = new Map();
-		
-    var parsedData = JSON.parse("["+ value +"]");
-    parsedData.forEach(function(order) {
-    	order.forEach(function(item) {
-    		//menu name
-    		var menuName = item.name;
-    		//menu amount
-    		var amount = parseInt(item.amount);
-    		
-    		if(menuMap.has(menuName)) { 
-    			menuMap.set(menuName, menuMap.get(menuName) + amount);
-    		} else {
-    			menuMap.set(menuName, amount);
-    		}
-    	});
-    });
-
-
-    const menuArray = Array.from(menuMap.entries());
-    const menuData = menuArray.map(([menuName, amount]) => ({menuName, amount}));
-    let res = "";
-    let i = 0;
-    menuArray.forEach((ele) => {
-			res += ele[0] + " X " + ele[1] + ", "	
-	})
-	
-	document.regFrm.order_foods.value = res.substring(0, res.length-2)
-
-	}
-	
-	
-
-window.addEventListener('DOMContentLoaded', function() {
-	value = document.getElementById("ac00foods").value;
-	console.log("ac00foods : " + value);
-    getFoodList2(value);
-});

@@ -15,7 +15,6 @@ public class Menu_menu_Bean {
 	private  int menu_isUse;           
 	private int menu_couponable; //메뉴 쿠폰 사용 여부 
 	
-	
 	public int getMenu_no() {
 		return menu_no;
 	}

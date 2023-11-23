@@ -32,6 +32,7 @@ function upload() {
 	let desc = document.uploadFrm.coupon_desc.value;
 	let enable = document.uploadFrm.coupon_enable.checked;
 	let vaild_date = document.uploadFrm.coupon_vaild_date.value;
+	let contextPath = sessionStorage.getItem("context")
 	Array.prototype.forEach.call(document.uploadFrm.category.options, (ele) => {
 		if (ele.selected) {
 			categorys.push(ele.value);
@@ -41,7 +42,7 @@ function upload() {
 		if (desc.trim() != "") {
 			if (discount_per.trim() != "") {
 				if (categorys.length != 0) {
-					fetch(contextPath+"api/admin/coupon/add", {
+					fetch(contextPath+"/api/admin/coupon/add", {
 						method: "POST",
 						body: JSON.stringify({
 							"name": name,
@@ -87,6 +88,7 @@ function update(numb) {
 	let desc = document.uploadFrm.coupon_desc.value;
 	let enable = document.uploadFrm.coupon_enable.checked;
 	let vaild_date = document.uploadFrm.coupon_vaild_date.value;
+	let contextPath = sessionStorage.getItem("context")
 	Array.prototype.forEach.call(document.uploadFrm.category.options, (ele) => {
 		if (ele.selected) {
 			categorys.push(ele.value);
@@ -96,7 +98,7 @@ function update(numb) {
 		if (desc.trim() != "") {
 			if (discount_per.trim() != "") {
 				if (categorys.length != 0) {
-					fetch(contextPath+"api/admin/coupon/update", {
+					fetch(contextPath+"/api/admin/coupon/update", {
 						method: "POST",
 						body: JSON.stringify({
 							"numb": numb,

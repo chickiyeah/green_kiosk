@@ -90,93 +90,150 @@
       
 
   };
-  document.addEventListener("DOMContentLoaded", function() {
-	    // 스크립트 코드 여기에 작성
-	    const changeButton = document.querySelector('.change');
-	    const deleteButton = document.querySelector('.delete');
-	    
 
-  const updateButtonsVisibility = (showButtons) => {
 
-	    if (changeButton && deleteButton) {
-	        if (showButtons) {
-	            // 주문 내역이 있는 경우 버튼을 보이게 설정
-	            changeButton.style.display = 'block';
-	            deleteButton.style.display = 'block';
-	        } else {
-	            // 주문 내역이 없는 경우 버튼을 숨김
-	            changeButton.style.display = 'none';
-	            deleteButton.style.display = 'none';
-	        }
-	    } else {
-	        console.error('Change button or delete button not found.');
-	    }
-	};
 
   
-	const updateBasket = () => {
-	    console.log(basketArray);
+  
+//장바구니 표시 업데이트
+  const updateBasket = () => {
+    console.log(basketArray);
 
-	    // 총 가격과 항목 수를 계산합니다
-	    let totalPrice = 0;
-	    let itemCount = 0;
-	    let menuNames = [];
-
-	    basketArray.forEach(item => {
-	        menuNames.push(item.name); // 메뉴 이름을 배열에 추가
-	        totalPrice += item.price * item.amount;
-	        itemCount += item.amount;
-	    });
-
-	    document.getElementById('menu').innerText = menuNames.join(', ');
-	    document.getElementById('count').innerText = '총 수량: ' + itemCount + '개';
-	    document.getElementById('price').innerText = '총 금액: ' + totalPrice + '원';
-
-	    const orderDetailsDiv = document.getElementById('orderDetails');
-
-	    if (orderDetailsDiv) {
-	        orderDetailsDiv.innerHTML = ''; // 이전 내용 초기화
-	    }
-
-	    // 주문 내역이 있을 때만 버튼 상태 업데이트
-	    updateButtonsVisibility(basketArray.length > 0);
-	    updateOrderGrid();
-	};
-
-  }); 	
+    // 총 가격과 항목 수를 계산합니다
+    let totalPrice = 0;
+    let itemCount = 0;
+	let menuNames = [];
 	
-	// 변경 버튼 클릭 시 호출되는 함수
-	const onChangeButtonClick = () => {
-	    // 변경 로직 추가
-	    console.log('Change button clicked');
-	};
+    basketArray.forEach(item => {
+        menuNames.push(item.name); // 메뉴 이름을 배열에 추가
+      totalPrice += item.price * item.amount;
+      itemCount += item.amount;
+    
+    });
+    
+    element = document.getElementById('totalOrder');
+    
 
-	// 삭제 버튼 클릭 시 호출되는 함수
-	const onDeleteButtonClick = () => {
-	    // 삭제 로직 추가
-	    console.log('Delete button clicked');
-	};
+    const increaseAmount = (menuName) => {
+        const menuItem = basketArray.find(item => item.name === menuName);
 
-	// 초기화 시 버튼 상태 업데이트
-	updateButtonsVisibility();
+        if (menuItem) {
+            menuItem.amount++;
+            updateBasket();
+        }
+    };
 
-	// 주문 내역이 없을 때 버튼을 숨기기 위해 아래 함수를 추가합니다.
-	const updateOrderGrid = () => {
-	    const orderGrid = document.querySelector('.buttons-grid');
+    // 아이템 바구니에서 메뉴 항목 수를 감소시킵니다.
+    const decreaseAmount = (menuName) => {
+        const menuItem = basketArray.find(item => item.name === menuName);
 
-	    if (orderGrid) {
-	        // 주문 내역이 있을 때만 그리드를 보이게 설정
-	        if (basketArray.length > 0) {
-	            orderGrid.style.display = 'grid';
-	        } else {
-	            orderGrid.style.display = 'none';
-	        }
-	    }
-	};
+        if (menuItem && menuItem.amount > 1) {
+            menuItem.amount--;
+            updateBasket();
+        }
+    };
+    
 
-	// 초기화 시 주문 내역 그리드 업데이트
-	updateOrderGrid();	
-	
+    
+    
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
+    let html = '<div class="price,count" style="display:flex; width:95vw;justify-content: flex-end;">';
+    html += '<div class="totalcount" >';
+    html += itemCount + '개</span>';
+    html += '</div>';
+    html += '<div class="totalprice">';
+    html += '<span>총 금액: ' + totalPrice + '원</span>';
+    html += '</div>';
+    html += '</div>';
+    
+    
+    for (let i = 0; i < basketArray.length; i++) {
+        html += '<div class="box" >'
+         			
+        			html += '<span class="Ordermenu" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].name + '</span>'
+
+                	html += '<span class="count" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
+
+                	html += ' <div class="arrow-container">'
+                	html += ' <div class="arrow-up" onclick="increaseAmount(\'' + basketArray[i].name + '\')">&#9650;</div>';
+                	html += ' <div class="arrow-down" onclick="decreaseAmount(\'' + basketArray[i].name + '\')">&#9660;</div>';
+					html += '</div>'
+                	
+                	html += '<span class="price" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].price + '</span>'
+
+                	html += '<h2 class="delete">삭제</h2>'
+        html += '</div>'
+    }
+
+    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
+    html += '<div class="alldelete" >';
+    html += '취소하기';
+    html += '</div>';
+    html += '<div class="basket">';
+    html += '결제하기';
+    html += '</div>';
+    html += '</div>';
+    
+
+    
+    
+    
+    element.innerHTML = html;
+    
+    
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
+    const orderDetailsDiv = document.getElementById('orderDetails');
+
+    if (orderDetailsDiv) {
+      orderDetailsDiv.innerHTML = ''; // 이전 내용 초기화
+  	
+    }
+ 
+    const deleteButton = document.querySelector('.delete');
+
+    // basketArray에 항목이 있는지 확인
+    if (basketArray.length > 0) {
+        // 항목이 있는 경우 그리드 레이아웃으로 전환
+        deleteButton.style.display = 'grid';
+    } else {
+        // 항목이 없는 경우 원래의 레이아웃으로 전환 (예: 블록)
+        deleteButton.style.display = 'none'; // 원래의 display 값으로 설정
+    }    
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
+
+
+	const deleteBasket = (deletedIndex) => {
+    // basketArray에서 deletedIndex에 해당하는 위치의 요소를 제외하고 새로운 배열을 생성합니다.
+    basketArray = basketArray.filter(function(_, index) { 
+        return index !== deletedIndex;
+    });
+
+    // 장바구니 디스플레이를 업데이트합니다.
+    updateBasket();
+};
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete')) {
+        // 클릭한 요소의 부모 요소를 확인하고, 부모가 존재할 때만 처리합니다.
+        const parent = event.target.parentNode.parentNode;
+        if (parent) {
+            // 클릭한 요소의 부모 요소에서 인덱스를 가져옵니다.
+            const deletedIndex = Array.from(parent.children).indexOf(event.target.parentNode);
+            // deleteBasket 함수를 호출하고 삭제할 인덱스를 전달합니다.
+            deleteBasket(deletedIndex);
+        }
+    }
+});
+		
+    const clearBasket = () => {
+        basketArray = [];
+        updateBasket();
+    };
+    document.querySelector('.alldelete').addEventListener('click', () => {
+        clearBasket();
+    });  
+  };
 
 
   // 예제에서는 각 메뉴의 클릭 이벤트에 addToBasket 함수를 추가하였습니다.
@@ -280,12 +337,21 @@
 
 				        });
 				      });
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	  
+			   
+		});
 
 
-});		  
-  
+
+
+		  
+		  
 	  
+	  
+	  
+
+	  
+
+  
   
 </script>
 
@@ -623,11 +689,12 @@
 
 
 
-		<div class="order" id="totalOrder">
-			 	<div >
-	  			<span style="font-size:36px; font-weight: 600; color:black;margin :10px">총주문내역</span>
-			 	</div>
-			  	<div class="menu" >
+	<div class="order" id="totalOrder" >
+			  	<div class="price" id ="totalPrice" >
+				
+				</div>
+
+			  	<div class="Ordermenu" >
 			  	<span class="Ordermenu" id="menu" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
 			   </div>
 
@@ -638,16 +705,17 @@
 			  	<div class="price" >
 			  	<span id="price" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
 				</div>
-				    <div class="change">
-				      <h2>변경</h2>
-				    </div>
-				    <div class="delete">
-				      <h2>삭제</h2>
-				  	</div>
-		</div>
+	
+	</div>
+	
+	
+	
+	
 </div>
 	
-
+	
+	
+	
 <%
 	Vector<Menu_menu_Bean> vector = mMgr.getMenuList(1);
 	
@@ -667,5 +735,11 @@
 
 %>
 
+
+<script>
+
+
+    
+</script>
 </body>
 </html>

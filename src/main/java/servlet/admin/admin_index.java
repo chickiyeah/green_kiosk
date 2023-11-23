@@ -95,6 +95,9 @@ public class admin_index extends HttpServlet {
     		// 이번 주 주문
     		else if (type.equals("all")&&time.equals("week")) {
     		 order_list = new Orders_Mgr().getAllOrdersByTime(format_mon, format_sun);
+    		} 
+    		else if (type.equals("all") && time.equals("all")) {
+    			order_list = new Orders_Mgr().getAllOrdersByType(0);
     		}
     		String json = null;
     		 json = new Gson().toJson(order_list);

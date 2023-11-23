@@ -28,6 +28,7 @@
 		  }
 	  %>
 	  <%
+	  System.out.println("menuType = " + menuType);
 	  //menu page 일 경우 
 	  if(menuType.equals("menu")) { %>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="updateMenu('single')">단품</a>
@@ -46,11 +47,13 @@
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Event/coupon_info.jsp')">쿠폰 관리</a>
 	  <% 
 	  //Accounting page 일 경우
-	  } else { %>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="#" onclick="<%=request.getContextPath()%>/admin/login/logout.html">로그아웃</a>
+	  } else if (menuType.equals("Accounting")) { %>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('sales/ac00.jsp?page=1')">거래내역관리</a>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Accounting/inventory/iv00.jsp')">재고관리</a>
-	  <%} %>
+	  <%} else { %>
+	  	  <a class="w3-bar-item w3-button w3-hover-black" href="<%=request.getContextPath()%>/kiosk/test/test1-1-2.jsp">키오스크</a>
+	  	 <a class="w3-bar-item w3-button w3-hover-black" href="<%=request.getContextPath()%>/index.jsp">메인 화면</a>
+	  <% } %>
 	</nav>
 	
 </body>

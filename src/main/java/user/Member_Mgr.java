@@ -463,7 +463,7 @@ public Vector<Menu_menu_Bean> getMgrcList() {
 	Vector<Menu_menu_Bean> vlist = new Vector<Menu_menu_Bean>();
 	try {
 		con = pool.getConnection();
-		String sql = "select * from menu";
+		String sql = "select * from menu where menu_recommend = 1";
 	    pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
@@ -480,9 +480,7 @@ public Vector<Menu_menu_Bean> getMgrcList() {
 			bean.setMenu_content(rs.getString("menu_content"));
 			bean.setMenu_isUse(rs.getInt("menu_isUse"));
 			bean.setMenu_couponable(rs.getInt("menu_couponable"));
-			 if (bean.getMenu_recommend() == 1) {
-			        vlist.add(bean);
-			    }
+			 
 			vlist.add(bean);
 		}
 	} catch (Exception e) {
