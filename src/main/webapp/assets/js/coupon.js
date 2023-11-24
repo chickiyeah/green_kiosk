@@ -1,9 +1,9 @@
 function cate_pop(cate, can_cate, couname) {
 	let s_category = document.querySelector("."+cate)
-	document.querySelector(".one").attributes.onclick.value = "cate_pop('one',\""+can_cate+"\")"
-	document.querySelector(".set").attributes.onclick.value = "cate_pop('set',\""+can_cate+"\")"
-	document.querySelector(".side").attributes.onclick.value = "cate_pop('side',\""+can_cate+"\")"
-	document.querySelector(".drink").attributes.onclick.value = "cate_pop('drink',\""+can_cate+"\")"
+	document.querySelector(".one").attributes.onclick.value = "cate_pop('one',\""+can_cate+"\", '"+couname+"')"
+	document.querySelector(".set").attributes.onclick.value = "cate_pop('set',\""+can_cate+"\", '"+couname+"')"
+	document.querySelector(".side").attributes.onclick.value = "cate_pop('side',\""+can_cate+"\", '"+couname+"')"
+	document.querySelector(".drink").attributes.onclick.value = "cate_pop('drink',\""+can_cate+"\", '"+couname+"')"
 	let can_cates = JSON.parse(can_cate.replaceAll("\'", "\""))
 	let a_cates = ""
 	can_cates.forEach((a_cate) => {
@@ -101,11 +101,32 @@ function cate_pop(cate, can_cate, couname) {
 
 //쿠폰 음식 선택
 function pop_select(name, cate, can_cate, couname) {
+	let context = sessionStorage.getItem("context")
 	let can_cates = JSON.parse(can_cate.replaceAll("squot", "\""))
 	if (can_cates.includes(cate)) {
 		let con = confirm(`정말 ${couname} 으로\n${name} 쿠폰을 발급하시겠습니까?\n이 작업은 취소할 수 없습니다!`)
-		if (cou) {
-			
+		if (con) {
+			fetch(context+"/api/coupon/get", {
+				method: "POST",
+				body: JSON.stringify({
+					"name": couname,
+					"menu": name,
+					"menu_cate": cate
+				})
+			}).then((response) => {
+				if (response.status == 200) {
+					location.reload();
+				}
+				
+				if (response.status == 400) {
+					alert(`쿠폰 발급에 실패하였습니다.\n쿠폰정보가 올바르지 않습니다.`)
+				}
+				
+				if (response.status == 401) {
+					alert("로그인이 필요합니다.");
+					location.href = context+"/"
+				}
+			})
 		}
 	} else {
 		alert("해당 쿠폰으로 발급할수 없는 메뉴입니다!")

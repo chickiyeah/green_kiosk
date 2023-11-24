@@ -319,16 +319,13 @@ public class Coupon_Mgr {
 		boolean flag = false;
 		try {
 			this.Initializer("INSERT coupon(coupon_name, coupon_code, coupon_menuNo, coupon_discount,"
-					+ " coupon_issueDate, coupon_expireDate, coupon_limitTime1, coupon_limitTime2)"
-					+ " VALUES (?,?,?,?,?,?,?,?)");
+					+ " coupon_owner )"
+					+ " VALUES (?,?,?,?,?)");
 			this.pst.setString(1, bean.getCoupon_name());
 			this.pst.setString(2, bean.getCoupon_code());
 			this.pst.setInt(3, bean.getCoupon_menuNo());
 			this.pst.setInt(4, bean.getCoupon_discount());
-			this.pst.setTimestamp(5, bean.getCoupon_issueDate());
-			this.pst.setTimestamp(6, bean.getCoupon_expireDate());
-			this.pst.setTimestamp(7, bean.getCoupon_limitTime1());
-			this.pst.setTimestamp(8, bean.getCoupon_limitTime2());
+			this.pst.setString(5, bean.get_owner());
 			if (this.pst.executeUpdate() == 1) {
 				flag = true;
 			};

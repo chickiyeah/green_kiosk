@@ -68,11 +68,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </style>
 </head>
 <script>
-//회원가입 창 여는 함수
-function open_register() {
-	let url = "<%=cPath %>/register/register.jsp"
-	window.open(url, "회원가입", "width=460, height=600")
-}
+window.addEventListener('DOMContentLoaded', function() {
+	sessionStorage.setItem("context", "<%=request.getContextPath()%>")
+})
 </script>
 <body>
 <!-- Sidebar (hidden by default) -->
@@ -132,7 +130,8 @@ function open_register() {
 	<div class="coupon_tables" style="display:flex">
 		<table border="1" style="width:40%">
 			<tr style="background-color: powderblue">
-				<th>쿠폰명</th>
+				<th width="45%">쿠폰명</th>
+				<th>할인율</th>
 				<th width="20%">유효기간</th>
 				<th width="20%">발급하기</th>
 			</tr>
@@ -147,6 +146,7 @@ function open_register() {
 						int vaild_date = printable_coupon.getVaild_date();
 						if (vaild_date == -1) {
 							%>
+								<td align="center"><%=printable_coupon.getDiscount_per() %> %</td>
 								<td align="center">무제한</td>
 								<td align="center" style="cursor:pointer" onclick="document.querySelector('.kiosk_pop').style.display = 'flex';cate_pop('one',`<%=cates%>`, '<%=printable_coupon.getName() %>')">발급하기</td>
 							<%
@@ -156,12 +156,14 @@ function open_register() {
 						
 						if (vaild_date == 0) {
 							%>
+								<td align="center"><%=printable_coupon.getDiscount_per() %> %</td>
 								<td align="center" style="background-color:pink" title="비정상 유효기간입니다. 발급이 불가능합니다."><%=s_vaild %></td>
 								<td align="center">발급 불가</td>
 							<%
 						}
 						if (vaild_date > 0) {
 							%>
+								<td align="center"><%=printable_coupon.getDiscount_per() %> %</td>
 								<td align="center"><%=s_vaild %></td>
 								<td align="center" style="cursor:pointer" onclick="document.querySelector('.kiosk_pop').style.display = 'flex';cate_pop('one',`<%=cates%>`, '<%=printable_coupon.getName() %>')">발급하기</td>
 							<%
@@ -193,15 +195,18 @@ function open_register() {
 				<th width="30%">쿠폰명</th>
 				<th width="30%">쿠폰번호</th>
 				<th width="15%">남은일수</th>
+				<th>할인율</th>
 				<th>선택한 메뉴 명</th>
 			</tr>
 			<%
 			int user_count = 0;
 			for (Coupon_Bean user_coupon : user_coupons) {
 				String base_code = user_coupon.getCoupon_code();
-				String code = base_code.substring(0,3) + " - " + base_code.substring(4, 8) + " - " + base_code.substring(9, 13) + " - " + base_code.substring(14, 18);
+				System.out.println(base_code);
+				String code = base_code.substring(0,4) + " - " + base_code.substring(4, 8) + " - " + base_code.substring(8, 12) + " - " + base_code.substring(12);
 				
 				int vaild_date = c_k_mgr.get_type_with_name(user_coupon.getCoupon_name()).getVaild_date();
+				Menu_menu_Bean m_bean = m_mgr.getMenu(user_coupon.getCoupon_menuNo());
 				user_count += 1;
 				if (vaild_date != -1) {
 					LocalDateTime issueday = user_coupon.getCoupon_issueDate().toLocalDateTime();
@@ -209,21 +214,34 @@ function open_register() {
 					LocalDateTime now = LocalDateTime.now();
 					
 					if (now.isBefore(endday)) {
-					%>
-					<tr style="background-color:bisque" height="12.5%">
-						<td align="center"><%=user_coupon.getCoupon_name() %></td>
-						<td align="center"><%=code %></td>
-						<td align="center"><%=vaild_date %> 일</td>
-						<td></td>
-					</tr>
-					<%
-					}//if 
+						%>
+						<tr style="background-color:bisque" height="12.5%">
+							<td align="center"><%=user_coupon.getCoupon_name() %></td>
+							<td align="center"><%=code %></td>
+							<td align="center"><%=vaild_date %> 일</td>
+							<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+							<td align="center"><%=m_bean.getMenu_name() %></td>
+						</tr>
+						<%
+					} else {
+						%>
+						<tr style="background-color:bisque" height="12.5%">
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+							<td align="center"></td>
+						</tr>
+						<%
+					}
 				} else {
 					%>
 					<tr style="background-color:bisque" height="12.5%">
 						<td align="center"><%=user_coupon.getCoupon_name() %></td>
 						<td align="center"><%=code %></td>
 						<td align="center">무제한</td>
+						<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+						<td align="center"><%=m_bean.getMenu_name() %></td>
 					</tr>
 					<%
 				}
@@ -237,6 +255,7 @@ function open_register() {
 			for (int i = 0; i < deff; i++) {
 				%>
 				<tr style="background-color:bisque" height="12.5%">
+					<td align="center"></td>
 					<td align="center"></td>
 					<td align="center"></td>
 					<td align="center"></td>
