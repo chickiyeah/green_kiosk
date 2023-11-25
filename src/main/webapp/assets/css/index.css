@@ -39,7 +39,8 @@
 .w3-sidebar .w3-bar-child { font-size: 15px; z-index: 1; position: relative	; }
 .w3-sidebar .side_main_btn { position: relative; z-index: 2; }
 
-.main_title { cursor: pointer; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none }
+.main_title { -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; display: grid }
+.main_title img { justify-self: center; height: 35px; transform: translateY(-1px );  cursor: pointer; }
 
 .w3-show { animation: fadeInDown 0.5s; }
 

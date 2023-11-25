@@ -12,6 +12,7 @@
 <script>
   MicroModal.init();
 
+  
   const hrefTo = (type) => {
     MicroModal.show('modal-1');
   };
@@ -90,9 +91,42 @@
       
 
   };
+  
+  
+  document.addEventListener('click', function (event) {
+	    if (event.target.classList.contains('arrow-up')) {
+	        const parent = event.target.parentNode.parentNode;
 
+	        if (parent) {
+	            // 부모 요소의 data-index 속성을 이용하여 인덱스를 가져옵니다.
+	            const updatedIndex = parent.getAttribute('data-index');
 
+	            if (updatedIndex !== null && basketArray[updatedIndex]) {
+	                basketArray[updatedIndex].amount++;
+	                updateBasket();
+	            }
+	        }
+	    }
+	});
 
+  document.addEventListener('click', function (event) {
+	    if (event.target.classList.contains('arrow-down')) {
+	        const parent = event.target.parentNode.parentNode;
+
+	        if (parent) {
+	            // 부모 요소의 data-index 속성을 이용하여 인덱스를 가져옵니다.
+	            const updatedIndex = parent.getAttribute('data-index');
+
+	            if (updatedIndex !== null && basketArray[updatedIndex]) {
+	                if (basketArray[updatedIndex].amount > 1) {
+	                    // 최소값이 1이 되도록 처리
+	                    basketArray[updatedIndex].amount--;
+	                    updateBasket();
+	                }
+	            }
+	        }
+	    }
+	});
   
   
 //장바구니 표시 업데이트
@@ -109,30 +143,21 @@
       totalPrice += item.price * item.amount;
       itemCount += item.amount;
     
+      
+
+      
     });
     
-    element = document.getElementById('totalOrder');
+
+    
+    	
+
+    	element = document.getElementById('totalOrder');
+   
+    
     
 
-    const increaseAmount = (menuName) => {
-        const menuItem = basketArray.find(item => item.name === menuName);
 
-        if (menuItem) {
-            menuItem.amount++;
-            updateBasket();
-        }
-    };
-
-    // 아이템 바구니에서 메뉴 항목 수를 감소시킵니다.
-    const decreaseAmount = (menuName) => {
-        const menuItem = basketArray.find(item => item.name === menuName);
-
-        if (menuItem && menuItem.amount > 1) {
-            menuItem.amount--;
-            updateBasket();
-        }
-    };
-    
 
     
     
@@ -148,34 +173,33 @@
     
     
     for (let i = 0; i < basketArray.length; i++) {
-        html += '<div class="box" >'
+        html += '<div class="box" data-index="' + i + '">'
          			
         			html += '<span class="Ordermenu" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].name + '</span>'
-
+	
                 	html += '<span class="count" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
 
                 	html += ' <div class="arrow-container">'
-                	html += ' <div class="arrow-up" onclick="increaseAmount(\'' + basketArray[i].name + '\')">&#9650;</div>';
-                	html += ' <div class="arrow-down" onclick="decreaseAmount(\'' + basketArray[i].name + '\')">&#9660;</div>';
+                	html += ' <div class="arrow-up"(\'' + basketArray[i].name + '\')">&#9650;</div>';
+                	html += ' <div class="arrow-down" (\'' + basketArray[i].name +'\')">&#9660;</div>';
 					html += '</div>'
                 	
                 	html += '<span class="price" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].price + '</span>'
 
                 	html += '<h2 class="delete">삭제</h2>'
         html += '</div>'
-    }
-
-    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
-    html += '<div class="alldelete" >';
-    html += '취소하기';
-    html += '</div>';
-    html += '<div class="basket">';
-    html += '결제하기';
-    html += '</div>';
-    html += '</div>';
-    
-
-    
+			    }
+			
+			    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
+			    html += '<div class="alldelete" >';
+			    html += '취소하기';
+			    html += '</div>';
+			    html += '<div class="basket">';
+			    html += '결제하기';
+			    html += '</div>';
+			    html += '</div>';
+			    
+ 
     
     
     element.innerHTML = html;
@@ -183,7 +207,21 @@
     
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------    
-    const orderDetailsDiv = document.getElementById('orderDetails');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	const orderDetailsDiv = document.getElementById('orderDetails');
 
     if (orderDetailsDiv) {
       orderDetailsDiv.innerHTML = ''; // 이전 내용 초기화
@@ -203,16 +241,6 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------    
 
 
-	const deleteBasket = (deletedIndex) => {
-    // basketArray에서 deletedIndex에 해당하는 위치의 요소를 제외하고 새로운 배열을 생성합니다.
-    basketArray = basketArray.filter(function(_, index) { 
-        return index !== deletedIndex;
-    });
-
-    // 장바구니 디스플레이를 업데이트합니다.
-    updateBasket();
-};
-
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('delete')) {
         // 클릭한 요소의 부모 요소를 확인하고, 부모가 존재할 때만 처리합니다.
@@ -225,6 +253,21 @@ document.addEventListener('click', function (event) {
         }
     }
 });
+
+
+const deleteBasket = (deletedIndex) => {
+    // basketArray에서 deletedIndex에 해당하는 위치의 요소를 제외하고 새로운 배열을 생성합니다.
+
+    basketArray = basketArray.filter(function(_, index) { 
+        return index !== deletedIndex - 1;
+    });
+
+    // 장바구니 디스플레이를 업데이트합니다.
+    updateBasket();
+};
+
+
+
 		
     const clearBasket = () => {
         basketArray = [];
@@ -466,7 +509,7 @@ document.addEventListener('click', function (event) {
 				
 
  <!-- 포테이토 메뉴 아이템 -->
-	<div class="item1-1 modal-1-item" onclick="hrefTo2('item1-1')">
+	<div class="item1-1 modal-1-item" onclick="hrefTo2()">
       <div class="rowbox">
         <img src="../images/potato.jpg" >
         <div class="colbox">
@@ -476,7 +519,7 @@ document.addEventListener('click', function (event) {
       </div>
     </div>
 
-	<div class="item2-1 modal-1-item" onclick="hrefTo1('item2-1')">
+	<div class="item2-1 modal-1-item" onclick="hrefTo1()">
       <div class="rowbox">
         <img src="../images/potato1.jpg" >
         <div class="colbox">
@@ -486,7 +529,7 @@ document.addEventListener('click', function (event) {
       </div>
     </div>
 	
-	<div class="item3-1" onclick="hrefTo2('item1-1')">
+	<div class="item3-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/potato2.jpg" >
  				<div class="colbox">
@@ -496,7 +539,7 @@ document.addEventListener('click', function (event) {
 		</div>
 	</div>
 	
-	<div class="item4-1" onclick="hrefTo2('item1-1')">
+	<div class="item4-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/cheese.jpg" >
  				<div class="colbox">
@@ -506,7 +549,7 @@ document.addEventListener('click', function (event) {
 		</div>
 	</div>
 	
-	<div class="item5-1" onclick="hrefTo2('item1-1')">
+	<div class="item5-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/cheese2.jpg" >
  				<div class="colbox">
@@ -516,7 +559,7 @@ document.addEventListener('click', function (event) {
 		</div>	
 	</div>
 	
-	<div class="item6-1" onclick="hrefTo2('item1-1')">
+	<div class="item6-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/chicken.jpg" >
  				<div class="colbox">
@@ -526,7 +569,7 @@ document.addEventListener('click', function (event) {
 		</div>
 	</div>
 	
-	<div class="item7-1" onclick="hrefTo2('item1-1')">
+	<div class="item7-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/ojingeo.jpg" >
  				<div class="colbox">
@@ -536,7 +579,7 @@ document.addEventListener('click', function (event) {
 		</div>	
 	</div>
 	
-	<div class="item8-1" onclick="hrefTo2('item1-1')">
+	<div class="item8-1" onclick="hrefTo2()">
 		<div class="rowbox">
  			<img src="../images/potato3.jpg" >
  				<div class="colbox">

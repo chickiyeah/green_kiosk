@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+  .header {
+    padding-left: 280px;
+  }
+
+  .sidebar {
+    width: 280px;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #f8f9fa;  
+    padding-top: 20px;
+  }
+
+  .header {
+    padding-left: 280px; /* Adjust the padding as needed */
+  }
+
+  .search-form {
+    width: 50%; /* Adjust the width as needed */
+  }
+  
+ .mainContent {
+	 padding-left : 430px;
+	 padding-top : 20px;
+	 width: 94%;
+ }
+ 

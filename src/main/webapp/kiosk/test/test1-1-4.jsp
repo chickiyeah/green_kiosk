@@ -12,6 +12,7 @@
 <script>
   MicroModal.init();
 
+  
   const hrefTo = (type) => {
     MicroModal.show('modal-1');
   };
@@ -90,9 +91,42 @@
       
 
   };
+  
+  
+  document.addEventListener('click', function (event) {
+	    if (event.target.classList.contains('arrow-up')) {
+	        const parent = event.target.parentNode.parentNode;
 
+	        if (parent) {
+	            // 부모 요소의 data-index 속성을 이용하여 인덱스를 가져옵니다.
+	            const updatedIndex = parent.getAttribute('data-index');
 
+	            if (updatedIndex !== null && basketArray[updatedIndex]) {
+	                basketArray[updatedIndex].amount++;
+	                updateBasket();
+	            }
+	        }
+	    }
+	});
 
+  document.addEventListener('click', function (event) {
+	    if (event.target.classList.contains('arrow-down')) {
+	        const parent = event.target.parentNode.parentNode;
+
+	        if (parent) {
+	            // 부모 요소의 data-index 속성을 이용하여 인덱스를 가져옵니다.
+	            const updatedIndex = parent.getAttribute('data-index');
+
+	            if (updatedIndex !== null && basketArray[updatedIndex]) {
+	                if (basketArray[updatedIndex].amount > 1) {
+	                    // 최소값이 1이 되도록 처리
+	                    basketArray[updatedIndex].amount--;
+	                    updateBasket();
+	                }
+	            }
+	        }
+	    }
+	});
   
   
 //장바구니 표시 업데이트
@@ -109,12 +143,25 @@
       totalPrice += item.price * item.amount;
       itemCount += item.amount;
     
+      
+
+      
     });
     
-    element = document.getElementById('totalOrder');
+
+    
+    	
+
+    	element = document.getElementById('totalOrder');
+   
+    
     
 
 
+
+    
+    
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
     let html = '<div class="price,count" style="display:flex; width:95vw;justify-content: flex-end;">';
     html += '<div class="totalcount" >';
     html += itemCount + '개</span>';
@@ -126,33 +173,55 @@
     
     
     for (let i = 0; i < basketArray.length; i++) {
-        html += '<div class="box" >'
+        html += '<div class="box" data-index="' + i + '">'
          			
         			html += '<span class="Ordermenu" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].name + '</span>'
-
+	
                 	html += '<span class="count" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
 
+                	html += ' <div class="arrow-container">'
+                	html += ' <div class="arrow-up"(\'' + basketArray[i].name + '\')">&#9650;</div>';
+                	html += ' <div class="arrow-down" (\'' + basketArray[i].name +'\')">&#9660;</div>';
+					html += '</div>'
+                	
                 	html += '<span class="price" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].price + '</span>'
 
                 	html += '<h2 class="delete">삭제</h2>'
         html += '</div>'
-    }
-
-    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
-    html += '<div class="alldelete" >';
-    html += '취소하기';
-    html += '</div>';
-    html += '<div class="basket">';
-    html += '결제하기';
-    html += '</div>';
-    html += '</div>';
+			    }
+			
+			    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
+			    html += '<div class="alldelete" >';
+			    html += '취소하기';
+			    html += '</div>';
+			    html += '<div class="basket">';
+			    html += '결제하기';
+			    html += '</div>';
+			    html += '</div>';
+			    
+ 
     
     
     element.innerHTML = html;
     
+    
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
 
 
-    const orderDetailsDiv = document.getElementById('orderDetails');
+
+
+
+
+
+
+
+
+
+
+
+
+	const orderDetailsDiv = document.getElementById('orderDetails');
 
     if (orderDetailsDiv) {
       orderDetailsDiv.innerHTML = ''; // 이전 내용 초기화
@@ -168,11 +237,45 @@
     } else {
         // 항목이 없는 경우 원래의 레이아웃으로 전환 (예: 블록)
         deleteButton.style.display = 'none'; // 원래의 display 값으로 설정
-    }  
-  
-  
-  
-  
+    }    
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
+
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('delete')) {
+        // 클릭한 요소의 부모 요소를 확인하고, 부모가 존재할 때만 처리합니다.
+        const parent = event.target.parentNode.parentNode;
+        if (parent) {
+            // 클릭한 요소의 부모 요소에서 인덱스를 가져옵니다.
+            const deletedIndex = Array.from(parent.children).indexOf(event.target.parentNode);
+            // deleteBasket 함수를 호출하고 삭제할 인덱스를 전달합니다.
+            deleteBasket(deletedIndex);
+        }
+    }
+});
+
+
+const deleteBasket = (deletedIndex) => {
+    // basketArray에서 deletedIndex에 해당하는 위치의 요소를 제외하고 새로운 배열을 생성합니다.
+
+    basketArray = basketArray.filter(function(_, index) { 
+        return index !== deletedIndex - 1;
+    });
+
+    // 장바구니 디스플레이를 업데이트합니다.
+    updateBasket();
+};
+
+
+
+		
+    const clearBasket = () => {
+        basketArray = [];
+        updateBasket();
+    };
+    document.querySelector('.alldelete').addEventListener('click', () => {
+        clearBasket();
+    });  
   };
 
 
@@ -277,14 +380,6 @@
 
 				        });
 				      });
-
-		 
-		 
-			   
-			   
-			   
-			   
-			   
 			   
 		});
 
@@ -685,7 +780,19 @@
 
 
 <script>
-
+function jumoon0() {
+	location.href = "test1-1-4.jsp";
+}		
+function jumoon1() {
+	location.href = "test2.jsp";
+}		
+function jumoon2() {
+	location.href = "test3.jsp";
+}		
+function jumoon3() {
+	location.href = "test4.jsp";
+}		
+	
 
     
 </script>

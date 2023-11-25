@@ -3,8 +3,10 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.Duration" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
@@ -125,11 +127,11 @@ window.addEventListener('DOMContentLoaded', function() {
     </div>
 	<div class="coupon_title">
 		<span style="transform: translate(120%, -110%); position: absolute; font-weight: 900">발급 가능한 쿠폰 ( <%=printable_count %> 개 )</span>
-		<span style="transform: translate(525%, -110%); position: absolute; font-weight: 900">사용 가능한 쿠폰 ( <%=user_coupon_count %> 개 )</span>
+		<span style="transform: translate(690%, -110%); position: absolute; font-weight: 900">미사용 쿠폰 ( <%=user_coupon_count %> 개 )</span>
 	</div>
 	<div class="coupon_tables" style="display:flex">
 		<table border="1" style="width:40%">
-			<tr style="background-color: powderblue">
+			<tr style="background-color: powderblue" height="12.5%">
 				<th width="45%">쿠폰명</th>
 				<th>할인율</th>
 				<th width="20%">유효기간</th>
@@ -191,7 +193,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		
 			
 		<table border="1" style="width:60%; margin-left: 2%">
-			<tr style="background-color:bisque">
+			<tr style="background-color:bisque" height="12.5%">
 				<th width="30%">쿠폰명</th>
 				<th width="30%">쿠폰번호</th>
 				<th width="15%">남은일수</th>
@@ -213,24 +215,51 @@ window.addEventListener('DOMContentLoaded', function() {
 					LocalDateTime endday = issueday.plusDays(vaild_date);
 					LocalDateTime now = LocalDateTime.now();
 					
+					Duration duration = Duration.between(issueday, now);
+					long days = duration.toDays();
+					
 					if (now.isBefore(endday)) {
-						%>
-						<tr style="background-color:bisque" height="12.5%">
-							<td align="center"><%=user_coupon.getCoupon_name() %></td>
-							<td align="center"><%=code %></td>
-							<td align="center"><%=vaild_date %> 일</td>
-							<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
-							<td align="center"><%=m_bean.getMenu_name() %></td>
-						</tr>
-						<%
+						if (vaild_date-days > 4) {
+							%>
+							<tr style="background-color:bisque" height="12.5%">
+								<td align="center"><%=user_coupon.getCoupon_name() %></td>
+								<td align="center"><%=code %></td>
+								<td align="center"><%=vaild_date-days %> 일</td>
+								<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+								<td align="center"><%=m_bean.getMenu_name() %></td>
+							</tr>
+							<%
+						} else {
+							if (vaild_date-days == 1) {
+								%>
+								<tr style="background-color:pink" height="12.5%">
+									<td align="center"><%=user_coupon.getCoupon_name() %></td>
+									<td align="center"><%=code %></td>
+									<td align="center">내일 만료</td>
+									<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+									<td align="center"><%=m_bean.getMenu_name() %></td>
+								</tr>
+								<%
+							} else {
+								%>
+								<tr style="background-color:pink" height="12.5%">
+									<td align="center"><%=user_coupon.getCoupon_name() %></td>
+									<td align="center"><%=code %></td>
+									<td align="center"><%=vaild_date-days %> 일</td>
+									<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+									<td align="center"><%=m_bean.getMenu_name() %></td>
+								</tr>
+								<%
+							}
+						}
 					} else {
 						%>
 						<tr style="background-color:bisque" height="12.5%">
-							<td align="center"></td>
-							<td align="center"></td>
-							<td align="center"></td>
-							<td align="center"></td>
-							<td align="center"></td>
+							<td align="center"><%=user_coupon.getCoupon_name() %></td>
+							<td align="center">기간 만료</td>
+							<td align="center">기간 만료</td>
+							<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
+							<td align="center"><%=m_bean.getMenu_name() %></td>
 						</tr>
 						<%
 					}

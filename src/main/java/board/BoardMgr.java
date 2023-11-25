@@ -1,6 +1,14 @@
 package board;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 import DBconnector.DBConnectionMgr;
+import menu.Menu_menu_Bean;
 
 public class BoardMgr {
 
@@ -15,7 +23,254 @@ public class BoardMgr {
 		}
 	}
 	
+	//post_no에 맞는 게시글 가지고 오기
+	public boardBean getBoard(Long numb) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boardBean bean = null;
+		try {
+			con = pool.getConnection();
+			String sql = "select * from board where post_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, numb);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				bean = new boardBean();
+				bean.setPost_no(rs.getLong("post_no"));
+				bean.setPost_time(rs.getString("post_time"));
+				bean.setPost_title(rs.getString("post_title"));
+				bean.setPost_content(rs.getString("post_content"));
+				bean.setPost_writer(rs.getLong("post_writer"));
+				bean.setPost_viewcount(rs.getLong("post_viewcount"));
+				bean.setPost_likecount(rs.getLong("post_likecount"));
+				bean.setPost_filePath(rs.getString("post_filePath"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
 	
+	
+	//board 리스트 전체 불러오기
+	public List <boardBean> getBoardList(){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		List <boardBean> list = new ArrayList <boardBean>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * FROM board ORDER BY post_no DESC";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				boardBean bean = new boardBean();
+				bean = new boardBean();
+				bean.setPost_no(rs.getLong("post_no"));
+				bean.setPost_time(rs.getString("post_time"));
+				bean.setPost_title(rs.getString("post_title"));
+				bean.setPost_content(rs.getString("post_content"));
+				bean.setPost_writer(rs.getLong("post_writer"));
+				bean.setPost_viewcount(rs.getLong("post_viewcount"));
+				bean.setPost_likecount(rs.getLong("post_likecount"));
+				bean.setPost_filePath(rs.getString("post_filePath"));
+				list.add(bean);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return list;
+	}
+	
+	public String findUser(Long post_writer)
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String result = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT member.mem_id AS writer_id FROM board "
+					+ "JOIN member ON board.post_writer = member.mem_no "
+					+ "WHERE board.post_writer = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, post_writer);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				result = rs.getString("writer_id");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return result;
+	}
+
+    // 1. 메뉴 관리 페이지 - 메뉴 추가
+	public boolean insertMenu(Menu_menu_Bean bean) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "INSERT INTO menu(menu_name, menu_gubn, menu_isSale, menu_imgPath, menu_component,"
+					+ "menu_price, menu_sell_amount, menu_recommend, menu_isUse, menu_content, menu_couponable) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getMenu_name());
+			pstmt.setString(2, bean.getMenu_gubn());
+			pstmt.setInt(3, bean.getMenu_isSale());
+			pstmt.setString(4, bean.getMenu_imgPath());
+			pstmt.setString(5, bean.getMenu_component());
+			pstmt.setInt(6, bean.getMenu_price());
+			pstmt.setInt(7, bean.getMenu_sell_amount());
+			pstmt.setInt(8, bean.getMenu_recommend());
+			pstmt.setInt(9, bean.getMenu_isUse());
+			pstmt.setString(10, bean.getMenu_content());
+			pstmt.setInt(11, bean.getMenu_couponable());
+			if (pstmt.executeUpdate() == 1)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	
+	// 1. 메뉴 관리 페이지 - 메뉴 수정
+	public boolean updateMenu(Menu_menu_Bean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE menu SET menu_name=?, menu_gubn=?, menu_isSale=?, menu_component=?,"
+					+ "menu_price=?, menu_sell_amount=?, menu_recommend=?, menu_isUse = ?, menu_content=?, "
+					+ "menu_imgPath=?, menu_couponable = ?  WHERE menu_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getMenu_name());
+			pstmt.setString(2, bean.getMenu_gubn());
+			pstmt.setInt(3, bean.getMenu_isSale());
+			pstmt.setString(4, bean.getMenu_component());
+			pstmt.setInt(5, bean.getMenu_price());
+			pstmt.setInt(6, bean.getMenu_sell_amount());
+			pstmt.setInt(7, bean.getMenu_recommend());
+			pstmt.setInt(8, bean.getMenu_isUse());
+			pstmt.setString(9, bean.getMenu_content());
+			pstmt.setString(10, bean.getMenu_imgPath());
+			pstmt.setInt(11, bean.getMenu_couponable());
+			pstmt.setInt(12, bean.getMenu_no());
+			int count = pstmt.executeUpdate();
+			if (count > 0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	
+	//추천 수 업데이트
+	public Long updateLikecount(Long board_no)
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		int result = 0;
+		Long post_likecount = 0L;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE board SET post_likecount =post_likecount + 1 WHERE post_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, board_no);
+			result = pstmt.executeUpdate();
+			if (result == 1) {
+				pool.freeConnection(con, pstmt);
+				con = pool.getConnection();
+				sql = "SELECT post_likecount FROM board WHERE post_no =? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setLong(1, board_no);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					post_likecount = rs.getLong("post_likecount");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return post_likecount;
+	}
+	
+	//조회수 업데이트 
+	public Long updateViewcount(Long board_no)
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		int result = 0;
+		Long post_viewcount = 0L;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE board SET post_viewcount =post_viewcount + 1 WHERE post_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, board_no);
+			result = pstmt.executeUpdate();
+			if (result == 1) {
+				pool.freeConnection(con, pstmt);
+				con = pool.getConnection();
+				sql = "SELECT post_viewcount FROM board WHERE post_no =? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setLong(1, board_no);
+				rs = pstmt.executeQuery();
+				while (rs.next()) {
+					post_viewcount = rs.getLong("post_viewcount");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return post_viewcount;
+	}
+	
+	// 1. 메뉴 관리 페이지 - 메뉴 삭제
+	public int deleteMenu(int menu_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		try {
+			con = pool.getConnection();
+			sql = "DELETE FROM menu WHERE menu_no=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, menu_no);
+			pstmt.executeUpdate();
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		//실패시 -1 반환
+		return -1;
+	}
 	
 	
 	

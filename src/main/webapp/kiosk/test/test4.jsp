@@ -2,8 +2,9 @@
 <%@ page import="menu.Menu_menu_Bean" %>
 <%@ page import="java.util.Vector" %>
 <jsp:useBean id="mMgr" class="menu.Manager_Menu"  />
-<link href="style1.css" rel="stylesheet" type="text/css">
+<link href="style3.css" rel="stylesheet" type="text/css">
 <link href="style.css" rel="stylesheet">
+<script src='https://unpkg.com/micromodal/dist/micromodal.min.js'></script>
 
 <html>
 
@@ -25,89 +26,115 @@
 	 	<div class="page w3-button"onclick="jumoon3()" ><h2>사 이 드</h2></div>
 	 </div>
 
-	<div class="item1 w3-button"onclick="jumoon()">
+	<div class="item1" onclick="hrefTo('item1')">
 		<div class="rowbox">
- 			<img src="../images/saida.jpg" >
+ 			<img src="../images/hamburger0.jpg">
  				<div class="colbox">
- 				  <H1>데리버거</H1>
- 				  <h2 style="color:blue;" >3500~</h2>
+ 				  <span id="hamburger0" style="font-size:36px; margin :10px" >데리버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
  				 </div>
 		</div>
 	</div>
 	
-	<div class="item2">
+	<div class="item2" onclick="hrefTo('item2')">
 		<div class="rowbox">
  			<img src="../images/hamburger1.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger1" style="font-size:36px; margin :10px" >더블 데리버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
  				</div>
 		</div>
 	</div>
 	
-	<div class="item3">
+	<div class="item3 " onclick="hrefTo('item3')">
 		<div class="rowbox">
  			<img src="../images/hamburger2.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
- 				</div>
+ 			 	  <span id="hamburger2" style="font-size:36px; margin :10px" >불고기버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
+				</div>
 		</div>
 	</div>
 	
-	<div class="item4">
+	<div class="item4" onclick="hrefTo('item4')">
 		<div class="rowbox">
  			<img src="../images/hamburger3.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger3" style="font-size:36px; margin :10px" >더블 불고기버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
  				</div>
 		</div>
 	</div>
 	
-	<div class="item5">
+	<div class="item5" onclick="hrefTo('item5')">
 		<div class="rowbox">
  			<img src="../images/hamburger4.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger4" style="font-size:36px; margin :10px" >치킨버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
+
  				</div>
 		</div>	
 	</div>
 	
-	<div class="item6">
+	<div class="item6" onclick="hrefTo('item6')">
 		<div class="rowbox">
  			<img src="../images/hamburger5.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger5" style="font-size:36px; margin :10px" >더블 치킨버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
+
  				</div>
 		</div>
 	</div>
 	
-	<div class="item7">
+	<div class="item7" onclick="hrefTo('item7')">
 		<div class="rowbox">
  			<img src="../images/hamburger6.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger6" style="font-size:36px; margin :10px" >치즈버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
+
  				</div>
 		</div>	
 	</div>
 	
-	<div class="item8">
+	<div class="item8" onclick="hrefTo('item8')">
 		<div class="rowbox">
  			<img src="../images/hamburger7.jpg" >
  				<div class="colbox">
- 				     <H1>데리버거</H1>
- 					 <h2>1121212</h2>
+ 				  <span id="hamburger7" style="font-size:36px; margin :10px" >더블 클래식치즈버거</span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >3500~</span>
+
  				</div>
 		</div>	
+	</div>
+
+	
+	
+	
+	<div class="order" id="totalOrder" >
+			  	<div class="price" id ="totalPrice" >
+				
+				</div>
+
+			  	<div class="Ordermenu" >
+			  	<span class="Ordermenu" id="menu" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
+			   </div>
+
+			  	<div class="count" >
+			  	<span class="count" id="count" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>  
+			    </div>
+			  	
+			  	<div class="price" >
+			  	<span id="price" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
+				</div>
+	
 	</div>
 	
 	
 	
-	
+		
 	
 	
 	
@@ -117,24 +144,6 @@
 		
 
 
-<%
-	Vector<Menu_menu_Bean> vector = mMgr.getMenuList();
-	
-	int menuLength = vector.size();
-
-	if (vector.isEmpty()){
-		out.println("등록된 메뉴가 없습니다.");
-	} else {
-		for (int i = 0; i < menuLength; i++) {
-			Menu_menu_Bean bean = vector.get(i);
-			
-%>
-
-<%
-		}
-	}
-
-%>
 
 
 
@@ -145,7 +154,7 @@
 
 <script>
 function jumoon0() {
-	location.href = "test.jsp";
+	location.href = "test1-1-4.jsp";
 }		
 function jumoon1() {
 	location.href = "test2.jsp";

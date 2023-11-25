@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/admin/layouts/BeanManager.jsp=UTF-8
 encoding//src/main/webapp/admin/layouts/index/index_parsing.jsp=UTF-8
+encoding//src/main/webapp/board/layouts/header.jsp=UTF-8
 encoding//src/main/webapp/kiosk/purchase/finally.jsp=UTF-8
 encoding//src/main/webapp/user/find_idpw.jsp=UTF-8
 encoding/<project>=UTF-8
