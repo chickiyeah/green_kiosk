@@ -4,7 +4,7 @@
 <%@ page import="menu.Manager_Menu"%>
 <%@ page import="java.util.Vector" %>
 <%@ page import="menu.Menu_menu_Bean" %>
-
+<%@ include file="/index/base/head_import.jsp"%>
 
 <% 
 	String cPath = request.getContextPath();

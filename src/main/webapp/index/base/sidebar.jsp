@@ -65,14 +65,25 @@
 		  				<span class="mile">보유 마일리지 : <%=bean.getMem_mile() %> 점</span>
 		  				<%	
 		  					Integer count = 0;
-		  					String coupon = bean.getMem_coupon();
-		  					if (coupon != "") {
-		  						String[] coupon_s = coupon.split(",");
-		  						count = coupon_s.length;
-		  					}
+			  				Vector<Coupon_Bean> side_user_coupons = side_c_mgr.getUserCoupon(String.valueOf(mem_id));
+			  				long side_user_coupon_count = 0;
+			  				System.out.println("sidecount : "+side_user_coupon_count);
+			  				
+			  				for (Coupon_Bean user_coupon : side_user_coupons) {
+			  					String coupon = user_coupon.getCoupon_code();
+			  					Map<String, String> c_vaild = side_c_mgr.checkCouponVaild(coupon);
+			  					
+			  					if (c_vaild.get("result").equals("success")) {
+			  						side_user_coupon_count += 1;
+			  					} else {
+			  						System.out.println("code : "+coupon);
+			  						System.out.println("reason : "+c_vaild.get("reason"));
+			  					}
+			  				}
 		  					
+			  				System.out.println("sidecount : "+side_user_coupon_count);
 		  				%>
-		  				<span class="coupon">보유중인 쿠폰 : <%=count %> 장</span>
+		  				<span class="coupon">보유중인 쿠폰 : <%=side_user_coupon_count %> 장</span>
 		  			</div>
 		  			<div class="setting">
 		  				<span onclick="location.href='<%=cPath %>/admin/'">관리하기</span>
@@ -115,14 +126,25 @@
 		  				<span class="mile">보유 마일리지 : <%=bean.getMem_mile() %> 점</span>
 		  				<%	
 		  					Integer count = 0;
-		  					String coupon = bean.getMem_coupon();
-		  					if (coupon != "") {
-		  						String[] coupon_s = coupon.split(",");
-		  						count = coupon_s.length;
-		  					}
+			  				Vector<Coupon_Bean> side_user_coupons = side_c_mgr.getUserCoupon(String.valueOf(mem_id));
+			  				long side_user_coupon_count = 0;
+			  				System.out.println("sidecount : "+side_user_coupon_count);
+			  				
+			  				for (Coupon_Bean user_coupon : side_user_coupons) {
+			  					String coupon = user_coupon.getCoupon_code();
+			  					Map<String, String> c_vaild = side_c_mgr.checkCouponVaild(coupon);
+			  					
+			  					if (c_vaild.get("result").equals("success")) {
+			  						side_user_coupon_count += 1;
+			  					} else {
+			  						System.out.println("code : "+coupon);
+			  						System.out.println("reason : "+c_vaild.get("reason"));
+			  					}
+			  				}
 		  					
+			  				System.out.println("sidecount : "+side_user_coupon_count);
 		  				%>
-		  				<span class="coupon">보유중인 쿠폰 : <%=count %> 장</span>
+		  				<span class="coupon">보유중인 쿠폰 : <%=side_user_coupon_count %> 장</span>
 		  			</div>
 		  			<div class="setting">
 		  				<span onclick="location.href='<%=cPath %>/mypage/personal.jsp'">마이페이지</span>
