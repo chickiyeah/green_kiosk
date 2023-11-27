@@ -37,18 +37,20 @@
     	post_likecount = list.get(i).getPost_likecount(); 
     	count++;
 %>
-
+ <script>
+ 	getThumbNail(`<%=post_content%>`, <%=post_no%>); 
+ </script>
 
 <ul class="w3-ul">
     <li class="w3-bar w3-border">
         <a href="<%=request.getContextPath()%>/board/view/boardView.jsp?post_no=<%=post_no%>">
         <span class="w3-bar-item w3-button w3-white w3-xlarge w3-right"></span>
-        <img src="<%=request.getContextPath()%>/assets/images/cat.jpg" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+        <img id= "thumbnail<%=post_no%>" src="<%=request.getContextPath()%>/assets/images/cat.jpg" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
         <div class="w3-bar-item">
             <span class="w3-large"><%=post_writer_id%></span>
             <span class="post_time"><%=post_time%></span>
             <br>
-            <span><%=post_content%></span>
+            <span><%=post_title%></span>
         </div>
         </a>
     </li>
@@ -56,6 +58,5 @@
 <%
    }
 %>
-
 	</div>
 </div>

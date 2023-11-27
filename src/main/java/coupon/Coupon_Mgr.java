@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -254,6 +256,7 @@ public class Coupon_Mgr {
 		Integer vaild_date = 0;
 		boolean used = false;
 		String coupon_name = "";
+		Timestamp issue_date = null;
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("result", "failed");
 		result.put("reason", "unknown");
@@ -265,6 +268,7 @@ public class Coupon_Mgr {
 	            date = this.rs.getDate("coupon_issueDate");
 	            used = this.rs.getBoolean("coupon_used");
 	            coupon_name = this.rs.getString("coupon_name");
+	            issue_date = this.rs.getTimestamp("coupon_issueDate");
 	            if (used) {
 	            	result.put("reason", "already_used");
 		        	return result;
@@ -290,11 +294,20 @@ public class Coupon_Mgr {
 	            	Calendar date_c = Calendar.getInstance();
 	            	java.util.Date now = Calendar.getInstance().getTime();
 	            	
+	            	if (vaild_date < 0) {
+	            		result.put("result", "success");
+	            		result.put("reason", "none");
+	            		
+	            		return result;
+	            	}
+	            	LocalDateTime issueday = issue_date.toLocalDateTime();
+					LocalDateTime endday = issueday.plusDays(vaild_date);
+					LocalDateTime now1 = LocalDateTime.now();
 	            	
 	            	date_c.add(Calendar.DATE, vaild_date);
 	            	date = date_c.getTime();
 	            	
-	            	if (date.before(now)) {
+	            	if (now1.isBefore(endday)) {
 	            		result.put("result", "success");
 	            		result.put("reason", "none");
 	            		

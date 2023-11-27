@@ -27,39 +27,6 @@ function copyToClipboard(currentUrl) {
 
 
 
-/*function updateBoard(post_no) {
-
-    $.ajax({
-        type: "POST",
-        url: "../getBoardData?post_no=" + post_no,
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8", 
-        success: function (response) {
-            if (response && response.length > 0) {
-                
-                // 예시: 받아온 목록을 HTML로 만들어 어딘가에 추가
-               
-               var post_likecount = response.post_likecount;
-               var post_viewcount = response.post_viewcount;
-               
-               var HTML_likecount = 
-               `	<span class="recommend-label">추천 ${post_likecount} </span>`;
-				
-				var HTML_viewcount =
-                    chatListHtml += htmlTemplate;                    
-                
-                // Update the content of the main element
-                $('.recommend-loading').html(HTML_likecount);
- 
-            } else {
-                alert("Failed to fetch chat list.");
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Ajax request failed:", status, error);
-        }
-    });
-}*/
 
 function increaseViewcount(post_no){
 	    $.ajax({
@@ -83,6 +50,7 @@ function increaseViewcount(post_no){
     });
 }
 
+  
 function increaseRecommendation(post_no) {
     $.ajax({
         type: "POST",

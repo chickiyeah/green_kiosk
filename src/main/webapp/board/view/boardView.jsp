@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="<%=request.getContextPath()%>/assets/js/board/boardView.js"></script>
 <%@include file="/board/layouts/sidebar.jsp" %>

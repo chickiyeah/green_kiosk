@@ -1,4 +1,4 @@
-var menuType = "all";
+/*var menuType = "all";
 
 function updateMenu(menuType) {
 	document.cookie = "menuType=" + menuType;
@@ -99,8 +99,8 @@ function updateMenu(menuType) {
                 $('.getMenuList').html(chatListHtml);					
 				}
             } else {
-/*                alert("Failed to fetch chat list.");
-*/            }
+                alert("Failed to fetch chat list.");
+            }
         },
         error: function (xhr, status, error) {
             console.error("Ajax request failed:", status, error);
@@ -108,12 +108,12 @@ function updateMenu(menuType) {
     });
 }
 
-
-window.addEventListener('DOMContentLoaded', function() {
+*/
+/*window.addEventListener('DOMContentLoaded', function() {
     updateMenu(menuType);
 });
 
-
+*/
 function formatNumber(number) {
     // 숫자를 3자리마다 쉼표로 구분
     var df = new Intl.NumberFormat('ko-KR');
@@ -198,3 +198,24 @@ function loadContent(url) {
 /*window.addEventListener('DOMContentLoaded', function() {
     loadContent(url);
 });*/
+
+function getThumbNail(link, postId){
+    var htmlCode = link.replace(/\n/g, '');
+
+	var parser = new DOMParser();
+	var doc = parser.parseFromString(htmlCode, 'text/html');
+	
+	var firstImgTag = doc.querySelector('img');
+	
+	if (firstImgTag){
+		  var fileLink = firstImgTag.getAttribute('src');
+		    console.log(fileLink);
+		    
+		    var thumbnailImg = document.getElementById('thumbnail' + postId);
+		    if (thumbnailImg) {
+				thumbnailImg.src = fileLink;
+			} 
+	} else {
+		  console.log('이미지가 없습니다.');
+	}
+}

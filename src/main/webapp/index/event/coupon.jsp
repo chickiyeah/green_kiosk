@@ -41,13 +41,27 @@
 	Vector<Coupon_kind_Bean> printable_coupons = c_k_mgr.get_printable(String.valueOf(mem_id));
 	
 	printable_count = printable_coupons.size();
-	user_coupon_count = user_coupons.size();
+	user_coupon_count = 0;
+
+	
+	for (Coupon_Bean user_coupon : user_coupons) {
+		String coupon = user_coupon.getCoupon_code();
+		Map<String, String> c_vaild = c_mgr.checkCouponVaild(coupon);
+		
+		if (c_vaild.get("result").equals("success")) {
+			user_coupon_count += 1;
+		} else {
+			System.out.println("code : "+coupon);
+			System.out.println("reason : "+c_vaild.get("reason"));
+		}
+	}
 	
 	if (printable_count >= user_coupon_count) {
 		maxsize = printable_count;
 	} else {
 		maxsize = user_coupon_count;
 	}
+	
 	
 
 	Gson gson = new Gson();
@@ -182,9 +196,10 @@ window.addEventListener('DOMContentLoaded', function() {
 		for (int i = 0; i < deffp; i++) {
 			%>
 			<tr style="background-color:powderblue" height="12.5%">
-				<td align="center"></td>
-				<td align="center"></td>
-				<td align="center"></td>
+				<td align="center">ㅤ</td>
+				<td align="center">ㅤ</td>
+				<td align="center">ㅤ</td>
+				<td align="center">ㅤ</td>
 			</tr>
 			<%
 		}
@@ -253,15 +268,7 @@ window.addEventListener('DOMContentLoaded', function() {
 							}
 						}
 					} else {
-						%>
-						<tr style="background-color:bisque" height="12.5%">
-							<td align="center"><%=user_coupon.getCoupon_name() %></td>
-							<td align="center">기간 만료</td>
-							<td align="center">기간 만료</td>
-							<td align="center"><%=user_coupon.getCoupon_discount() %> %</td>
-							<td align="center"><%=m_bean.getMenu_name() %></td>
-						</tr>
-						<%
+
 					}
 				} else {
 					%>
@@ -284,11 +291,11 @@ window.addEventListener('DOMContentLoaded', function() {
 			for (int i = 0; i < deff; i++) {
 				%>
 				<tr style="background-color:bisque" height="12.5%">
-					<td align="center"></td>
-					<td align="center"></td>
-					<td align="center"></td>
-					<td align="center"></td>
-					<td align="center"></td>
+					<td align="center">ㅤ</td>
+					<td align="center">ㅤ</td>
+					<td align="center">ㅤ</td>
+					<td align="center">ㅤ</td>
+					<td align="center">ㅤ</td>
 				</tr>
 				<%
 			}

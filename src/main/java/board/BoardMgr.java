@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+
 import DBconnector.DBConnectionMgr;
 import menu.Menu_menu_Bean;
 
@@ -114,31 +116,40 @@ public class BoardMgr {
 		return result;
 	}
 
-    // 1. 메뉴 관리 페이지 - 메뉴 추가
-	public boolean insertMenu(Menu_menu_Bean bean) {
-		
+    // 게시글 작성하기
+	public boolean insertBoard(HttpServletRequest req) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		ResultSet rs = null;
 		boolean flag = false;
+		int result = 0;
+		Long post_writer = 0L;
 		try {
 			con = pool.getConnection();
-			sql = "INSERT INTO menu(menu_name, menu_gubn, menu_isSale, menu_imgPath, menu_component,"
-					+ "menu_price, menu_sell_amount, menu_recommend, menu_isUse, menu_content, menu_couponable) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "SELECT distinct member.mem_no FROM member JOIN board ON member.mem_id = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getMenu_name());
-			pstmt.setString(2, bean.getMenu_gubn());
-			pstmt.setInt(3, bean.getMenu_isSale());
-			pstmt.setString(4, bean.getMenu_imgPath());
-			pstmt.setString(5, bean.getMenu_component());
-			pstmt.setInt(6, bean.getMenu_price());
-			pstmt.setInt(7, bean.getMenu_sell_amount());
-			pstmt.setInt(8, bean.getMenu_recommend());
-			pstmt.setInt(9, bean.getMenu_isUse());
-			pstmt.setString(10, bean.getMenu_content());
-			pstmt.setInt(11, bean.getMenu_couponable());
+			pstmt.setString(1, req.getParameter("post_writer"));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				post_writer = rs.getLong("mem_no");
+				result = 1;
+			}
+			if (result == 1)
+			{
+			pool.freeConnection(con, pstmt, rs);
+			con = pool.getConnection();
+			sql = "INSERT INTO board(post_time, post_title, post_content, post_writer, post_viewcount, post_likecount, post_filePath)"
+					+ "VALUES (now() , ?, ?, ?, 0, 0, ' ')";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, req.getParameter("post_title"));
+			pstmt.setString(2, req.getParameter("post_content"));
+			pstmt.setLong(3, post_writer);
 			if (pstmt.executeUpdate() == 1)
 				flag = true;
+			} else {
+				flag = false;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

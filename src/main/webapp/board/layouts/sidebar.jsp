@@ -19,7 +19,7 @@
         </a>
       </li>
       <li>
-        <a href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/board/write/write.jsp')" class="nav-link link-dark">
+        <a href="<%=request.getContextPath()%>/board/write/write.jsp" class="nav-link link-dark">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
           글쓰기
         </a>

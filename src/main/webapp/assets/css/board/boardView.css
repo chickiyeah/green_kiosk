@@ -36,6 +36,8 @@ pre {
 /* Comment section styles */
 #board_commentArea {
     padding-top :200px;
+    padding-left : 120px;
+    padding-right : 80px;
 }
 
 /* Adjustments for smaller screens */
