@@ -106,7 +106,21 @@ class Recipie {
   }
 }
 
+const initSessionStorage = () => {
+  sessionStorage.removeItem('basketArray');
+  sessionStorage.removeItem('couponArray');
+  sessionStorage.removeItem('mileage');
+  sessionStorage.removeItem('order');
+  sessionStorage.removeItem('coupon');
+  sessionStorage.removeItem('mobile');
+  sessionStorage.removeItem('bag');
+  sessionStorage.removeItem('shop');
+  sessionStorage.removeItem('smile');
+  sessionStorage.removeItem('card');
+}
+
 const handleClickCancleRecipie = () => {
+  initSessionStorage();
   location.href = 'main.jsp';
 };
 
@@ -207,6 +221,8 @@ const handleClickOkRecipie = (orderObject: orderType, element: HTMLElement, pk: 
   const canvasCtx = canvas.getContext('2d');
 
   const barcode = new Barcode(recipie.barcode, canvasCtx, 400, 140);
+  
+  initSessionStorage();
 };
 
 let insertOrder_g = null;

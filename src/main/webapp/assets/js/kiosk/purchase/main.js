@@ -268,7 +268,7 @@ var InitializeBasketHTML = function (str, foods) {
                 state.foods = [
                     {
                         index: 0,
-                        name: '양상추오이버거',
+                        name: '치즈버거',
                         price: 3500,
                         amount: 3,
                     },

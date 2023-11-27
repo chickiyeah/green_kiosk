@@ -59,6 +59,8 @@ public class Coupon_Servlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setContentType("text/html;charset=UTF-8");
+		
 		logger.info(LOGGER_NAME + ": Processing HTTP POST request");
 		
 		PrintWriter out = res.getWriter();
@@ -101,53 +103,35 @@ public class Coupon_Servlet extends HttpServlet {
 			}
 		} else if (endPoint.equals("/api/kiosk/purchase/coupon")) {
 			
+			
+			
 			Type type = new TypeToken<Map<String, String>>() {}.getType();
 			Map<String, String> coupon_map = gson.fromJson(requestBody, type);
 			
-			if (coupon_mgr.checkCouponCode(coupon_map.get("code")) > 0) {
-				Coupon_Bean coupon_bean = coupon_mgr.readCouponByCode(coupon_map.get("code"));
+			String code = coupon_map.get("code");
+			
+			if (coupon_mgr.checkCouponCode(code) >= 0) {
+				Map<String, String> map = coupon_mgr.checkCouponVaild(code);
 				
-				boolean isLimit = false;
-				boolean isCorrect = false;
 				
-				if (coupon_bean != null && coupon_bean.getCoupon_issueDate() != null) {
-					Timestamp timestamp_Now = new Timestamp(System.currentTimeMillis());
-					Timestamp timestamp_Issue = coupon_bean.getCoupon_issueDate();
-					Timestamp timestamp_Expire = coupon_bean.getCoupon_expireDate();
-					Timestamp timestamp_LimitTime1 = new Timestamp(System.currentTimeMillis());
-					Timestamp timestamp_LimitTime2 = new Timestamp(System.currentTimeMillis());
+				if (map.get("result").equals("success")) {
+					Coupon_Bean coupon_bean = coupon_mgr.readCouponByCode(code);
 					
-					if (coupon_bean.getCoupon_limitTime1() != null) {
-						isLimit = true;
-						timestamp_LimitTime1 = coupon_bean.getCoupon_limitTime1();
-						timestamp_LimitTime2 = coupon_bean.getCoupon_limitTime2();
-					}
-					
-					if (timestamp_Issue.compareTo(timestamp_Now) <= 0 && timestamp_Expire.compareTo(timestamp_Now) >= 0) {
-						if (isLimit) {
-							if (timestamp_LimitTime1.compareTo(timestamp_Now) <= 0 && timestamp_LimitTime2.compareTo(timestamp_Now) >= 0) {
-								isCorrect = true;
-							}
-						} else {
-							isCorrect = true;
-						}
-					}
-				}
-				if (isCorrect) {
 					out.write("{"
-						  + "\"result\": true, \"body\":"
-							+ "{\"code\": \"" + coupon_map.get("code") + "\","
+						    + "\"result\": true, \"body\":"
+							+ "{\"code\": \"" + code + "\","
 						    + "\"name\": \"" + coupon_bean.getCoupon_name() + "\","
-							+ "\"menuNo\": \"" + coupon_bean.getCoupon_menuNo() + "\","
-							+ "\"discount\": \"" + coupon_bean.getCoupon_discount() + "\","
+							+ "\"menuNo\": " + coupon_bean.getCoupon_menuNo() + ","
+							+ "\"discount\": " + coupon_bean.getCoupon_discount()
 							+ "}}");
 				} else {
 					out.write("{"
-							+ "\"result\": false, \"body\": \"invalid\"}");
+							+ "\"result\": false, \"body\": \"over-time\"}");
 				}
 			} else {
+				System.out.println(coupon_mgr.checkCouponCode(code));
 					out.write("{"
-							+ "\"result\": false, \"body\": \"over-time\"}");
+							+ "\"result\": false, \"body\": \"invalid\"}");
 			}
 		}
 		
