@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	%>
 	<div class="container">
 		<div class="row">
-			<form method="post" name="board_post" action="./writeAction" enctype="mulipart/form-data">
+			<form method="post" name="board_post" action="./writeAction" enctype="mulipart/form-data" accept-charset = "utf-8">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
@@ -59,7 +59,6 @@ window.addEventListener('DOMContentLoaded', function() {
 				<input type="submit" class="btn btn-success pull-right" value="글쓰기">
 				<input type="reset" class="btn btn" value="다시쓰기">
 		</form>
-			
 		</div>
 	</div>
 

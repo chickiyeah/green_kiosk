@@ -19,6 +19,7 @@ public class board_write extends HttpServlet {
 		
     	response.setCharacterEncoding("UTF-8");
     	response.setContentType("application/json;charset=UTF-8");
+    	request.setCharacterEncoding("UTF-8");
     	
     	String endPoint = request.getServletPath();
     	

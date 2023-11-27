@@ -4,6 +4,7 @@
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <script> let res = "false"; </script>
 <%
 	String cPath = request.getContextPath();

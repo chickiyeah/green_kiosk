@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <%
 	String cPath = request.getContextPath();
 

@@ -11,6 +11,7 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.google.gson.reflect.TypeToken" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <script> let res = "false"; </script>
 <%
 	Orders_Mgr mgr = new Orders_Mgr();

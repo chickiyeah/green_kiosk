@@ -90,3 +90,46 @@ function updatePostViewcount(post_no, post_viewcount) {
 			`<span class="viewcount-label id="viewcount-label">${post_viewcount} </span>`;
 			$('viewcount-loading').html(HTML_viewcount);
 }
+
+
+
+
+// 여기는 댓글
+
+function getCommentList(post_no, post_writer)
+{
+	 $.ajax({
+        type: "POST",
+        url: "./getCommentList",
+        data: { post_no: post_no },
+        dataType: "json",
+        cache: false, //한번 cache 막아봅시다.
+        success: function (response) {
+            if (response && response.length > 0) {
+                updateCommentList(post_no, response, post_writer);
+            } else {
+                console.log("올바르지 않은 JSON format 입니다.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("댓글 목록 로딩 실패.:", status, error);
+        }
+    });
+}
+
+function updateCommentList(post_no, commentList, post_writer) {
+    var HTML_commentList = commentList.map(function (comment) {
+	var commentWriterCheck = (String(comment.comment_writer) === String(post_writer)) ? '작성자' : '';
+
+        return `
+            <div class="comment_list_Map" id="comment_list_Map">
+                <p> ${comment.comment_writer_id} <span class="commentWriterCheck">${commentWriterCheck}</span>&nbsp; ${comment.comment_time}</p>
+                <p>&nbsp;${comment.comment_content}</p>
+            </div><hr/>
+        `;
+    }).join(''); 
+    
+    var totalCommentCount = commentList.length;
+    $('#list_amount').text(` (${totalCommentCount}개)`);
+    $('#board_commentUpdate').html(HTML_commentList);
+}

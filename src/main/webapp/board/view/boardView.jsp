@@ -57,6 +57,7 @@
 window.addEventListener('DOMContentLoaded', function(){
 	console.log("increaseViewcount 새로고침으로 실행");
 	increaseViewcount(<%=post_no%>);
+	getCommentList(<%=post_no%>,<%=post_writer%>);
 });
 </script>
 	
@@ -121,7 +122,8 @@ window.addEventListener('DOMContentLoaded', function(){
     </div>
     <!--  여긴 댓글 구간  -->
     <div class="board_commentArea" id="board_commentArea">
-		<hr>	
+    	<div class="comment_list_menu" id="comment_list_menu">댓글 목록<span id="list_amount"></span></div>
+		<hr>
 		<div class="board_commentUpdate" id="board_commentUpdate"></div>
 	</div>
 

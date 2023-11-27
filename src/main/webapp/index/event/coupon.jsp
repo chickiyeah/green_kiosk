@@ -17,6 +17,7 @@
 <%@ page import="coupon.Coupon_Mgr" %>
 <%@ page import="menu.Manager_Menu" %>
 <%@ page import="menu.Menu_menu_Bean" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <%
 	String cPath = request.getContextPath();
 

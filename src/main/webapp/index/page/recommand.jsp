@@ -4,6 +4,7 @@
 <%@ page import="java.util.Vector"%>
 <%@ page import="user.Member_Bean" %>
 <jsp:useBean id="rcMgr" class="user.Member_Mgr"/>
+<%@ include file="/index/base/head_import.jsp"%>
 
 <%
 	String cPath = request.getContextPath();

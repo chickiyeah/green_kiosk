@@ -14,6 +14,7 @@
 <%@ page import= "java.util.ArrayList" %>
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="com.google.gson.reflect.TypeToken" %>
+<%@ include file="/index/base/head_import.jsp"%>
 
 <%
 Orders_Mgr o_mgr = new Orders_Mgr();

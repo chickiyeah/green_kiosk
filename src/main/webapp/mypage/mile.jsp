@@ -4,6 +4,7 @@
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
 <%@ page import="java.util.Vector" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <script> let res = "false"; </script>
 <%
 	Mile_log_Mgr mgr = new Mile_log_Mgr();

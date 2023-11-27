@@ -4,6 +4,7 @@
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
 <%@ page import="java.util.Vector" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <script> let res = "false"; </script>
 <%
 	Orders_Mgr mgr = new Orders_Mgr();
