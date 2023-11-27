@@ -25,7 +25,7 @@ import coupon.Coupon_Bean;
 import coupon.Coupon_Mgr;
 import coupon.Coupon_VO;
 
-@WebServlet({ "/api/kiosk/purchase/coupon", "/api/kiosk/purchase/couponArray" })
+@WebServlet({ "/api/kiosk/purchase/coupon", "/api/kiosk/purchase/couponArray", "/api/kiosk/purchase/coupon/expire" })
 public class Coupon_Servlet extends HttpServlet {
 	private static final long serialVersionUID = 822377164049874508L;
     private static final Logger logger = Logger.getLogger(Coupon_Servlet.class.getName());
@@ -101,7 +101,24 @@ public class Coupon_Servlet extends HttpServlet {
 						+ gson.toJson(list_coupons_vo)
 						+ "}");
 			}
-		} else if (endPoint.equals("/api/kiosk/purchase/coupon")) {
+		} 
+		else if (endPoint.equals("/api/kiosk/purchase/coupon/expire")) {
+
+			
+			Type type = new TypeToken<ArrayList<Coupon_VO>>() {}.getType();
+			List<Coupon_VO> list_coupons_vo = this.verify(gson.fromJson(requestBody, type));
+
+			for (Coupon_VO vo : list_coupons_vo) {
+				coupon_mgr.useCoupon(vo.getCode());
+			}
+
+			out.write("{"
+					+ "\"result\": true"
+					+ "}");
+			
+			
+		}
+		else if (endPoint.equals("/api/kiosk/purchase/coupon")) {
 			
 			
 			

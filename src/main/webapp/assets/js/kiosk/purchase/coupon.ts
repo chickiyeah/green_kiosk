@@ -80,6 +80,7 @@ const handleCouponForm = async () => {
       }
       sessionStorage.setItem('couponArray', JSON.stringify(couponArray));
       generateCouponHTML(couponArray);
+      couponCodeElement.value = '';
     } else {
       const couponTextElement = document.getElementById('couponText');
       if (fetchCoupon.body === 'invalid') {

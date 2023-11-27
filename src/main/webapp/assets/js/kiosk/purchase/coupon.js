@@ -113,6 +113,7 @@ var handleCouponForm = function () { return __awaiter(_this, void 0, void 0, fun
                     }
                     sessionStorage.setItem('couponArray', JSON.stringify(couponArray));
                     generateCouponHTML(couponArray);
+                    couponCodeElement.value = '';
                 }
                 else {
                     couponTextElement_2 = document.getElementById('couponText');

@@ -176,6 +176,7 @@ public class Coupon_Mgr {
 		java.util.Date date = null;
 		Integer vaild_date = 0;
 		boolean used = false;
+		String coupon_name = "";
 		Map<String, String> result = new HashMap<String, String>();
 		result.put("result", "failed");
 		result.put("reason", "unknown");
@@ -186,6 +187,7 @@ public class Coupon_Mgr {
 	        if (this.rs.next()) {
 	            date = this.rs.getDate("coupon_issueDate");
 	            used = this.rs.getBoolean("coupon_used");
+	            coupon_name = this.rs.getString("coupon_name");
 	            if (used) {
 	            	result.put("reason", "already_used");
 		        	return result;
@@ -201,8 +203,8 @@ public class Coupon_Mgr {
 		}
 		boolean enable = false;
 		try {
-			this.Initializer("SELECT * FROM coupon WHERE coupon_code=?");
-			this.pst.setString(1, code);
+			this.Initializer("SELECT * FROM coupon_type WHERE name=?");
+			this.pst.setString(1, coupon_name);
 			this.rs = this.pst.executeQuery();
 	        if (this.rs.next()) {
 	            vaild_date = this.rs.getInt("vaild_date");

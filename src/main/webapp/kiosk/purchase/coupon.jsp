@@ -57,8 +57,8 @@
     </section>
   </main>
   <footer class="rowbox">
-    <div class="payment-ok" onClick="handleCouponForm()">확인</div>
-    <div class="payment-cancle" onClick="handleClickCancle2()">취소</div>
+    <div class="payment-ok" onClick="handleCouponForm()">쿠폰 사용</div>
+    <div class="payment-cancle" onClick="handleClickCancle2()">뒤로가기</div>
   </footer>
   <script src="../../assets/js/kiosk/purchase/detailedFetch.js"></script>
   <script src="../../assets/js/kiosk/purchase/coupon.js"></script>

@@ -25,6 +25,7 @@
         </div>
       </div>
     </div>
+    <script src="../../assets/js/kiosk/purchase/detailedFetch.js"></script>
     <script src="../../assets/js/kiosk/purchase/bin/micromodal.min.js"></script>
     <script src="../../assets/js/kiosk/purchase/finally.js"></script>
     <script>

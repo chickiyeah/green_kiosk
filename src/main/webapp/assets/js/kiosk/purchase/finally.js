@@ -115,6 +115,10 @@ var Recipie = /** @class */ (function () {
     return Recipie;
 }());
 var initSessionStorage = function () {
+    var couponArray = sessionStorage.getItem('couponArray');
+    if (couponArray !== null && couponArray !== undefined) {
+        detailedFetch('/green_kiosk/api/kiosk/purchase/coupon/expire', 'POST', encodeURIComponent(couponArray));
+    }
     sessionStorage.removeItem('basketArray');
     sessionStorage.removeItem('couponArray');
     sessionStorage.removeItem('mileage');
