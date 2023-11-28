@@ -1,3 +1,31 @@
+.flex-wrapper {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100vw;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+.flex-item {
+	border: 1px solid #181818;
+    padding : 8px 16px;
+	border: none;
+    self-align: center;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;	
+	flex: 1 1 auto;
+
+}
+.flex-item:hover {
+    background-color: #ccc;
+    color: #000
+}
 
 .container {
     display: grid;
@@ -19,7 +47,7 @@
     grid-column: 1/6;
     display: flex;
     justify-content: space-between;
-		grid-row : 2/3;
+	grid-row : 2/3;
 
 }
  
@@ -249,10 +277,7 @@ img {
 }
 
 .page{
-	padding : 8px16px;
 	border: none;
-    display: inline-block;
-    vertical-align: middle;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
@@ -260,6 +285,10 @@ img {
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
+    width: 25vw;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1.16rem;
 }
 
     

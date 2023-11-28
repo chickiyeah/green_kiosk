@@ -249,14 +249,6 @@ const InitializeBasketHTML = (str: string, foods: any[]) => {
 
 (async () => {
   state.foods = parseJsonSessionStorage('basketArray');
-  state.foods = [
-    {
-      index: 0,
-      name: '치즈버거',
-      price: 3500,
-      amount: 3,
-    },
-  ];
 
   InitializeBasketHTML('#basketPage', state.foods);
 

@@ -66,12 +66,16 @@ var generateCouponHTML = function (arr) {
 (function () {
     var couponArray = [];
     var couponItem = sessionStorage.getItem('couponArray');
-    if (couponItem !== null || couponItem !== undefined) {
+    if (couponItem !== null && couponItem !== undefined) {
         couponArray = JSON.parse(sessionStorage.getItem('couponArray'));
     }
     generateCouponHTML(couponArray);
 })();
 var handleClickCancle2 = function () {
+    var couponItem = sessionStorage.getItem('couponArray');
+    if (couponItem === null || couponItem === undefined) {
+        sessionStorage.setItem('coupon', JSON.stringify(false));
+    }
     location.href = 'main.jsp';
 };
 var clearKeypad = function () {

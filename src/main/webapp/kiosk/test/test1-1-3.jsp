@@ -51,6 +51,13 @@
     MicroModal.close('modal-2-1');
   };
 
+  function cancelOrder() {
+	  sessionStorage.clear();
+	}
+ 
+    
+  
+  
   
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -143,9 +150,10 @@
       totalPrice += item.price * item.amount;
       itemCount += item.amount;
     
-      
+      price+= item.price * item.amount;
 
-      
+	sessionStorage.setItem('basket', JSON.stringify(basketArray));
+
     });
     
 
@@ -191,10 +199,10 @@
 			    }
 			
 			    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
-			    html += '<div class="alldelete" >';
+			    html += '<div class="alldelete" onclick="cancelOrder()" >';
 			    html += '취소하기';
 			    html += '</div>';
-			    html += '<div class="basket">';
+			    html += '<div class="basket" onclick="basket()>';
 			    html += '결제하기';
 			    html += '</div>';
 			    html += '</div>';
@@ -304,7 +312,7 @@ const deleteBasket = (deletedIndex) => {
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	  
  		document.querySelectorAll('.potato1').forEach((item) => {
 		    item.addEventListener('click', () => {
-		      addToBasket('양념감자(어니언)', 1500);
+		      addToBasket('양념감자(어니언)', 1700);
 		      MicroModal.show('modal-2');
 		      MicroModal.close('modal-1-1');
 		       MicroModal.close('modal-1');
@@ -313,7 +321,7 @@ const deleteBasket = (deletedIndex) => {
 
 	   document.querySelectorAll('.potato2').forEach((item) => {
 		     item.addEventListener('click', () => {
-		       addToBasket('양념감자(치즈)', 1500);
+		       addToBasket('양념감자(치즈)', 1700);
 		       MicroModal.show('modal-2');
 		       MicroModal.close('modal-1-1');
 		       MicroModal.close('modal-1');
@@ -323,7 +331,7 @@ const deleteBasket = (deletedIndex) => {
 
 	   document.querySelectorAll('.potato3').forEach((item) => {
 		      item.addEventListener('click', () => {
-		       addToBasket('양념감자(칠리)', 1500);
+		       addToBasket('양념감자(칠리)', 1700);
 		       MicroModal.show('modal-2');
 		       MicroModal.close('modal-1-1');
 		       MicroModal.close('modal-1');
@@ -380,10 +388,17 @@ const deleteBasket = (deletedIndex) => {
 
 				        });
 				      });
+			   basketArray = JSON.parse(sessionStorage.getItem('basket')) || [];
+			   sessionStorage.removeItem('myArray');
+
+			    updateBasket();		
+
 			   
-		});
+
+	});
 
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	  
 
 
 		  
@@ -404,7 +419,7 @@ const deleteBasket = (deletedIndex) => {
 <body>
 <div class="container">
 
-	 <div class="head color1" align="center">	<h1>KIOSK</h1> <br>
+	 <div class="head color1" align="center">	<h1>Green KIOSK</h1> <br>
 	 </div>
 	 <div class="main color2" align="center">	
 	 	<div class="page "onclick="jumoon0()" ><h2>단 품</h2></div>
@@ -781,6 +796,18 @@ const deleteBasket = (deletedIndex) => {
 
 <script>
 
+function jumoon0() {
+	location.href = "test1-1-5.jsp";
+}		
+function jumoon1() {
+	location.href = "test2.jsp";
+}		
+function jumoon2() {
+	location.href = "test3.jsp";
+}		
+function jumoon3() {
+	location.href = "test4.jsp";
+}	
 
     
 </script>

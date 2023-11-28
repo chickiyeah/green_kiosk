@@ -34,13 +34,17 @@ const generateCouponHTML = (arr: any[]) => {
 (() => {
   let couponArray = [];
   const couponItem = sessionStorage.getItem('couponArray');
-  if (couponItem !== null || couponItem !== undefined) {
+  if (couponItem !== null && couponItem !== undefined) {
     couponArray = JSON.parse(sessionStorage.getItem('couponArray'));
   }
   generateCouponHTML(couponArray);
 })();
 
 const handleClickCancle2 = () => {
+  const couponItem = sessionStorage.getItem('couponArray');
+  if (couponItem === null || couponItem === undefined) {
+    sessionStorage.setItem('coupon', JSON.stringify(false));
+  }
   location.href = 'main.jsp';
 };
 

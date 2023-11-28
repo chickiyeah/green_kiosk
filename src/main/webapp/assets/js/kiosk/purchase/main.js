@@ -265,14 +265,6 @@ var InitializeBasketHTML = function (str, foods) {
         switch (_a.label) {
             case 0:
                 state.foods = parseJsonSessionStorage('basketArray');
-                state.foods = [
-                    {
-                        index: 0,
-                        name: '치즈버거',
-                        price: 3500,
-                        amount: 3,
-                    },
-                ];
                 InitializeBasketHTML('#basketPage', state.foods);
                 if (!isExistSessionStorage('couponArray')) return [3 /*break*/, 2];
                 return [4 /*yield*/, detailedFetch('/green_kiosk/api/kiosk/purchase/couponArray', 'POST', encodeURIComponent(item.get('couponArray')))];

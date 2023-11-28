@@ -53,6 +53,7 @@
        <div class="numeric-keypad" onClick="handleKeypad2(0)">0</div>
        <div class="numeric-keypad numeric-clear" onClick="clearKeypad2()">Clear</div>
      </div>
+    <div class="payment-cancle" onClick="handleScanBarcode()">바코드 입력</div>
  	</div>
   <div class="rowbox">
     <div class="payment-ok" onClick="handleSmileForm()">확인</div>
@@ -60,5 +61,10 @@
   </div>
   <script src="../../assets/js/kiosk/purchase/detailedFetch.js"></script>
   <script src="../../assets/js/kiosk/purchase/smile.js"></script>
+  <script>
+    const handleScanBarcode = () => {
+      location.href = './scanner.jsp?by=smile';
+    }
+    </script>
 </body>
 </html>

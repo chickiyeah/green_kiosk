@@ -23,6 +23,9 @@
     MicroModal.close('modal-2-1');
   };
 
+  function cancelOrder() {
+	  sessionStorage.clear();
+	}
   
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -115,7 +118,8 @@
       totalPrice += item.price * item.amount;
       itemCount += item.amount;
     
-      
+      sessionStorage.setItem('basket', JSON.stringify(basketArray));
+
 
       
     });
@@ -163,7 +167,7 @@
 			    }
 			
 			    html += '<div class="alldelete,basket" style="display:flex; width:100vw; justify-content: flex-end; ">';
-			    html += '<div class="alldelete" >';
+			    html += '<div class="alldelete" onclick="cancelOrder()" >';
 			    html += '취소하기';
 			    html += '</div>';
 			    html += '<div class="basket">';
@@ -252,58 +256,10 @@ const deleteBasket = (deletedIndex) => {
 
 
   // 예제에서는 각 메뉴의 클릭 이벤트에 addToBasket 함수를 추가하였습니다.
-	document.addEventListener('DOMContentLoaded', function () {
-
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	  
-
-		document.querySelector('.item1').addEventListener('click', () => {addToBasket('코카콜라', 1500);
-		 });
-		 document.querySelector('.item2').addEventListener('click', () => {addToBasket('제로콜라', 1500);
-		 });	
-		 document.querySelector('.item3').addEventListener('click', () => {addToBasket('스프라이트', 1500);
-		 });;	
-		 document.querySelector('.item4').addEventListener('click', () => {addToBasket('스프라이트 제로',1500);
-		 });	
-		 document.querySelector('.item5').addEventListener('click', () => {addToBasket('밀키스', 1500);
-		 });
-		 document.querySelector('.item6').addEventListener('click', () => {addToBasket('마운틴듀', 1500);
-		 });	
-		 document.querySelector('.item7').addEventListener('click', () => {addToBasket('환타', 1500);
-		  MicroModal.open('modal-2-1');
-		 });	
-		 
-		 document.querySelector('.item8').addEventListener('click', () => {addToBasket('오렌지쥬스', 2500);
-		 });
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	  
-		 document.querySelectorAll('.fanta1').forEach((item) => {
-				    item.addEventListener('click', () => {
-				      addToBasket('환타(포도)', 1500);
-				      MicroModal.close('modal-2-1');
-				       MicroModal.close('modal-2');
-
-				 		  });
-				      });
-
-			   document.querySelectorAll('.fanta2').forEach((item) => {
-				     item.addEventListener('click', () => {
-				       addToBasket('환타(파인애플)', 1500);
-				       MicroModal.close('modal-2-1');
-				       MicroModal.close('modal-2');
-
-				    	 });
-				      });
-
-			   document.querySelectorAll('.fanta3').forEach((item) => {
-				      item.addEventListener('click', () => {
-				       addToBasket('환타(오렌지)', 1500);
-				       MicroModal.close('modal-2-1');
-				       MicroModal.close('modal-2');
-
-				        });
-				      });
-			   
-		});
+    document.querySelector('.alldelete').addEventListener('click', () => {
+        clearBasket();
+    });  
+  };
 
 
 
@@ -327,7 +283,7 @@ const deleteBasket = (deletedIndex) => {
 <body>
 <div class="container">
 
-	 <div class="head color1" align="center">	<h1>KIOSK</h1> <br>
+	 <div class="head color1" align="center">	<h1>Green KIOSK</h1> <br>
 	 </div>
 	 <div class="main color2" align="center">	
 	 	<div class="page w3-button"onclick="jumoon0()" ><h2>단 품</h2></div>
@@ -336,107 +292,50 @@ const deleteBasket = (deletedIndex) => {
 	 	<div class="page w3-button"onclick="jumoon3()" ><h2>사 이 드</h2></div>
 	 </div>
 
-	<div class="item1" >
+<%
+	Vector<Menu_menu_Bean> vector = mMgr.getMenuList(3);
+	
+	int menuLength = vector.size();
+
+	if (vector.isEmpty()){
+		out.println("등록된 메뉴가 없습니다.");
+	} else {
+		for (int i = 0; i < menuLength; i++) {
+			Menu_menu_Bean bean = vector.get(i);
+			if (bean.getMenu_gubn().equals("음료")) {
+			
+%>
+	<div class="item<%= i+1 %>" onclick="hrefTo('item<%= i+1 %>')">
 		<div class="rowbox">
- 			<img src="../images/cola.jpg">
+ 			<img src="<%=bean.getMenu_imgPath() %>">
  				<div class="colbox">
- 				  <span id="hamburger0" style="font-size:36px; margin :10px" >코카콜라</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
+ 				  <span id="hamburger0" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
+ 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span>
  				 </div>
 		</div>
 	</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+		document.querySelector('.item' + "<%= i+1 %>").addEventListener('click', (event) => {    
+		
+			const itemNumber = 1; 
+	    const menuName = event.currentTarget.querySelector('span#hamburger0').innerText; // 혹은 다른 적절한 선택자를 사용하여 메뉴 이름을 가져옵니다.
+	    const menuPrice = event.currentTarget.querySelector('span#don').innerText;;
+		
 	
-	<div class="item2" >
-		<div class="rowbox">
- 			<img src="../images/cola1.jpg" >
- 				<div class="colbox">
- 				  <span id="hamburger1" style="font-size:36px; margin :10px" >제로콜라</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
- 				</div>
-		</div>
-	</div>
+		
+	    addToBasket(menuName, menuPrice);
+	  });	   
+		
+});
+
+</script>
 	
-	<div class="item3 " >
-		<div class="rowbox">
- 			<img src="../images/saida.jpg" >
- 				<div class="colbox">
- 			 	  <span id="hamburger2" style="font-size:36px; margin :10px" >스프라이트</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
-				</div>
-		</div>
-	</div>
-	
-	<div class="item4" >
-		<div class="rowbox">
- 			<img src="../images/saida1.jpg" >
- 				<div class="colbox">
- 				  <span id="hamburger3" style="font-size:36px; margin :10px" >스프라이트<br>제로</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
- 				</div>
-		</div>
-	</div>
-	
-	<div class="item5">
-		<div class="rowbox">
- 			<img src="../images/milkiseu.jpg" >
- 				<div class="colbox">
- 				  <span id="hamburger4" style="font-size:36px; margin :10px" >밀키스</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
-
- 				</div>
-		</div>	
-	</div>
-	
-	<div class="item6">
-		<div class="rowbox">
- 			<img src="../images/mauntindyu.jpg" >
- 				<div class="colbox">
- 				  <span id="hamburger5" style="font-size:36px; margin :10px" >마운틴듀</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
-
- 				</div>
-		</div>
-	</div>
-	
-	<div class="item7">
-		<div class="rowbox">
- 		<img src="../images/fanta.jpg" >
- 			<div class="colbox">
- 				<div class="colbox">
- 				  <span id="hamburger6" style="font-size:36px; margin :10px" >환타</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >1500~</span>
-
-				</div>
- 			</div>
-		</div>	
-	</div>
-	
-	<div class="item8">
-		<div class="rowbox">
- 			<img src="../images/orange juice.jpg" >
- 				<div class="colbox">
- 				  <span id="hamburger7" style="font-size:36px; margin :10px" >오렌지 쥬스</span>
- 				  <span id="don" style="font-size:30px; margin :10px; color:blue;" >2500~</span>
-
- 				</div>
-		</div>	
-	</div>
-
-  <div class="modal micromodal-slide" id="modal-2-1" aria-hidden="true">
-    <div class="modal__overlay" tabindex="-1">
-      <div class="modal__container1" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-        <main class="modal__content2" id="modal-2-content">
-				<div class="potato"><h1 style="background-color:#b4fffb">맛을 선택하세요.</h1></div>
-				<div class="fanta1"><h1>포도</h1></div>
-				<div class="fanta2"><h1>파인애플</h1></div>
-				<div class="fanta3"><h1>오렌지</h1></div>
-				<div class="page5" id="close_btn" onclick="back3()"><H1 style="color:black;">닫 기</H1></div>		
-
-		</main>
-	  </div>
-	</div>
-  </div>
-
+<%
+			}
+		}
+	}
+%>
 
 
 
@@ -462,14 +361,6 @@ const deleteBasket = (deletedIndex) => {
 	
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	
-	
 </div>
 		
 
@@ -483,7 +374,7 @@ const deleteBasket = (deletedIndex) => {
 
 <script>
 function jumoon0() {
-	location.href = "test1-1-4.jsp";
+	location.href = "test1-1-3.jsp";
 }		
 function jumoon1() {
 	location.href = "test2.jsp";

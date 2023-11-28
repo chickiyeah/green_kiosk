@@ -55,6 +55,7 @@
 		    </div>
 	    </article>
     </section>
+    <div class="payment-cancle" onClick="handleScanBarcode()">바코드 입력</div>
   </main>
   <footer class="rowbox">
     <div class="payment-ok" onClick="handleCouponForm()">쿠폰 사용</div>
@@ -62,5 +63,10 @@
   </footer>
   <script src="../../assets/js/kiosk/purchase/detailedFetch.js"></script>
   <script src="../../assets/js/kiosk/purchase/coupon.js"></script>
+	<script>
+		const handleScanBarcode = () => {
+			location.href = './scanner.jsp?by=coupon';
+		}
+	</script>
 </body>
 </html>
