@@ -1,8 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.io.PrintWriter" %>
+<<<<<<< Updated upstream
 
 
+=======
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="<%=request.getContextPath()%>/assets/js/board/sidebar.js"></script>
+<script src="<%=request.getContextPath()%>/assets/js/board/boardMember.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<%@ include file="/board/layouts/Bean.jsp" %>
+<script>
+	var mem_id = '<%= (String)session.getAttribute("mem_id") %>';
+</script>
+<%
+	BoardMgr boardMgr = new BoardMgr();
+	String memID = (String)session.getAttribute("mem_id");
+	Long mem_no = boardMgr.find_mem_no(memID);
+	String mem_profile_img = boardMgr.getProfileImg(mem_no); 
+%>
+>>>>>>> Stashed changes
 <div class="sidebar">
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
     <a href="<%=request.getContextPath()%>/board/index.jsp" class="d-flex align-items-center mb-3 mb-m
