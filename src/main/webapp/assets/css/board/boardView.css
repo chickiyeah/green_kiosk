@@ -35,7 +35,7 @@ pre {
 
 /* Comment section styles */
 #board_commentArea {
-    padding-top :200px;
+    padding-top :10px;
     padding-left : 120px;
     padding-right : 80px;
 }
@@ -164,7 +164,7 @@ pre {
 
 /* Comment section styles */
 #board_commentArea {
-    padding-top :200px;
+    padding-top :10px;
     padding-left : 120px;
     padding-right : 80px;
 }
@@ -274,4 +274,91 @@ pre {
     border-style: solid;
     border-color: transparent transparent #f2f2f2 transparent; /* Adjust the last value for the border color */
     transform: translateX(-50%);
+}
+
+.date { font-size: 12px; color: #909090; margin-top: 5px; margin-left: 14px;}
+.commentWriterCheck { font-size : 12px; padding: 10px; color:  #5dade2 ; border-radius: 5px; }
+
+.comment_input {
+    padding-bottom: 50px;
+    padding-top: 10px;
+    margin-bottom: 20px; /* Removed the duplicate entry */
+}
+
+.comment_form {
+    display: flex;
+}
+
+.comment_form textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comment_form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer; /* Added cursor property for better UX */
+}
+
+
+.comment_form button:hover {
+    background-color: #45a049;
+}
+
+#button_actions {
+    text-align: center; /* Align buttons to the right */
+    padding-top: 50px;
+    padding-left: 1000px;
+    margin-top: 20px;
+}
+
+.board_delete, .board_edit {
+    display: inline-block; /* Display buttons in a line */
+    margin-left: 10px; /* Add some margin between the buttons */
+    margin-top: 50px;
+    justify-content: center; /* Center the button horizontally */
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #007bff; /* Border color for the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 10px; /* Adjust padding as needed */
+    margin: 10px auto; /* Center the button and add margin as needed */
+}
+
+.post-details {
+	padding-bottom: 100px;
+}
+
+.comment_writer_id {
+    flex-grow: 1;
+}
+.comment_actions {
+    display: flex;
+    float : right;
+    white-space: nowrap;   
+    margin-top: -40px;
+    
+}
+
+.under_title, .post_title, .post_writer_id, .page_category{
+    margin-left : 100px;
+}
+
+.editable-comment{
+    overflow: hidden;
+     width:95%;
+	white-space:pre-wrap;
+	word-wrap: break-word;
+  FONT-SIZE: 12pt; COLOR: var(--black); LINE-HEIGHT: 160%; FONT-FAMILY: 'NanumSquareRound',verdana,tahoma;
+}
+
+.comment_delete_button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
 }

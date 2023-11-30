@@ -234,7 +234,6 @@
 	    
 	    //장바구니 표시 업데이트
 	    const updateBasket = () => {
-	      console.log(basketArray);
 
 	      // 총 가격과 항목 수를 계산합니다
 	      let totalPrice = 0;
@@ -302,14 +301,7 @@
 	   
 	      const deleteButton = document.querySelector('.delete');
 
-	      // basketArray에 항목이 있는지 확인
-	      if (basketArray.length > 0) {
-	          // 항목이 있는 경우 그리드 레이아웃으로 전환
-	          deleteButton.style.display = 'grid';
-	      } else {
-	          // 항목이 없는 경우 원래의 레이아웃으로 전환 (예: 블록)
-	          deleteButton.style.display = 'none'; // 원래의 display 값으로 설정
-	      }    
+
 	      
 	      
 //-------------------------------------------------------------------------------------------------------------------------------------------------------    

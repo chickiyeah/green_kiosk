@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
+<%@ include file="/index/base/head_import.jsp"%>
 <%
 
 	String cPath = request.getContextPath();
@@ -44,17 +45,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 	<div class="w3-row-padding w3-padding-16 w3-center w3-tooltip" id="food">
 		<!-- 여기부터 작업 시작 -->
 
-<div style="display:flex; justify-content: space-around;">
+<div style="display:flex; justify-content: space-around; height: 90vh;">
 
 									
-								<form action="change_pw_p" method="POST" class="joinForm" name="regFrm" style="transform: translate(-20%, -30%)">                                                                     
+								<form action="change_pw_p" method="POST" class="joinForm" name="regFrm" style="transform: translate(-39%, -56%)">                                                                     
 							      <div class="textForm">
 								  <input name="mem_pw" id="mem_id" type="text" class="regi_name" placeholder="비밀번호 변경">
 							        <label for="mem_name" style="position:absolute; transform: translateX(-481px) translateY(3px); width:140px;">비밀번호 찾기 : </label>
 							      </div>
 							      <div class="textForm">
 							  	 <input name="mem_pw_re" id="mem_id" type="text" class="regi_name" placeholder="비밀번호 찾기 확인">
-							        <label for="mem_name" style="position:absolute; transform: translateX(-415px) translateY(3px); width:100px;">비밀번호 찾기 확인 : </label>
+							        <label for="mem_name" style="position:absolute; transform: translateX(-504px) translateY(3px); width:154px;">비밀번호 찾기 확인 : </label>
 							      </div>
 							      <input type="button" onclick="edit()" class="btn" style="transform: translateX(-50%) translateY(360%);" value="수 정 하 기"/>
 							 	

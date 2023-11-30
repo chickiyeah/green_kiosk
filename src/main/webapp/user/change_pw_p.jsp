@@ -13,7 +13,7 @@
 %>
 <script type="text/javascript">
 		alert("회원정보 수정 하였습니다.");
-		location.href="index.jsp?";
+		location.href= "<%= request.getContextPath()%>/";
 </script>
 <% } else { %>
 <script type="text/javascript">

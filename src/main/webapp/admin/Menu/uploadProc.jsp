@@ -11,6 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="<%=request.getContextPath()%>/assets/js/admin/Menu/menu_main.js"></script>
 <title>menu_uploadProcess</title>
 </head>
 <body>

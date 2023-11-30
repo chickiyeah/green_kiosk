@@ -20,14 +20,6 @@
     </div>
   </section>
 
-  <div class="album py-5 bg-body-tertiary">
-	<h1> event main page</h1>    
-    <div class="container">
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 getMenuList">
-
-      </div>
-    </div>
-  </div>
 </main>
 
 <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -52,6 +52,12 @@ function increaseViewcount(post_no){
 
   
 function increaseRecommendation(post_no) {
+	var hasRecommend = localStorage.getItem('recommend_' + post_no);
+	if(!hasRecommend) {
+		var button = document.getElementById('recommend-button-' + post_no);
+		button.onclick = null;
+		button.style.cursor = 'not-allowed';
+
     $.ajax({
         type: "POST",
         url: "./increaseRecommendation",
@@ -69,6 +75,11 @@ function increaseRecommendation(post_no) {
             console.error("추천에 실패했습니다.:", status, error);
         }
     });
+    
+    localStorage.setItem('recommend_' + post_no, true);
+   	} else {
+		   alert("이미 추천한 게시글 입니다.");
+	   }
 }
 
 
@@ -108,6 +119,7 @@ function getCommentList(post_no, post_writer)
             if (response && response.length > 0) {
                 updateCommentList(post_no, response, post_writer);
             } else {
+				updateCommentList(post_no, response, post_writer);
                 console.log("올바르지 않은 JSON format 입니다.");
             }
         },
@@ -119,17 +131,180 @@ function getCommentList(post_no, post_writer)
 
 function updateCommentList(post_no, commentList, post_writer) {
     var HTML_commentList = commentList.map(function (comment) {
-	var commentWriterCheck = (String(comment.comment_writer) === String(post_writer)) ? '작성자' : '';
+	var commentWriterCheck = (String(comment.comment_writer) === String(post_writer)) ? '글쓴이': '';
+	
+	var decodedContent;
+	var formattedDateTime = formatDateTimeDifference(comment.comment_time);
+	try {
+		  decodedContent = decodeURIComponent(comment.comment_content, "UTF-8");
+	} catch (error) {
+		console.log("내용 디코딩 오류 : ", error);
+		decodedContent = "";
+	}
 
-        return `
-            <div class="comment_list_Map" id="comment_list_Map">
-                <p> ${comment.comment_writer_id} <span class="commentWriterCheck">${commentWriterCheck}</span>&nbsp; ${comment.comment_time}</p>
-                <p>&nbsp;${comment.comment_content}</p>
-            </div><hr/>
-        `;
+return `
+
+	    <div class="comment_list_Map" id="comment_list_Map">
+	        <p>
+	            <span class="comment_writer_id">${comment.comment_writer_id}</span>
+	            <span class="commentWriterCheck">${commentWriterCheck}</span>
+	            <span class="date">${formattedDateTime}</span>
+	            ${Number(comment.comment_writer) === Number(session_mem_no) ? `
+	                <div class="comment_actions">
+	                    <button type="button" class="comment_delete_button" onclick="comment_deleteAction(${post_no}, ${comment.comment_no}, ${post_writer})">
+	                        <img src='${contextPath}/assets/images/board/x-square.svg'>
+	                    </button>
+	                </div>` : ''}
+	        </p>
+	        <div contenteditable="${comment.editing}" class="editable-comment" id="editable-comment-${comment.comment_no}">${decodedContent}</div>
+	    </div><div class="comment_${comment.comment_no}" id="comment_${comment.comment_no}"></div><hr/>
+`;
+
     }).join(''); 
     
     var totalCommentCount = commentList.length;
     $('#list_amount').text(` (${totalCommentCount}개)`);
     $('#board_commentUpdate').html(HTML_commentList);
+}
+
+function handleCommentEditFocus(element, post_no, comment_no, commentContent) {
+    element.contentEditable = true;
+    element.innerText = commentContent;
+    element.focus();
+}
+
+
+function inputComment() {
+    var commentContent = $('.comment_content').val().trim(); 
+    var commentWriter = $('[name="comment_writer"]').val();
+    var commentPostNo = $('[name="comment_post_no"]').val();
+
+    if (commentContent.length > 1000) {
+    alert("댓글은 1000자 이하로 작성해야 합니다.");
+    return;
+    }
+    
+    var encodedContent = encodeURIComponent(commentContent);
+
+    if (commentContent === "") {
+        alert("댓글 내용을 입력하세요.");
+        return; 
+    }
+    
+    $.ajax({
+        type: "POST",
+        url: "./inputComment",
+        data: {
+            comment_content: encodedContent,
+            comment_writer: commentWriter,
+            comment_post_no: commentPostNo
+        },
+        dataType: "json",
+        cache: false,
+        success: function (response) {
+            getCommentList(commentPostNo, commentWriter);
+			$('.comment_content').val('');
+			$('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+     		  $('#scrollTop').css('display', 'block').animate({ scrollTop: $('#scrollTop').offset().top }, 'slow');
+/*	     	var currentScrollTop = $(window).scrollTop();
+	        var newScrollTop = currentScrollTop + 200;
+	        $('html, body').animate({ scrollTop: newScrollTop }, 'slow');*/
+	      //window.location.href = contextPath + `/board/view/boardView.jsp?post_no=${commentPostNo}#comment_input_position`;
+        },
+        error: function (xhr, status, error) {
+            console.error("댓글 입력 실패:", status, error);
+            console.log("Server response:", xhr.responseText);
+        }
+    });
+}
+
+
+
+// board delete empty @return redirect to index page
+function board_delete_Action(post_no)
+{
+	    var isConfirmed = confirm("정말로 삭제하시겠습니까?");
+		
+		if (isConfirmed) {
+			performDelete(post_no);
+		} else {
+			console.log("삭제 취소");
+		}
+}
+function performDelete(post_no) {
+	    $.ajax({
+        type: "POST",
+        url: "./deleteBoardAction",
+        data: {
+	 		post_no : post_no
+        },
+        dataType: "text",
+        cache: false,
+        success: function (response) {
+			console.log("삭제 성공");
+			window.location.href = contextPath + "/board/index.jsp";
+        },
+        error: function (xhr, status, error) {
+            console.error("삭제 실패:", status, error);
+        }
+    });
+}
+//board edit @return
+function board_edit_Action(post_no)
+{
+			window.location.href = contextPath + `/board/write/edit.jsp?post_no=${post_no}`;
+}
+
+
+function comment_deleteAction(post_no, comment_no, post_writer)
+{
+	    var isConfirmed = confirm("정말로 삭제하시겠습니까?");
+		
+		if (isConfirmed) {
+			performCommentDelete(post_no, comment_no, post_writer);
+		} else {
+			console.log("삭제 취소");
+		}
+}
+function performCommentDelete(post_no, comment_no, post_writer) {
+	    $.ajax({
+        type: "POST",
+        url: "./deleteCommentAction",
+        data: {
+	 		post_no : post_no,
+	 		comment_no : comment_no,
+	 		post_writer : post_writer
+        },
+        dataType: "text",
+        cache: false,
+        success: function (response) {
+			console.log("삭제 성공");
+			getCommentList(post_no, post_writer);
+			window.location.href = contextPath + `/board/view/boardView.jsp?post_no=${post_no}#comment_${comment_no}`;
+        },
+        error: function (xhr, status, error) {
+            console.error("삭제 실패:", status, error);
+        }
+    });
+}
+
+
+function comment_alterAction(post_no, comment_no) {
+	    $.ajax({
+        type: "POST",
+        url: "./alterCommentAction",
+        data: {
+	 		post_no : post_no,
+	 		comment_no : comment_no
+        },
+        dataType: "text",
+        cache: false,
+        success: function (response) {
+			console.log("수정 성공");
+			window.location.href = contextPath + `/board/view/boardView.jsp?post_no=${post_no}`;
+        },
+        error: function (xhr, status, error) {
+            console.error("수정 실패:", status, error);
+        }
+    });
 }

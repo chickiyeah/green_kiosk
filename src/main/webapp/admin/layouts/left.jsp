@@ -40,9 +40,6 @@
 	  <%
 	  //Event page 일 경우 
 	  } else if (menuType.equals("Event")){ %>
-  	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="updateMenu('component')">재료</a>
-  	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="updateMenu('onSale')">이벤트 등록된 상품</a>
-	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Event/calender.jsp')">calender</a>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Event/coupon.jsp')">발급된 쿠폰 관리</a>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Event/coupon_info.jsp')">쿠폰 관리</a>
 	  <% 
@@ -51,7 +48,7 @@
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('sales/ac00.jsp?page=1')">거래내역관리</a>
 	  <a class="w3-bar-item w3-button w3-hover-black" href="javascript:void(0)" onclick="loadContent('<%=request.getContextPath()%>/admin/Accounting/inventory/iv00.jsp')">재고관리</a>
 	  <%} else { %>
-	  	  <a class="w3-bar-item w3-button w3-hover-black" href="<%=request.getContextPath()%>/kiosk/test/test1-1-2.jsp">키오스크</a>
+	  	  <a class="w3-bar-item w3-button w3-hover-black" href="<%=request.getContextPath()%>/kiosk/KIOSK/kiosk.jsp">키오스크 실행</a>
 	  	 <a class="w3-bar-item w3-button w3-hover-black" href="<%=request.getContextPath()%>/index.jsp">메인 화면</a>
 	  <% } %>
 	</nav>

@@ -11,7 +11,6 @@
 	border: 1px solid #181818;
     padding : 8px 16px;
 	border: none;
-    self-align: center;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
@@ -20,8 +19,10 @@
     cursor: pointer;
     white-space: nowrap;	
 	flex: 1 1 auto;
-	max-width : 31vw;
-	width : 30vw;
+	max-width: 60%;
+    width: 35%;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 .flex-item:hover {
     background-color: #ccc;
@@ -970,8 +971,10 @@ img {
 
 .modal__container {
   background-color: #fff;
-  max-width: 1500px;
-  max-height: 1500px;
+	max-width: 100%;
+    max-height: 100%;
+    width: 80%;
+    height: 80%;
   border-radius: 4px;
   overflow-y: auto;
   box-sizing: border-box;
@@ -1025,8 +1028,9 @@ img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 70vw;
-  justify-content: flex-start;
+    width: 80%;
+    height: 80%;
+      justify-content: flex-start;
   align-items: flex-start;
 }
 
@@ -1176,8 +1180,8 @@ img {
 	display: flex;
 	flex-direction: column;
 	width: 100vw;
-	align-items: center;
-	font-weight: 400;
+    align-items: flex-end;
+    	font-weight: 400;
 	 font-size: 1.2rem;
 	  border-radius: 0;
 	background-color: #eee;

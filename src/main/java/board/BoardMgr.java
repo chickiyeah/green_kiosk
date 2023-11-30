@@ -89,7 +89,54 @@ public class BoardMgr {
 		}
 		return list;
 	}
+	/**
+	 *  게시판 페이징
+	 * @return
+	 */
+	public Vector<boardBean> getBoardList1(int pageNum, int pageSize){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector <boardBean> vlist = new Vector <boardBean>();
+		try {
+			 con = pool.getConnection();
+		        // Calculate the starting index for the pagination
+		        int offset = ((pageNum-1) * pageSize);
+		        if (pageNum == 0) {
+		        	sql = "select * from board ORDER BY post_no DESC";
+			        pstmt = con.prepareStatement(sql);
+		        } else {
+			        sql = "SELECT * FROM board ORDER BY post_no DESC LIMIT ? OFFSET ? ";
+			        pstmt = con.prepareStatement(sql);
+			        pstmt.setInt(1, pageSize);
+			        pstmt.setInt(2, offset);
+		        }
+		        // Use the LIMIT and OFFSET clauses for pagination
+
+		        rs = pstmt.executeQuery();
+			while(rs.next()) {
+				boardBean bean = new boardBean();
+				bean = new boardBean();
+				bean.setPost_no(rs.getLong("post_no"));
+				bean.setPost_time(rs.getString("post_time"));
+				bean.setPost_title(rs.getString("post_title"));
+				bean.setPost_content(rs.getString("post_content"));
+				bean.setPost_writer(rs.getLong("post_writer"));
+				bean.setPost_viewcount(rs.getLong("post_viewcount"));
+				bean.setPost_likecount(rs.getLong("post_likecount"));
+				bean.setPost_filePath(rs.getString("post_filePath"));
+				vlist.add(bean);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
 	
+	//mem_no로 mem_id 찾기
 	public String findUser(Long post_writer)
 	{
 		Connection con = null;
@@ -109,6 +156,32 @@ public class BoardMgr {
 				result = rs.getString("writer_id");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return result;
+	}
+	//mem_id로 mem_no 찾기
+	public Long find_mem_no (String mem_id)
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Long result = 0L;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT member.mem_no AS mem_no from member where member.mem_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mem_id);
+			rs = pstmt.executeQuery();
+			if (rs.next())
+			{
+				result = rs.getLong("mem_no");
+			}
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
@@ -261,28 +334,121 @@ public class BoardMgr {
 		return post_viewcount;
 	}
 	
-	// 1. 메뉴 관리 페이지 - 메뉴 삭제
-	public int deleteMenu(int menu_no) {
+	// 1. 게시판 - 게시판 삭제
+	public int deleteBoardAction(Long post_no) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		ResultSet rs = null;
+		int flag = -1;
 		try {
 			con = pool.getConnection();
-			sql = "DELETE FROM menu WHERE menu_no=?";
+			sql = "DELETE FROM board WHERE post_no=?";
+
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, menu_no);
-			pstmt.executeUpdate();
-			return 1;
+			pstmt.setLong(1, post_no);
+			flag = pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
 		//실패시 -1 반환
-		return -1;
+		return flag;
 	}
 	
+		//게시판 사용자 이미지 변경하기
+	public boolean updateProfileImg(String filePath, Long mem_no) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE member SET mem_profile_img = ? where mem_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, filePath);
+			pstmt.setLong(2, mem_no);
+			int count = pstmt.executeUpdate();
+			if (count > 0)
+				flag = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+
+	public String getProfileImg(Long mem_no)
+	{
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String result = null;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT mem_profile_img FROM member WHERE mem_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setLong(1, mem_no);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				result = rs.getString("mem_profile_img");
+			}
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return result;
+	}
+	
+	public boolean editBoardAction(HttpServletRequest req) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		boolean flag = false;
+		int result = 0;
+		Long post_writer = 0L;
+		try {
+			con = pool.getConnection();
+			sql = "SELECT distinct member.mem_no FROM member JOIN board ON member.mem_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, req.getParameter("post_writer"));
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				post_writer = rs.getLong("mem_no");
+				result = 1;
+			}
+			if (result == 1)
+			{
+			pool.freeConnection(con, pstmt, rs);
+			con = pool.getConnection();
+			sql = "UPDATE board SET edit_post_time = now(), post_title = ?, "
+					+ "post_content = ?, post_writer = ? WHERE post_no = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, req.getParameter("post_title"));
+			pstmt.setString(2, req.getParameter("post_content"));
+			pstmt.setLong(3, post_writer);
+			pstmt.setLong(4, Long.parseLong(req.getParameter("post_no")));
+			if (pstmt.executeUpdate() == 1)
+				flag = true;
+			} else {
+				flag = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+
+ 
 	
 	
 }

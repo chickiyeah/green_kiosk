@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import= "java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name ="viewport" content="width=device-width", initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/board/write.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/board/layout.css">
 <%@ include file="/board/bootstrap.jsp" %>
@@ -19,22 +20,14 @@ window.addEventListener('DOMContentLoaded', function() {
     tinymce_editor();
 });
 </script>
+<%@include file="/board/layouts/login_check.jsp" %>
 </head>
 <body>
-<%@ include file="/board/layouts/sidebar.jsp" %>
+<%@ include file="/board/layouts/sidebar.jsp" %> 
 
-	<%
-		String mem_id=null;
-		if(session.getAttribute("mem_id")!=null){
-			mem_id=(String)session.getAttribute("mem_id");
-		} else {
-			PrintWriter script = response.getWriter();
-			
-		}
-	%>
 	<div class="container">
 		<div class="row">
-			<form method="post" name="board_post" action="./writeAction" enctype="mulipart/form-data" accept-charset = "utf-8">
+			<form method="post" name="board_post" action="./writeAction" enctype="mulipart/form-data" accept-charset = "utf-8" onclick="getThumbNail()">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>

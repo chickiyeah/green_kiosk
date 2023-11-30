@@ -9,15 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-		<%
-		//session key 확인해서 mem_jd 값을 받는다
-		String mem_id = null;
-		if(session.getAttribute("mem_id") != null){
-			mem_id = (String)session.getAttribute("mem_id");
-		} else {
-			mem_id = "hello";
-		}
-		%>
+<%@include file="/board/layouts/login_check.jsp" %>
 		
 <div class="container">
 	<form name="postFrm" method="post" action="postAction.jsp" enctype="multipart/form-data">

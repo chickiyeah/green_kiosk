@@ -25,8 +25,7 @@
     
     vlist = rcMgr.getMgrcList();
     
-    System.out.println("213123");
-  System.out.println("213123" + vlist.size());
+ 
 %>
 <html>
 <head>

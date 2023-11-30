@@ -17,7 +17,20 @@
 <body>
     <%@ include file="/admin/layouts/left.jsp" %>
     <div class="mainContent" id="mainContent">
-        <%@ include file="/admin/Accounting/main/menu_main.jsp" %> 
+        <main>
+          <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">매장 관리 페이지</h1>
+        <p class="lead text-body-secondary"></p>
+        <p>
+          <a href="javascript:void(0)" class="btn btn-primary my-2" onClick="loadContent('sales/ac00.jsp')">거래 내역 페이지</a>
+          <a href="javascript:void(0)" class="btn btn-primary my-2" onClick="loadContent('inventory/iv00.jsp')">재고 관리 페이지</a>
+          <!-- <a href="#" class="btn btn-secondary my-2"></a> -->
+        </p>
+      </div>
+    </div>
+  </section></main>
     </div>
 </body>
 </html>

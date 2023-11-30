@@ -26,7 +26,7 @@
 				<input class="login_btn" type="button" onclick="login()" value="로그인">
 				
 				<div class="login_tool">
-					<span onclick="location.href='<%=cPath %>/user/find_idpw.jsp'">ID/PW 찾기</span>
+					<span onclick="location.href='<%=cPath %>/user/find_idpw2.jsp'">ID/PW 찾기</span>
 					<span onclick="open_register()">회원가입</span>
 				</div>
 			</div>

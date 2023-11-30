@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ page import="user.Member_Mgr" %>
 <%@ page import="user.Member_Bean" %>
+
 <%
 	String cPath = request.getContextPath();
 
@@ -120,7 +121,7 @@ function validatePassword() {
 		 </form>
 	</div>
 	<div>
-		<form method="post" name="findid" action="<%=cPath %>/api/user/find_pw">
+		<form method="post" name="findid" action="<%=cPath %>/api/user/find_pw" accept-charset="UTF-8">
 			<table>
 				<tr>
 		 		<td>아이디 :</td>

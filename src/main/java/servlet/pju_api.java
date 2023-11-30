@@ -68,13 +68,14 @@ public class pju_api extends HttpServlet {
 		}
 		
 		if (endPoint.equals("/api/user/find_pw")) {
+			request.setCharacterEncoding("UTF-8");
 			String mem_id = request.getParameter("id");
 			String mem_name = request.getParameter("name");
 			String mem_phone = request.getParameter("phone");
-			
+			System.out.println(mem_name);
 			Member_Mgr mgr = new Member_Mgr();
 			
-			boolean res = mgr.findpw( mem_id , mem_name, mem_phone);
+			boolean res = mgr.findpw(mem_id , mem_name, mem_phone);
 			
 			if (res) {
 				session.setAttribute("find_pw_id", mem_id);
@@ -85,7 +86,7 @@ public class pju_api extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()+"/api/user/find_pw");
 			} else {
-				out.write("{\"result\":\"아이디가 없습니다\"}");
+				out.write("{\"result\":\"ID NOT FOUND\"}");
 			}
 			
 			

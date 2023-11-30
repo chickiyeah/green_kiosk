@@ -374,6 +374,7 @@ public class Member_Mgr {
 	}
 	
 	public boolean findpw(String id, String name , String phone ) {
+		System.out.println("id ="+id+", name = "+name+", phone = "+ phone);
 		DBConnectionMgr pool = new DBConnectionMgr();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -390,6 +391,7 @@ public class Member_Mgr {
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
+				System.out.println("found id");
 				res = true;
 			} else {
 				res = false;

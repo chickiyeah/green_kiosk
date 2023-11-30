@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Vector"%>
+<%@ page import="java.util.Vector" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/board/layout.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/board/layouts_main.css">
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <%@include file="/board/layouts/Bean.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/board/layout.css">
+<script src="<%=request.getContextPath()%>/assets/js/board/board.js"></script>
+<%@include file="/board/layouts/login_check.jsp" %>
+
+<%@ include file="/board/bootstrap.jsp" %>
+<%@ include file="/board/layouts/header.jsp" %>
+</head>
+<body>  
+<% String mem_user_id = (String)session.getAttribute("mem_id"); %>
+	<%@ include file="/board/layouts/sidebar.jsp" %>
 <div class="mainPage">
 
 <div class="w3-container">
@@ -95,3 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
     	<% } %>
 	</div>
 </div>
+
+</body>
+</html>
