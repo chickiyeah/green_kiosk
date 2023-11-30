@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Green KIOSK </title>
 
 <link href="style3.css" rel="stylesheet" type="text/css">
@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div class="container" style="zoom: 0.5;">
-	    <div class="head color1" align="center">	<h1>Green KIOSK</h1> <br></div>
+	    <div class="head" align="center"><img src='https://nodove.duckdns.org/assets/images/logo.png' style="width:400px; height:70px;" /> </div>
 		<div class="main color2" align="center">	
 		    <div class="page"onclick="jumoon0()" ><h2>단 품</h2></div>
 		 	<div class="page"onclick="jumoon1()" ><h2>세 트</h2></div>
@@ -38,10 +38,10 @@
 %>
 <div class="flex-item" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
 	<div class="rowbox">
-	    <img src="<%=bean.getMenu_imgPath() %>">
+	  <img src="<%=bean.getMenu_imgPath() %>">
 		<div class="colbox">
-		    <span id="hamburger0" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
-		    <span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span>
+	    <span id="hamburger0" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
+	    <span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span>
 		</div>
 	</div>
 </div>
@@ -54,7 +54,8 @@
 <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1">
         <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-  			<div class= "chucheon2 color3"><h1>추천 메뉴</h1></div>
+  			<div class= "chucheon2"><h1 class="chucheon2-text">음료 추천 메뉴</h1></div>
+        <div class='rowbox'>
   	        <div class="modal__content" id="modal-1-content">
 <!--  음료 메뉴 -->
 <%
@@ -66,16 +67,22 @@
 			Menu_menu_Bean bean = vector.get(i);
 			if (bean.getMenu_gubn().equals("음료")) {
 %>
-<div class="flex-item" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
-	<img src="<%=bean.getMenu_imgPath() %>">
-	<span id="drink" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
-	<span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span> 
+<div class="flex-item1" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
+  <div class="rowbox">
+    <img src="<%=bean.getMenu_imgPath() %>">
+    <div class="colbox">
+      <span id="hamburger0" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
+      <span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span>
+    </div>
+  </div>
 </div>
 <%
 			}
 		}
 	}
 %>
+</div>
+            <img src="../images/banner.png" style="height: 700px;"/>
 			</div>
 		</div>
 	</div>
@@ -84,7 +91,8 @@
 <div class="modal micromodal-slide" id="modal-2" aria-hidden="true">
     <div class="modal__overlay" tabindex="-1">
         <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-  			<div class= "chucheon2 color3"><h1>추천 메뉴</h1></div>
+  			<div class= "chucheon2"><h1 class="chucheon2-text">사이드 추천 메뉴</h1></div>
+  			<div class='rowbox'>
   	        <div class="modal__content" id="modal-2-content">
 <%
 	
@@ -95,16 +103,22 @@
 			Menu_menu_Bean bean = vector.get(i);
 			if (bean.getMenu_gubn().equals("사이드")) {
 %>
-<div class="flex-item" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
-	<img src="<%=bean.getMenu_imgPath() %>">
-	<span id="drink" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
-	<span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span> 
+<div class="flex-item1" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
+  <div class="rowbox">
+    <img src="<%=bean.getMenu_imgPath() %>">
+    <div class="colbox">
+      <span id="hamburger0" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
+      <span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span>
+    </div>
+  </div>
 </div>
 <%
 			}
 		}
 	}
 %>
+</div>
+            <img src="../images/banner.png" style="height: 700px;"/>
 			</div>
 		</div>
 	</div>
@@ -239,40 +253,41 @@
 	      let totalPrice = 0;
 	      let itemCount = 0;
 	  	  let menuNames = [];
-	  	
-	      basketArray.forEach(item => {
-	          menuNames.push(item.name); // 메뉴 이름을 배열에 추가
-	          totalPrice += item.price * item.amount;
-	          itemCount += item.amount;
-	  	    sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
-	      });
 	      
 	      element = document.getElementById('totalOrder');
 	      
+	      if (basketArray !== null && basketArray !== undefined) {
+	          
+	          basketArray.forEach(item => {
+	              menuNames.push(item.name); // 메뉴 이름을 배열에 추가
+	              totalPrice += item.price * item.amount;
+	              itemCount += item.amount;
+	            sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
+	          });
 	  //-------------------------------------------------------------------------------------------------------------------------------------------------------    
-	      let html = '<div class="price,count" style="display:flex; width:95vw;justify-content: flex-end;">';
+	      let html = '<div style="display:flex; justify-content: flex-end; width: 100%; background-color: #bb2649;"><div class="price,count" style="display:flex; width:95vw;justify-content: flex-end;">';
 	      html += '<div class="totalcount" >';
-	      html += itemCount + '개</span>';
+	      html += '<span style="color:white;">' + itemCount + '개</span>';
 	      html += '</div>';
 	      html += '<div class="totalprice">';
-	      html += '<span>총 금액: ' + totalPrice + '원</span>';
+	      html += '<span style="color:white;">총 금액: ' + totalPrice + '원</span>';
 	      html += '</div>';
-	      html += '</div>';
+	      html += '</div></div>';
 	      
 	      
 	      for (let i = 0; i < basketArray.length; i++) {
 	          html += '<div class="box" data-index="' + i + '">'
 	           			
-	          html += '<span class="Ordermenu" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].name + '</span>'
+	          html += '<span class="Ordermenu" style="font-size:36px; font-weight: 400; color:black;margin :10px">' + basketArray[i].name + '</span>'
 	  	
-	          html += '<span class="count" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
+	          html += '<span class="count" style="font-size:36px; font-weight: 400; color:black;margin :10px">' + basketArray[i].amount + '</span>'  
 
 	          html += ' <div class="arrow-container">'
 	          html += ' <div class="arrow-up"(\'' + basketArray[i].name + '\')">&#9650;</div>';
 	          html += ' <div class="arrow-down" (\'' + basketArray[i].name +'\')">&#9660;</div>';
 	  		html += '</div>'
 	                  	
-	          html += '<span class="price" style="font-size:36px; font-weight: 600; color:black;margin :10px">' + basketArray[i].price + '</span>'
+	          html += '<span class="price" style="font-size:36px; font-weight: 400; color:black;margin :10px">' + basketArray[i].price + '</span>'
 
 	          html += '<h2 class="delete">삭제</h2>'
 	  		html += '</div>'
@@ -291,7 +306,10 @@
 	      element.innerHTML = html;
 
 	  //-------------------------------------------------------------------------------------------------------------------------------------------------------    
-
+	      } else {
+	    	  element.innerHTML = '';
+	      }
+	  
 	  	const orderDetailsDiv = document.getElementById('orderDetails');
 
 	      if (orderDetailsDiv) {
@@ -328,14 +346,6 @@
 	  	
 	  	};
 
-	      const clearBasket = () => {
-	          basketArray = [];
-	          updateBasket();
-	      };
-	      document.querySelector('.alldelete').addEventListener('click', () => {
-	          clearBasket();
-	      });  
-
 	    };
 
 	    window.onload = () => {
@@ -366,7 +376,7 @@ function basket() {
 }	
 	  
 	  
-	  
+updateBasket();
 	</script>
 </body>
 </html>
