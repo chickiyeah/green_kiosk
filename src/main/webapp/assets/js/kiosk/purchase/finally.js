@@ -132,7 +132,7 @@ var initSessionStorage = function () {
 };
 var handleClickCancleRecipie = function () {
     initSessionStorage();
-    location.href = 'main.jsp';
+    location.href = '../KIOSK/kiosk.jsp';
 };
 var handleClickOkRecipie = function (orderObject, element, pk) {
     var mileage = JSON.parse(sessionStorage.getItem('mileage'));

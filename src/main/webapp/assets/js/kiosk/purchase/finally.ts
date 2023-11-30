@@ -125,7 +125,7 @@ const initSessionStorage = () => {
 
 const handleClickCancleRecipie = () => {
   initSessionStorage();
-  location.href = 'main.jsp';
+    location.href = '../KIOSK/kiosk.jsp';
 };
 
 const handleClickOkRecipie = (orderObject: orderType, element: HTMLElement, pk: number) => {

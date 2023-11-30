@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>Insert title here</title>
+<title>Green KIOSK </title>
 
 <link href="style3.css" rel="stylesheet" type="text/css">
 <script src='https://unpkg.com/micromodal/dist/micromodal.min.js'></script>
@@ -33,7 +33,7 @@
 	} else {
 		for (int i = 0; i < menuLength; i++) {
 			Menu_menu_Bean bean = vector.get(i);
-			if (bean.getMenu_gubn().equals("단품")) {
+			if (bean.getMenu_gubn().equals("사이드")) {
 			
 %>
 <div class="flex-item" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
@@ -51,36 +51,8 @@
 	}
 %>
 </div>
-<div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
-    <div class="modal__overlay" tabindex="-1">
-        <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
-            <div class="modal__content" id="modal-1-content">
-			<div class= "chucheon2 color3"><h1>추천 메뉴</h1></div>
-<!--  음료 메뉴 -->
-<%
-	int menuLength1 = vector.size();
-	
-	if (vector.isEmpty()){
-		out.println("등록된 메뉴가 없습니다.");
-	} else {
-		for (int i = 0; i < menuLength1; i++) {
-			Menu_menu_Bean bean = vector.get(i);
-			if (bean.getMenu_gubn().equals("음료")) {
-%>
-<div class="flex-item" onclick="handleOnClick('<%=bean.getMenu_no()%>', '<%=bean.getMenu_name()%>', '<%=bean.getMenu_price()%>')">
-	<img src="<%=bean.getMenu_imgPath() %>">
-	<span id="drink" style="font-size:36px; margin :10px" ><%=bean.getMenu_name() %></span>
-	<span id="don" style="font-size:30px; margin :10px; color:blue;" ><%=bean.getMenu_price() %></span> 
-</div>
-<%
-			}
-		}
-	}
-%>
-			</div>
-		</div>
+
 	</div>
-</div>
 		<div class="order" id="totalOrder" >
 		  	<div class="price" id ="totalPrice" ></div>
 		  	<div class="Ordermenu" >
@@ -96,21 +68,16 @@
 			</div>
 	
 		</div>
-	</div>
 	<script>
 	
 		MicroModal.init();
 		
 	    const handleOnClick = (itemNumber, menuName, menuPrice) => {	   
-             MicroModal.show('modal-1');
 		     addToBasket(itemNumber, menuName, menuPrice);
 
 		};
 	
-		document.getElementById('modal-1-content').addEventListener('click', function (event) {
-		    MicroModal.close('modal-1');
-		});
-		
+
 	    let basketArray = [];
 
 	    const addToBasket = (itemNumber, menuName, price) => {
@@ -173,7 +140,11 @@
 		        }
 		    }
 		});
-	    
+    function cancelOrder() {
+	    sessionStorage.removeItem('basketArray');
+	    basketArray = []; // Clear the local array as well
+	    updateBasket(); // Update the basket display
+	}	    
 	    //장바구니 표시 업데이트
 	    const updateBasket = () => {
 	      console.log(basketArray);
@@ -233,7 +204,7 @@
 
 	      element.innerHTML = html;
 
-	  //-------------------------------------------------------------------------------------------------------------------------------------------------------    
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
 
 	  	const orderDetailsDiv = document.getElementById('orderDetails');
 
@@ -252,7 +223,9 @@
 	          // 항목이 없는 경우 원래의 레이아웃으로 전환 (예: 블록)
 	          deleteButton.style.display = 'none'; // 원래의 display 값으로 설정
 	      }    
-	  //-------------------------------------------------------------------------------------------------------------------------------------------------------    
+	      
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------    
 
 	  	document.addEventListener('click', function (event) {
 	  	    if (event.target.classList.contains('delete')) {
@@ -262,22 +235,21 @@
 	  	            // 클릭한 요소의 부모 요소에서 인덱스를 가져옵니다.
 	  	            const deletedIndex = Array.from(parent.children).indexOf(event.target.parentNode);
 	  	            // deleteBasket 함수를 호출하고 삭제할 인덱스를 전달합니다.
-	  	            deleteBasket(deletedIndex);
+	  	            deleteBasket(deletedIndex-1);
 	  	        }
 	  	    }
 	  	});
 
 	  	const deleteBasket = (deletedIndex) => {
-	  	    // basketArray에서 deletedIndex에 해당하는 위치의 요소를 제외하고 새로운 배열을 생성합니다.
-	  	
 	  	    basketArray = basketArray.filter(function(_, index) { 
-	  	        return index !== deletedIndex - 1;
+	  	        return index !== deletedIndex;
 	  	    });
 	  	
-	  	    // 장바구니 디스플레이를 업데이트합니다.
+	  	    sessionStorage.setItem('basketArray', JSON.stringify(basketArray));
 	  	    updateBasket();
+	  	
 	  	};
-	  		
+
 	      const clearBasket = () => {
 	          basketArray = [];
 	          updateBasket();
@@ -300,23 +272,21 @@
 	  
 	  
 function jumoon0() {
-	location.href = "test1-1-5.jsp";
+	location.href = "kiosk.jsp";
 }		
 function jumoon1() {
-	location.href = "test2.jsp";
+	location.href = "kiosk2.jsp";
 }		
 function jumoon2() {
-	location.href = "test3.jsp";
+	location.href = "kiosk3.jsp";
 }		
 function jumoon3() {
-	location.href = "test4.jsp";
+	location.href = "kiosk4.jsp";
 }	
-function basket() {
-	location.href = "../purchase/main.jsp";
-}	
+
 	  
 	  
-	  
-	</script>
+  
+</script>
 </body>
 </html>

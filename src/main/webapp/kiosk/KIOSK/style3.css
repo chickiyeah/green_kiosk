@@ -20,7 +20,8 @@
     cursor: pointer;
     white-space: nowrap;	
 	flex: 1 1 auto;
-
+	max-width : 31vw;
+	width : 30vw;
 }
 .flex-item:hover {
     background-color: #ccc;
@@ -28,7 +29,6 @@
 }
 
 .container {
-    display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(20%, auto));
     gap: 20px;
     }
@@ -1018,12 +1018,15 @@ img {
 .modal__header .modal__close:before { content: "\2715"; }
 
 .modal__content {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+
   line-height: 1.5;
   color: rgba(0,0,0,.8);
-  display: grid;
-  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 70vw;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 
