@@ -13,7 +13,7 @@
 <script src='https://unpkg.com/micromodal/dist/micromodal.min.js'></script>
 </head>
 <body>
-	<div class="container">
+	<div class="container" style="zoom: 0.5;">
 	    <div class="head color1" align="center">	<h1>Green KIOSK</h1> <br></div>
 		<div class="main color2" align="center">	
 		    <div class="page"onclick="jumoon0()" ><h2>단 품</h2></div>
@@ -21,7 +21,7 @@
 		 	<div class="page"onclick="jumoon2()" ><h2>음 료 수</h2></div>
 		 	<div class="page"onclick="jumoon3()" ><h2>사 이 드</h2></div>
 		</div>
-<div class="flex-wrapper">
+<div class="flex-wrapper" style="width: 100%;">
 <!--  단품 메뉴 -->
 <%
 	Vector<Menu_menu_Bean> vector = mMgr.getMenuList(0);
@@ -116,7 +116,7 @@
 
 
 
-		<div class="order" id="totalOrder" >
+		<div class="order" id="totalOrder" style="width: 100%;" >
 		  	<div class="price" id ="totalPrice" ></div>
 		  	<div class="Ordermenu" >
 		  		<span class="Ordermenu" id="menu" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>

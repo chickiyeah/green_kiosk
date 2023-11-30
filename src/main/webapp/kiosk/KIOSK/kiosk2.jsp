@@ -53,7 +53,7 @@
 </div>
 
 	</div>
-		<div class="order" id="totalOrder" >
+		<div class="order" id="totalOrder" style="zoom: 0.5; width:200vw;" >
 		  	<div class="price" id ="totalPrice" ></div>
 		  	<div class="Ordermenu" >
 		  		<span class="Ordermenu" id="menu" style="font-size:36px; font-weight: 600; color:black;margin :10px"></span>
