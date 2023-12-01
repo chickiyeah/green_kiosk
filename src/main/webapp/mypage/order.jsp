@@ -195,7 +195,6 @@ function see_detail(food_no) {
 							<td width="25%">주문 일시</td>
 							<td width="45%">주문 음식</td>
 							<td width="15%">총 금액</td>
-							<td width="10%">영수증 발급</td>
 						</tr>		
 						<%
 							boolean runned = false;
@@ -203,7 +202,7 @@ function see_detail(food_no) {
 							Integer paging = 1;
 							Integer rem = 20;
 							Map<String, String> page_data = new HashMap<String, String>();
-							String p_html = "<tr align=\"center\" height=\"5%\"><td width=\"5%\">번호</td><td width=\"25%\">주문 일시</td><td width=\"45%\">주문 음식</td><td width=\"15%\">총 금액</td><td width=\"10%\">영수증 발급</td></tr>";
+							String p_html = "<tr align=\"center\" height=\"5%\"><td width=\"5%\">번호</td><td width=\"25%\">주문 일시</td><td width=\"45%\">주문 음식</td><td width=\"15%\">총 금액</td></tr>";
 							for(Orders_Bean order : orders) {
 								long all_money = 0;
 								if (runned == false) {
@@ -230,11 +229,11 @@ function see_detail(food_no) {
 								if (count % 20 == 0) {
 									page_data.put(String.valueOf(paging), p_html);
 									page_data.put(String.valueOf(paging)+"_rem", "0");
-									p_html = "<tr align=\"center\" height=\"5%\"><td width=\"5%\">번호</td><td width=\"25%\">주문 일시</td><td width=\"45%\">주문 음식</td><td width=\"15%\">총 금액</td><td width=\"10%\">영수증 발급</td></tr>";
+									p_html = "<tr align=\"center\" height=\"5%\"><td width=\"5%\">번호</td><td width=\"25%\">주문 일시</td><td width=\"45%\">주문 음식</td><td width=\"15%\">총 금액</td></tr>";
 									rem = 20;
 									paging += 1;
 								} else {
-									p_html += "<tr align=\"center\"><td>"+order.getOrder_no()+"</td><td>"+String.valueOf(order.getOrder_time()).substring(0,19)+"</td><td onclick=\"see_detail("+count+")\" style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap; padding: 0 90px; cursor: pointer\">"+S_foods+"</td><td>"+format.format(order.getOrder_price())+" 원</td><td><button no=\""+order.getOrder_no()+"\" type=\"button\">영수증 발급</button></td></tr>";
+									p_html += "<tr align=\"center\"><td>"+order.getOrder_no()+"</td><td>"+String.valueOf(order.getOrder_time()).substring(0,19)+"</td><td onclick=\"see_detail("+count+")\" style=\"text-overflow:ellipsis; overflow:hidden; white-space:nowrap; padding: 0 90px; cursor: pointer\">"+S_foods+"</td><td>"+format.format(order.getOrder_price())+" 원</td></tr>";
 								}
 								if (count < 21) {
 									
@@ -246,7 +245,6 @@ function see_detail(food_no) {
 								<td width="25%"><%=String.valueOf(order.getOrder_time()).substring(0,19) %></td>
 								<td width="45%" onclick="see_detail(<%=count %>)" style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap; padding: 0 90px; cursor: pointer"><%=S_foods %></td>
 								<td width="15%"><%=format.format(all_money) %> 원</td>
-								<td width="10%"><button no="<%=order.getOrder_no() %>" type="button">영수증 발급</button></td>
 							</tr>
 						<%	
 								} //if
@@ -255,7 +253,7 @@ function see_detail(food_no) {
 							if (runned == false) {
 								%>
 								<tr align="center">
-									<td colspan="5"><h2>주문 내역이 존재 하지 않습니다.</h2></td>
+									<td colspan="4"><h2>주문 내역이 존재 하지 않습니다.</h2></td>
 								</tr>
 								<%
 							} else {
@@ -264,7 +262,6 @@ function see_detail(food_no) {
 										for (int i=0;i<rem;i++) {
 											%>
 											<tr align="center" height="4.5%">
-											<td></td>
 											<td></td>
 											<td></td>
 											<td></td>
@@ -281,9 +278,9 @@ function see_detail(food_no) {
 								page_data.put(String.valueOf(paging), p_html);
 								%>
 								<tr align="center">
-									<td colspan="5">
+									<td colspan="4">
 								<%
-								String paginghtml = "<tr align=\"center\"><td colspan=\"5\">";
+								String paginghtml = "<tr align=\"center\"><td colspan=\"4\">";
 								
 								for (int i = 1; i<=paging; i++) {
 									System.out.println("page : "+i+" data : "+page_data.get(String.valueOf(i)));
@@ -305,7 +302,7 @@ function see_detail(food_no) {
 									}
 									paginghtml += "</td></tr>";
 									page_data.put("paging"+i, paginghtml);
-									paginghtml = "<tr align=\"center\"><td colspan=\"5\">";
+									paginghtml = "<tr align=\"center\"><td colspan=\"4\">";
 								}
 								
 								

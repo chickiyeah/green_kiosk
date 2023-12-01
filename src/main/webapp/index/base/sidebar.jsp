@@ -45,7 +45,6 @@
 		
 		  <button class="w3-bar-item w3-button side_main_btn" onclick="myAccFunc1()">이벤트</button>
 		  <div id="demoAcc1" class="w3-bar-block w3-hide w3-white w3-card-4">
-		    <a href="<%=cPath %>/Event" class="w3-bar-item w3-button w3-bar-child">이벤트 목록</a>
 		    <a href="<%=cPath %>/" class="w3-bar-item w3-button w3-bar-child">쿠폰 목록</a>
 		    <!--  <a href="/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">3</a> -->
 		  </div>
@@ -105,7 +104,6 @@
 		
 		  <button class="w3-bar-item w3-button" onclick="myAccFunc1()">이벤트</button>
 		  <div id="demoAcc1" class="w3-bar-block w3-hide w3-white w3-card-4">
-		    <a href="<%=cPath %>/Event" class="w3-bar-item w3-button w3-bar-child">이벤트 목록</a>
 		    <a href="<%=cPath %>/Coupon" class="w3-bar-item w3-button w3-bar-child">쿠폰 목록</a>
 		    <!--  <a href="/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">3</a> -->
 		  </div>
@@ -165,7 +163,6 @@
 
   <button class="w3-bar-item w3-button" onclick="myAccFunc1()">이벤트</button>
   <div id="demoAcc1" class="w3-bar-block w3-hide w3-white w3-card-4">
-    <a href="<%=cPath %>/Event" class="w3-bar-item w3-button w3-bar-child">이벤트 목록</a>
     <a href="<%=cPath %>/Coupon" class="w3-bar-item w3-button w3-bar-child">쿠폰 목록</a>
     <!--  <a href="/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">3</a> -->
   </div>

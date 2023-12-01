@@ -209,9 +209,9 @@ var htmlTemplate =
     '</div>' +
     '<div class="col-xl-3 col-md-6 mb-4" onclick="openPopup(\'' + contextPath + '/admin/index/sales_list.jsp?term=month' + '\')">' +
     createCard2('이번 달 매출', priceSumMonth) +
-    '</div>' +
+/*    '</div>' +
      '<div class="col-xl-3 col-md-6 mb-4">' +
-    createCard3('고객 평균 지불 금액 ', allPriceSumAvg) +
+    createCard3('고객 평균 지불 금액 ', allPriceSumAvg) +*/
 	'</div>';
     $('.getMenuList').empty().html(htmlTemplate);
 }

@@ -6,6 +6,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class HttpPost {
 	public static String httpPostBodyConnection(String UrlData, String ParamData) {
@@ -57,28 +62,37 @@ public class HttpPost {
 			System.out.println("http 응답 코드 : "+responseCode);
 			//http 요청 후 응답 받은 데이터를 버퍼에 쌓는다
 			
-			/*BufferedReader er = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));	
-			eb = new StringBuffer();	       
-			while ((responseData = er.readLine()) != null) {
-				eb.append(responseData); //StringBuffer에 응답받은 데이터 순차적으로 저장 실시
+			Gson gson = new Gson();
+			
+			if (responseCode.equals("200") == false) {
+				BufferedReader er = new BufferedReader(new InputStreamReader(conn.getErrorStream(), "UTF-8"));	
+				eb = new StringBuffer();	       
+				while ((responseData = er.readLine()) != null) {
+					eb.append(responseData); //StringBuffer에 응답받은 데이터 순차적으로 저장 실시
+				}
+				
+				System.out.println("http 오류 데이터 : "+eb.toString());
+				Map<String, Object> data = gson.fromJson(eb.toString(), new TypeToken<Map<String, Object>>(){});
+				Map<String, Object> error = new HashMap<String, Object>();
+				error.put("result", "error");
+				error.put("reason", data.get("error_message"));
+				return error.toString();
+			} else {
+				br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));	
+				sb = new StringBuffer(); 	       
+				while ((responseData = br.readLine()) != null) {
+					sb.append(responseData); //StringBuffer에 응답받은 데이터 순차적으로 저장 실시
+				}
+	
+				//메소드 호출 완료 시 반환하는 변수에 버퍼 데이터 삽입 실시
+				returnData = sb.toString(); 
+				
+				//http 요청 응답 코드 확인 실시
+				System.out.println(returnData);
+				 responseCode = String.valueOf(conn.getResponseCode());
+				System.out.println("http 응답 코드 : "+responseCode);
+				System.out.println("http 응답 데이터 : "+returnData);
 			}
-			
-			System.out.println("http 응답 데이터 : "+eb.toString());*/
-			
-			br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));	
-			sb = new StringBuffer();	       
-			while ((responseData = br.readLine()) != null) {
-				sb.append(responseData); //StringBuffer에 응답받은 데이터 순차적으로 저장 실시
-			}
-	 
-			//메소드 호출 완료 시 반환하는 변수에 버퍼 데이터 삽입 실시
-			returnData = sb.toString(); 
-			
-			//http 요청 응답 코드 확인 실시
-			System.out.println(".");
-			 responseCode = String.valueOf(conn.getResponseCode());
-			System.out.println("http 응답 코드 : "+responseCode);
-			System.out.println("http 응답 데이터 : "+returnData);
 	 
 		} catch (IOException e) {
 			e.printStackTrace();

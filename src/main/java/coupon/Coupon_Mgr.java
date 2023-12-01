@@ -74,6 +74,7 @@ public class Coupon_Mgr {
 	            bean.setCoupon_limitTime1(this.rs.getTimestamp("coupon_limitTime1"));
 	            bean.setCoupon_limitTime2(this.rs.getTimestamp("coupon_limitTime2"));
 	            bean.set_owner(this.rs.getString("coupon_owner"));
+	            bean.setCoupon_used(this.rs.getBoolean("coupon_used"));
 	            vector.add(bean);
 	        }
         } catch (Exception e) {
@@ -102,6 +103,7 @@ public class Coupon_Mgr {
 	            bean.setCoupon_limitTime1(this.rs.getTimestamp("coupon_limitTime1"));
 	            bean.setCoupon_limitTime2(this.rs.getTimestamp("coupon_limitTime2"));
 	            bean.set_owner(this.rs.getString("coupon_owner"));
+	            bean.setCoupon_used(this.rs.getBoolean("coupon_used"));
 	            vector.add(bean);
 	        }
         } catch (Exception e) {
@@ -146,6 +148,7 @@ public class Coupon_Mgr {
 	            bean.setCoupon_limitTime1(this.rs.getTimestamp("coupon_limitTime1"));
 	            bean.setCoupon_limitTime2(this.rs.getTimestamp("coupon_limitTime2"));
 	            bean.set_owner(this.rs.getString("coupon_owner"));
+	            bean.setCoupon_used(this.rs.getBoolean("coupon_used"));
 	        }
         } catch (Exception e) {
 			e.printStackTrace();

@@ -40,9 +40,9 @@ foods3.set("data_key3", '<%=keys3.toString() %>')
 <script type="text/javascript" src="<%=request.getContextPath() %>/assets/js/admin/index/chart/chart bar.js"></script>      
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="chartBox">
-	<div>
+<!-- 	<div>
 		<canvas id="myChart" style="display: block; box-sizing: border-box; height: 300px; width: 1200px;" width="1200"></canvas>
-	</div>
+	</div> -->
 	
 	<div>
 		<canvas id="myChart3"  style="display: block; box-sizing: border-box; height: 232px; width: 696px;" width="696"></canvas>

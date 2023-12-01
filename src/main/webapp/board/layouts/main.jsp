@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="w3-bar-item w3-button w3-white w3-xlarge w3-right"></span>
             <!-- 이미지를 동적으로 변경할 대상 -->
             <img id="thumbnail<%=post_no%>" src="<%=request.getContextPath()%>/assets/images/board/default-background.png" 
-            class="w3-bar-item w3 w3-hide-small" style="width:100px; height:80px;" >
+            class="w3-bar-item w3 w3-hide-small" style="width:110px; height:80px;" >
             <div class="w3-bar-item">
             	<span class="post_post_title" id="post_post_title"><%=post_title%></span>
             	<% if (commentNum > 0) { %>

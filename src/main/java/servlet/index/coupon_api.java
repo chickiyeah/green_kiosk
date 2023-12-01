@@ -27,7 +27,7 @@ import menu.Menu_menu_Bean;
 /**
  * Servlet implementation class coupon_api
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/api/coupon/get" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/api/coupon/get", "/api/coupon/delete" })
 public class coupon_api extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -63,6 +63,17 @@ public class coupon_api extends HttpServlet {
 		String endPoint = request.getServletPath();
 		this.session = request.getSession();
 		this.out = response.getWriter();
+		
+		if (endPoint.equals("/api/coupon/delete")) {
+			Map<String, String> body = HttpBody.getBody(request.getInputStream());
+			String coupon_no = body.get("coupon_no");
+			boolean res = mgr.deleteCouponByNo(Integer.parseInt(coupon_no));
+			if (res) {
+				this.out.write("{\"result\":\"success\"}");
+			} else {
+				this.out.write("{\"result\":\"failed\"}");
+			}
+		}
 		
 		if (endPoint.equals("/api/coupon/get")) {
 			Object mem_id = session.getAttribute("mem_id");
