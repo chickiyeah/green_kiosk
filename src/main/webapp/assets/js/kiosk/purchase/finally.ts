@@ -125,7 +125,7 @@ const initSessionStorage = () => {
 
 const handleClickCancleRecipie = () => {
   initSessionStorage();
-    location.href = '../KIOSK/kiosk.jsp';
+  location.href = '../KIOSK/kiosk.jsp';
 };
 
 const handleClickOkRecipie = (orderObject: orderType, element: HTMLElement, pk: number) => {
@@ -201,13 +201,15 @@ const handleClickOkRecipie = (orderObject: orderType, element: HTMLElement, pk: 
   html += `</div>`;
   html += `<span>---------------------------------------------------------------------------</span>`;
   if (recipie.mileage) {
-    html += `<div class='rowbox' style='justify-content:space-between;width:170px'>`;
+    html += `<div class='rowbox' style='justify-content:space-between'>`;
+    html += `<div class='rowbox' style='justify-content:space-between;width:220px'>`;
     html += `<span>마일리지</span>`;
     html += `<span>${recipie.mileage_id}</span>`;
     html += `</div>`;
     html += `<div class='rowbox' style='justify-content:space-between;width:170px'>`;
     html += `<span>적립POINT</span>`;
-    html += `<span>${Math.floor(recipie.price - recipie.discount) / 100}</span>`;
+    html += `<span>${Math.floor((recipie.price - recipie.discount) / 100)}</span>`;
+    html += `</div>`;
     html += `</div>`;
     html += `<span>---------------------------------------------------------------------------</span>`;
   }

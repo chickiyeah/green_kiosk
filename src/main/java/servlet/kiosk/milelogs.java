@@ -79,6 +79,8 @@ public class milelogs extends HttpServlet {
 		
 		Mile_log_Bean bean = new Gson().fromJson(mile_log, Mile_log_Bean.class);
 		
+		System.out.println(bean.getMem_uid());
+		
 		boolean flag = this.mgr.addMileLog(bean);
 		
 		if (flag) {

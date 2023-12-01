@@ -74,6 +74,27 @@ function upload() {
 	}
 }
 
+function cou_delete(numb) {
+	let contextPath = sessionStorage.getItem("context")
+	let con = confirm("정말 이 쿠폰을 삭제 하시겠습니까?\n쿠폰을 삭제하면 해당 쿠폰을 다시 발급받을수 있게됩니다!");
+	if (con) {
+		fetch(contextPath+"/api/coupon/delete", {
+			method: "POST",
+			body: JSON.stringify({
+				"coupon_no": numb
+			})
+		}).then((res) => {
+			res.json().then((data) => {
+				if (data.result == "success") {
+					alert("성공적으로 삭제되었습니다.")
+					loadContent('/green_kiosk/admin/Event/coupon.jsp')
+				} else {
+					alert("알수 없는 오류로인해 삭제에 실패하였습니다.")
+				}
+			})
+		})
+	}
+}
 
 function update(numb) {
 	const unload_listener = (event) => {

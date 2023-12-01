@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import mile.Mileage_VO;
+import user.Member_Bean;
 import user.Member_Mgr;
 
 @WebServlet("/api/kiosk/purchase/mileage")
@@ -80,24 +81,36 @@ public class Mileage_Servlet extends HttpServlet {
 		
 		logger.info(LOGGER_NAME + ": Processing HTTP POST request by \"" + endPoint + "\"");
 
+        if (requestBody != null && requestBody.contains("\\")) {
+        	requestBody = requestBody.replaceAll("^\"|\"$|\\\\", "");
+        }
+
 		Type type = new TypeToken<Mileage_VO>() {}.getType();
 		Mileage_VO mileage_vo = gson.fromJson(requestBody, type);
 		if (mileage_vo.getType().equals("phoneNumber")) {
 			if (member_mgr.checkPhone(mileage_vo.getValue())) {
+				Member_Bean member_bean = member_mgr.get_user_with_phone(mileage_vo.getValue());
 				out.write("{"
-						+ "\"result\": true, \"body\":"
-						+ gson.toJson(mileage_vo)
-						+ "}");
+					    + "\"result\": true, \"body\":"
+						+ "{\"index\": \"" + member_bean.getMem_id() + "\","
+					    + "\"mileage\": " + member_bean.getMem_mile() + ","
+						+ "\"value\": \"" + mileage_vo.getValue() + "\","
+						+ "\"type\": \"" + mileage_vo.getType() + "\""
+						+ "}}");
 			} else {
 					out.write("{"
 							+ "\"result\": false}");
 			}
 		} else if (mileage_vo.getType().equals("cardNumber")) {
 			if (member_mgr.checkCard(mileage_vo.getValue())) {
+				Member_Bean member_bean = member_mgr.get_user_with_card(mileage_vo.getValue());
 				out.write("{"
-						+ "\"result\":"
-						+ gson.toJson(mileage_vo)
-						+ "}");
+					    + "\"result\": true, \"body\":"
+						+ "{\"index\": \"" + member_bean.getMem_id() + "\","
+					    + "\"mileage\": " + member_bean.getMem_mile() + ","
+						+ "\"value\": \"" + mileage_vo.getValue() + "\","
+						+ "\"type\": \"" + mileage_vo.getType() + "\""
+						+ "}}");
 			} else {
 					out.write("{"
 							+ "\"result\": false}");

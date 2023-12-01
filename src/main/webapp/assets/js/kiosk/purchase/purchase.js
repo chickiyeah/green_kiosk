@@ -69,13 +69,14 @@ var purchase = function (type) { return __awaiter(_this, void 0, void 0, functio
                             : 'none';
                 if (!(orderObject.order_who !== null)) return [3 /*break*/, 4];
                 mile_log = {
-                    mile_uid: orderObject.order_who,
+                    mem_uid: String(orderObject.order_who),
                     mile_type: mile_type,
                     mile_reason: 'order',
                     mile_deff: orderObject.order_add_amount,
                     mile_order_no: insertOrder.body.primaryKey,
                     mile_timestamp: new Date(),
                 };
+                console.table(mile_log);
                 return [4 /*yield*/, detailedFetch('/green_kiosk/api/kiosk/milelogs', 'POST', encodeURIComponent(JSON.stringify(mile_log)))];
             case 3:
                 insertMileage = _a.sent();

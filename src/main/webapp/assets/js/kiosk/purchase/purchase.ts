@@ -31,13 +31,14 @@ const purchase = async (type: string) => {
           : 'none';
       if (orderObject.order_who !== null) {
         const mile_log = {
-          mile_uid: orderObject.order_who,
+          mem_uid: String(orderObject.order_who),
           mile_type,
           mile_reason: 'order',
           mile_deff: orderObject.order_add_amount,
           mile_order_no: insertOrder.body.primaryKey,
           mile_timestamp: new Date(),
         };
+        console.table(mile_log);
         const insertMileage = await detailedFetch(
           '/green_kiosk/api/kiosk/milelogs',
           'POST',

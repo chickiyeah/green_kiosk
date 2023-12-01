@@ -55,7 +55,6 @@
 		    </div>
 	    </article>
     </section>
-    <div class="payment-cancle" onClick="handleScanBarcode()">바코드 입력</div>
   </main>
   <footer class="rowbox">
     <div class="payment-ok" onClick="handleCouponForm()">쿠폰 사용</div>

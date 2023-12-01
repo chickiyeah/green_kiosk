@@ -202,13 +202,15 @@ var handleClickOkRecipie = function (orderObject, element, pk) {
     html += "</div>";
     html += "<span>---------------------------------------------------------------------------</span>";
     if (recipie.mileage) {
-        html += "<div class='rowbox' style='justify-content:space-between;width:170px'>";
+        html += "<div class='rowbox' style='justify-content:space-between'>";
+        html += "<div class='rowbox' style='justify-content:space-between;width:220px'>";
         html += "<span>\uB9C8\uC77C\uB9AC\uC9C0</span>";
         html += "<span>".concat(recipie.mileage_id, "</span>");
         html += "</div>";
         html += "<div class='rowbox' style='justify-content:space-between;width:170px'>";
         html += "<span>\uC801\uB9BDPOINT</span>";
-        html += "<span>".concat(Math.floor(recipie.price - recipie.discount) / 100, "</span>");
+        html += "<span>".concat(Math.floor((recipie.price - recipie.discount) / 100), "</span>");
+        html += "</div>";
         html += "</div>";
         html += "<span>---------------------------------------------------------------------------</span>";
     }

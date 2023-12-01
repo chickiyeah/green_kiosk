@@ -12,6 +12,7 @@
 	Object mem_id = session.getAttribute("mem_id");
 	Object failed_count = session.getAttribute("failed_count");
 	Object pw_ok = session.getAttribute("pw_ok");
+
 	if (pw_ok != null) {
 		String s_pw_ok = String.valueOf(pw_ok);
 		if (s_pw_ok.equals("true")) {
@@ -63,6 +64,10 @@
 	String mem_card = "";
 	if (mem_id != null) {
 		bean = u_mgr.getMember(String.valueOf(mem_id));
+		if (bean == null) {
+			%> <script> alert("로그인 상태가 아닙니다.");location.href="<%=cPath %>/"</script> <%
+		} else {
+		}
 		mem_ac = bean.getMem_ac();
 		mem_pw = bean.getMem_pw();
 		mem_card = bean.get_card();

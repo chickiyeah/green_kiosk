@@ -77,7 +77,7 @@ var back = function () {
     }
     location.href = 'main.jsp';
 };
-var smileRegex = /^01(1|6|7|8|9)-\d{3,4}-\d{4}$/;
+var smileRegex = /^01(0|1|6|7|8|9)-\d{3,4}-\d{4}$/;
 var handleSmileForm = function () { return __awaiter(_this, void 0, void 0, function () {
     var smileCodeElement, smileCode, smileTypeElement, smileType, smileTextElement_1, smile, mileage, smileTextElement_2;
     return __generator(this, function (_a) {
@@ -87,7 +87,7 @@ var handleSmileForm = function () { return __awaiter(_this, void 0, void 0, func
                 smileCode = smileCodeElement.value;
                 smileTypeElement = document.querySelector('#smileType');
                 smileType = smileTypeElement.value;
-                if (!(!smileRegex.test(smileCode) && smileType === 'phoneNumber')) return [3 /*break*/, 1];
+                if (!(!smileRegex.test(String(smileCode)) && smileType === 'phoneNumber')) return [3 /*break*/, 1];
                 smileTextElement_1 = document.getElementById('smileText');
                 smileTextElement_1.innerHTML = '<span style="color: red;">올바르지 않은 ';
                 smileTextElement_1.innerHTML += '휴대폰';
@@ -97,15 +97,17 @@ var handleSmileForm = function () { return __awaiter(_this, void 0, void 0, func
                 }, 3000);
                 return [2 /*return*/];
             case 1:
+                smileCode = smileCode.replace(/-/g, '');
                 smile = {
                     type: smileType,
                     value: smileCode,
                 };
-                return [4 /*yield*/, detailedFetch('/green_kiosk/api/user/verify/smile', 'POST', encodeURIComponent(JSON.stringify(smile)))];
+                return [4 /*yield*/, detailedFetch('/green_kiosk/api/kiosk/purchase/mileage', 'POST', encodeURIComponent(JSON.stringify(smile)))];
             case 2:
                 mileage = _a.sent();
                 if (mileage.result) {
                     sessionStorage.setItem('mileage', JSON.stringify(mileage.body));
+                    location.href = 'main.jsp';
                 }
                 else {
                     smileTextElement_2 = document.getElementById('smileText');

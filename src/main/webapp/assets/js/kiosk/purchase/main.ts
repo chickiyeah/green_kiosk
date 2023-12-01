@@ -58,7 +58,7 @@ class State {
 
   calcurDiscount() {
     if (this.foods) {
-      state.foods.reduce((arr, cur) => {
+      this.discount = this.foods.reduce((arr, cur) => {
         if (cur.hasOwnProperty('discount')) {
           return arr + cur.discount;
         } else {
@@ -70,9 +70,9 @@ class State {
 
   calcurCouponDiscount() {
     if (this.foods) {
-      state.coupon.forEach((couponValue) => {
-        state.foods.forEach((foodValue) => {
-          if (couponValue.menuNo === foodValue.index) {
+      this.coupon.forEach((couponValue) => {
+        this.foods.forEach((foodValue) => {
+          if (Number(couponValue.menuNo) === Number(foodValue.index)) {
             const sum = ((foodValue.price * foodValue.amount) / Math.floor(1000 / couponValue.discount)) * 10;
             if (
               (foodValue.hasOwnProperty('discount') && foodValue.discount < sum) ||
@@ -89,7 +89,7 @@ class State {
   calcurEventDiscount(eventMenuArray: eventMenuType[]) {
     if (this.foods) {
       eventMenuArray.forEach((eventValue) => {
-        state.foods.forEach((foodValue) => {
+        this.foods.forEach((foodValue) => {
           if (eventValue.menuNo === foodValue.index) {
             const sum = ((foodValue.price * foodValue.amount) / Math.floor(1000 / eventValue.discount)) * 10;
             if (
@@ -292,7 +292,7 @@ const InitializeBasketHTML = (str: string, foods: any[]) => {
       encodeURIComponent(JSON.stringify(item.get('mileage'))),
     );
     if (mileage.result) {
-      const mileAmount = Math.floor((state.price - state.discount) / 10);
+      const mileAmount = Math.floor((state.price - state.discount) / 100);
 
       state.add_mile = true;
       state.add_mile_amount = mileAmount;

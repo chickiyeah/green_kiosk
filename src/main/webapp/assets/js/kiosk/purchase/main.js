@@ -96,7 +96,7 @@ var State = /** @class */ (function () {
     };
     State.prototype.calcurDiscount = function () {
         if (this.foods) {
-            state.foods.reduce(function (arr, cur) {
+            this.discount = this.foods.reduce(function (arr, cur) {
                 if (cur.hasOwnProperty('discount')) {
                     return arr + cur.discount;
                 }
@@ -107,10 +107,11 @@ var State = /** @class */ (function () {
         }
     };
     State.prototype.calcurCouponDiscount = function () {
+        var _this = this;
         if (this.foods) {
-            state.coupon.forEach(function (couponValue) {
-                state.foods.forEach(function (foodValue) {
-                    if (couponValue.menuNo === foodValue.index) {
+            this.coupon.forEach(function (couponValue) {
+                _this.foods.forEach(function (foodValue) {
+                    if (Number(couponValue.menuNo) === Number(foodValue.index)) {
                         var sum = ((foodValue.price * foodValue.amount) / Math.floor(1000 / couponValue.discount)) * 10;
                         if ((foodValue.hasOwnProperty('discount') && foodValue.discount < sum) ||
                             !foodValue.hasOwnProperty('discount')) {
@@ -122,9 +123,10 @@ var State = /** @class */ (function () {
         }
     };
     State.prototype.calcurEventDiscount = function (eventMenuArray) {
+        var _this = this;
         if (this.foods) {
             eventMenuArray.forEach(function (eventValue) {
-                state.foods.forEach(function (foodValue) {
+                _this.foods.forEach(function (foodValue) {
                     if (eventValue.menuNo === foodValue.index) {
                         var sum = ((foodValue.price * foodValue.amount) / Math.floor(1000 / eventValue.discount)) * 10;
                         if ((foodValue.hasOwnProperty('discount') && foodValue.discount < sum) ||
@@ -293,7 +295,7 @@ var InitializeBasketHTML = function (str, foods) {
             case 6:
                 mileage = _a.sent();
                 if (mileage.result) {
-                    mileAmount = Math.floor((state.price - state.discount) / 10);
+                    mileAmount = Math.floor((state.price - state.discount) / 100);
                     state.add_mile = true;
                     state.add_mile_amount = mileAmount;
                     drawPriceToHTMLElement('#mileageElement', '적립마일리지', state.add_mile_amount);

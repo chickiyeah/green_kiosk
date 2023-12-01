@@ -119,9 +119,9 @@ public class kakao_pay extends HttpServlet {
 			this.bfdatas.put("quantity", "1"); //Integer
 			this.bfdatas.put("total_amount", String.valueOf(all_money)); //Integer
 			this.bfdatas.put("tax_free_amount", "500"); //Integer
-			this.bfdatas.put("approval_url", "http://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/success"); //String
-			this.bfdatas.put("cancel_url", "https://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/fail"); //String
-			this.bfdatas.put("fail_url", "https://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/cancel"); //String
+			this.bfdatas.put("approval_url", "https://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/success"); //String
+			this.bfdatas.put("cancel_url", "https://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/cancel"); //String
+			this.bfdatas.put("fail_url", "https://nodove.duckdns.org"+request.getContextPath()+"/kakao_pay/fail"); //String
 			//"https://nodove.duckdns.org"+
 			String data = "{";
 			
@@ -272,8 +272,12 @@ public class kakao_pay extends HttpServlet {
 					o_mgr.addOrder(bean);
 				}
 				
-				response.sendRedirect("/kiosk/purchase/finally.jsp");
+				response.sendRedirect(request.getContextPath()+"/kiosk/purchase/finally.jsp");
 			}
+		}
+		
+		if (endPoint.equals("/kakao_pay/fail") || endPoint.equals("/kakao_pay/cancel")) {
+			response.sendRedirect(request.getContextPath()+"/kiosk/KIOSK/kiosk.jsp");
 		}
 	}
 
