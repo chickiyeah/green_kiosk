@@ -214,7 +214,7 @@ function see_detail(food_no) {
 								String S_foods = "";
 								
 								for (Map<String, Object> food : foods) {
-									all_money += ((long) Integer.parseInt(String.valueOf(food.get("price"))) * Integer.parseInt(String.valueOf(food.get("amount"))));
+									all_money += ((long) Integer.parseInt(String.valueOf(food.get("price"))) * Integer.parseInt(String.valueOf(food.get("amount")).substring(0,String.valueOf(food.get("amount")).length()-2)));
 									if (S_foods.equals("")) {
 										S_foods = food.get("name")+" X "+Integer.parseInt(String.valueOf(food.get("amount")).replace(".0", ""));
 									} else {
