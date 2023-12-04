@@ -51,9 +51,7 @@
 		  
 		  <button class="w3-bar-item w3-button side_main_btn" onclick="myAccFunc2()">고객지원</button>
 		   <div id="demoAcc2" class="w3-bar-block w3-hide w3-white w3-card-4">
-		    <a href="<%=cPath %>/index/page/page2.jsp" class="w3-bar-item w3-button w3-bar-child">ㅂ</a>
-		    <a href="<%=cPath %>/index/page/page3.jsp" class="w3-bar-item w3-button w3-bar-child">ㅈ</a>
-		    <a href="<%=cPath %>/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">ㄷ</a>
+    <a href="<%=cPath %>/board/" class="w3-bar-item w3-button w3-bar-child">게시판</a>
 		  </div>
 	  <%} else { if (mem_ac.equals("S")) {%>
 		<div class="login">
@@ -110,9 +108,7 @@
 		  
 		  <button class="w3-bar-item w3-button" onclick="myAccFunc2()">고객지원</button>
 		   <div id="demoAcc2" class="w3-bar-block w3-hide w3-white w3-card-4">
-		    <a href="<%=cPath %>/index/page/page2.jsp" class="w3-bar-item w3-button w3-bar-child">ㅂ</a>
-		    <a href="<%=cPath %>/index/page/page3.jsp" class="w3-bar-item w3-button w3-bar-child">ㅈ</a>
-		    <a href="<%=cPath %>/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">ㄷ</a>
+    <a href="<%=cPath %>/board/" class="w3-bar-item w3-button w3-bar-child">게시판</a>
 		  </div>  
 	  <%} else {%>
 		
@@ -169,9 +165,7 @@
   
   <button class="w3-bar-item w3-button" onclick="myAccFunc2()">고객지원</button>
    <div id="demoAcc2" class="w3-bar-block w3-hide w3-white w3-card-4">
-    <a href="<%=cPath %>/index/page/page2.jsp" class="w3-bar-item w3-button w3-bar-child">ㅂ</a>
-    <a href="<%=cPath %>/index/page/page3.jsp" class="w3-bar-item w3-button w3-bar-child">ㅈ</a>
-    <a href="<%=cPath %>/index/page/page4.jsp" class="w3-bar-item w3-button w3-bar-child">ㄷ</a>
+    <a href="<%=cPath %>/board/" class="w3-bar-item w3-button w3-bar-child">게시판</a>
   </div>
 	  <%}} %>
 
